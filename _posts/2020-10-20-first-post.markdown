@@ -1,1 +1,0 @@
-$$mean = \frac{\displaystyle\sum_{i=1}^{n} x_{i}}{n}$$
