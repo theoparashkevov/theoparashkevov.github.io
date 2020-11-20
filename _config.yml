@@ -29,7 +29,7 @@ github_username:  theoparashkevov
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-minimal
-minimal_mistakes_skin: "air"
+# minimal_mistakes_skin: "air"
 # remote_theme: minima 
 plugins:
   - jekyll-feed
