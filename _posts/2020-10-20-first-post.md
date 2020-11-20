@@ -1,4 +1,1 @@
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
+$$mean = \frac{\displaystyle\sum_{i=1}^{n} x_{i}}{n}$$
