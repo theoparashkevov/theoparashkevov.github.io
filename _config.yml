@@ -20,6 +20,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 #related_image: test.jpg
+logo: "/test.jpg"
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  theoparashkevov
@@ -27,7 +29,8 @@ github_username:  theoparashkevov
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-minimal
-remote_theme: minima 
+minimal_mistakes_skin: "air"
+# remote_theme: minima 
 plugins:
   - jekyll-feed
 
