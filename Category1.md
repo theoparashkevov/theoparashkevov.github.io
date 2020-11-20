@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "First Post"
+title: "Category 1"
 permalink: /posts/2020-10-20-first-post/
 ---
 
