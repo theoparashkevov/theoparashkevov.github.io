@@ -37,7 +37,7 @@ github_username:  theoparashkevov
   #█▄█ █▄█ █ █▄▄ █▄▀   ▄█ ██▄ ░█░ ░█░ █ █░▀█ █▄█ ▄█
 
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-chirpy
 plugins:
   - jekyll-feed
 
