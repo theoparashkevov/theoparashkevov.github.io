@@ -9,9 +9,9 @@ permalink: /about/
 I am a passionate and experienced Machine Learning / Software Engineer with a deep understanding of cutting-edge technologies. With a solid foundation in both theoretical and practical aspects of the field, I bring a wealth of knowledge and expertise to every project I undertake.
 Skills
 
-    Machine Learning: Expertise in developing and deploying machine learning models for various applications, including natural language processing, computer vision, and predictive analytics.
-    Software Engineering: Proficient in designing and building scalable, robust, and efficient software solutions, with a focus on performance optimization and code maintainability.
-    Data Analysis: Strong capabilities in data preprocessing, exploratory data analysis, and statistical modeling, enabling insightful and data-driven decision-making.
+- Machine Learning: Expertise in developing and deploying machine learning models for various applications, including natural language processing, computer vision, and predictive analytics.
+- Software Engineering: Proficient in designing and building scalable, robust, and efficient software solutions, with a focus on performance optimization and code maintainability.
+- Data Analysis: Strong capabilities in data preprocessing, exploratory data analysis, and statistical modeling, enabling insightful and data-driven decision-making.
 
 # Projects
 You can check my projects in the "Projects" page. 
