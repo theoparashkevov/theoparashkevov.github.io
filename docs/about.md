@@ -4,15 +4,20 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+# About Me
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+I am a passionate and experienced Machine Learning / Software Engineer with a deep understanding of cutting-edge technologies. With a solid foundation in both theoretical and practical aspects of the field, I bring a wealth of knowledge and expertise to every project I undertake.
+Skills
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+    Machine Learning: Expertise in developing and deploying machine learning models for various applications, including natural language processing, computer vision, and predictive analytics.
+    Software Engineering: Proficient in designing and building scalable, robust, and efficient software solutions, with a focus on performance optimization and code maintainability.
+    Data Analysis: Strong capabilities in data preprocessing, exploratory data analysis, and statistical modeling, enabling insightful and data-driven decision-making.
 
+# Projects
+You can check my projects in the "Projects" page. 
 
-[jekyll-organization]: https://github.com/jekyll
+# Future Endeavors
+
+Looking ahead, I am dedicated to exploring new horizons in the field of Machine Learning and Software Engineering. I am eager to continue contributing to impactful projects that push the boundaries of innovation and make a positive difference in the world.
+
+Feel free to reach out to me through my email for collaboration, discussions, or any inquiries. Connect with me on LinkedIn to stay updated with my latest endeavors.
