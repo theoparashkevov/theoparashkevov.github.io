@@ -31,7 +31,7 @@ Over the years, I have honed my skills in various programming languages, includi
 
 - **Software Engineering**: Proficient in designing and building scalable, robust, and efficient software solutions, with a focus on performance optimization and code maintainability.
 
-- **Object-oriented Programming**: 
+- **Object-oriented Programming**: Proficient in the industry standard for OOP. __Design Patterns__, __Clean Code__, __Clean architecture__. I have built small and large scale software applications and maintaned them. 
 
 - **Database design**:
 
@@ -42,14 +42,28 @@ Over the years, I have honed my skills in various programming languages, includi
 |  | Technology | Description |
 | ------------ | ----------- | ---- |
 | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40" style="max-width: 100%;"> |Python| Programming|
+|<img src="https://camo.githubusercontent.com/69ce21304adac467a8251181f98932e1785abd9d718cdd8edc78d1abbf2dcb49/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f302f30352f5363696b69745f6c6561726e5f6c6f676f5f736d616c6c2e737667" alt="scikit_learn" width="40" height="40" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" style="max-width: 100%;">|Scikit-Learn| ML framework in Python|
+|<img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40" style="max-width: 100%;">|Pandas|Data science framework in Python|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40" style="max-width: 100%;"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40" style="max-width: 100%;">|C/C++| Programming|
+|<img src="https://camo.githubusercontent.com/fbfcb9e3dc648adc93bef37c718db16c52f617ad055a26de6dc3c21865c3321d/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6769742d73636d2f6769742d73636d2d69636f6e2e737667" alt="git" width="40" height="40" data-canonical-src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" style="max-width: 100%;">|Git|Version Control|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40" style="max-width: 100%;">|PostgreSQL|Database|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40" style="max-width: 100%;">|MySQL|Database|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40" style="max-width: 100%;">|AWS|Cloud Technology|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40" style="max-width: 100%;">|Docker|Virtualization/Hypervisor|
+|<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40" style="max-width: 100%;">|Linux|OS/System administration|
+
+### Soft Skills
+- **Communication skills**: I have strong communication skills, which are vital for effective collaboration with other developers, data scientists, and stakeholders, as well as for delivering high-quality solutions that meet and exceed expectations.
+
+- **Teamwork and Leadership**: Collaboration is highlighted as a key aspect of my approach. I enjoy working with others and am described as a team player, indicating a strong ability to work effectively as part of a team.
+
+- **Problem-solving**: My adeptness at solving complex problems indicates strong problem-solving skills, a crucial soft skill in the tech industry, especially in the context of developing innovative solutions using machine learning algorithms.
+
+- **Attention to detail**: With a keen eye for detail, I have the ability to pay attention to the specifics and intricacies involved in building robust and scalable software systems, which is essential for ensuring the accuracy and performance of machine learning solutions.
+
+- **Continuous learning**: I have a passion for staying updated with the latest advancements in the field of machine learning and artificial intelligence, demonstrated through participation in hackathons, conferences, meetups, and open-source projects, highlights the importance of continuous learning and adaptability, which are crucial soft skills in a rapidly evolving tech landscape.
 
 
-### Soft SKills
 
 # Projects
 You can check my projects in the [**"Projects"**](https://theoparashkevov.github.io/projects/) page. 
