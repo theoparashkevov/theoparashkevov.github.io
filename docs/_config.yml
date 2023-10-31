@@ -36,6 +36,7 @@ minima:
 # order as they should show up.
 #
 header_pages:
+  - blog.md
   - about.md
   - projects.md
   - contact.md
