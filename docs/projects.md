@@ -8,6 +8,5 @@ Projects page.
 
 | Project Name | Description | Link |
 | ------------ | ----------- | ---- |
-| Python Learning Materials | Description of Project 1 | [Python Learning Materials](https://theoparashkevov.github.io/python-learning-materials/) |
-| Project 2 | Description of Project 2 | [Project 2](https://github.com/yourusername/Project2) |
-| Project 3 | Description of Project 3 | [Project 3](https://github.com/yourusername/Project3) |
+| Python Learning Materials | This Project contains various resources for learning Python programming language, including code examples, exercises, and projects. Whether you are a beginner or an experienced programmer, you will find something useful here to help you improve your Python skills. | [Python Learning Materials](https://theoparashkevov.github.io/python-learning-materials/) |
+|Telegram Resource Management Bot| A resource management bot service for Linux written in C/C++ | [Telegram Resource Management Bot](https://github.com/theoparashkevov/TelegramBot-C-CPP) |
