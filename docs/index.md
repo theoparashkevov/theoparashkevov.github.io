@@ -31,6 +31,9 @@ Over the years, I have honed my skills in various programming languages, includi
 # Projects
 You can check my projects in the [**"Projects"**](https://theoparashkevov.github.io/projects/) page. 
 
+# Education 
+
+
 # Background
 
 In my previous roles, I have worked on a variety of projects, ranging from developing computer vision algorithms for autonomous vehicles to designing natural language processing models for chatbots. I have also been involved in building recommendation systems for e-commerce platforms, fraud detection systems for financial institutions, and sentiment analysis models for social media platforms.
@@ -42,3 +45,5 @@ As a **Senior Python Developer** and **Machine Learning Engineer**, I am committ
 Looking ahead, I am dedicated to exploring new horizons in the field of Machine Learning and Software Engineering. I am eager to continue contributing to impactful projects that push the boundaries of innovation and make a positive difference in the world.
 
 Feel free to reach out to me through my email for collaboration, discussions, or any inquiries. Connect with me on LinkedIn to stay updated with my latest endeavors.
+
+See the [**Contact**](https://theoparashkevov.github.io/contact/) page.
