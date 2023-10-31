@@ -20,13 +20,28 @@ As a Senior Python Developer and Machine Learning Engineer with extensive experi
 In addition to my technical skills, I possess strong communication skills and a keen eye for detail. I am a team player and enjoy collaborating with other developers, data scientists, and stakeholders to deliver high-quality solutions that exceed expectations.
 
 ## Skills
+
+### Hard Skills
+
 My expertise lies in developing robust and **scalable software systems** that utilize **machine learning algorithms** to deliver exceptional performance and accuracy. Whether it's building data pipelines, training and evaluating models, or designing and implementing complex algorithms, I am always up for a challenge.
 
 Over the years, I have honed my skills in various programming languages, including Python, Java, C++, and SQL, among others. I am also well-versed in popular machine learning frameworks such as TensorFlow, PyTorch, and Scikit-learn.
 
 - **Machine Learning**: Expertise in developing and deploying machine learning models for various applications, including natural language processing, computer vision, and predictive analytics.
+
 - **Software Engineering**: Proficient in designing and building scalable, robust, and efficient software solutions, with a focus on performance optimization and code maintainability.
+
+- **Object-oriented Programming**: 
+
+- **Database design**:
+
 - **Data Analysis**: Strong capabilities in data preprocessing, exploratory data analysis, and statistical modeling, enabling insightful and data-driven decision-making.
+
+### Programming Languages and Tech stacks
+
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40" style="max-width: 100%;">
+
+### Soft SKills
 
 # Projects
 You can check my projects in the [**"Projects"**](https://theoparashkevov.github.io/projects/) page. 
