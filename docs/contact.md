@@ -11,10 +11,6 @@ If you are a recruiter or a hiring manager interested in my profile, I welcome y
   {%- include common/suitcase.svg -%}
 </symbol>
 
-<img width="50px" src="{{ "/includes/common/suitcase.svg" | relative_url }}"></img>
-
-
-
 <br>
 Send me an email and [Click Here](mailto:theo.parashkevov@gmail.com?subject=Job%20Opportunity%E2%80%8B&body=Hello%20Teo%2C%0D%0A%0D%0AI%20am%20reaching%20out%20to%20you%2C%20because%20...)
 
