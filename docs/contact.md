@@ -7,7 +7,7 @@ permalink: /contact/
 # Job Opportunities 
 If you are a recruiter or a hiring manager interested in my profile, I welcome you to reach out to me regarding any job opportunities.
 
-<symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
+<symbol class="center" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
   {%- include common/suitcase.svg -%}
 </symbol>
 
@@ -17,7 +17,7 @@ Send me an email and [Click Here](mailto:theo.parashkevov@gmail.com?subject=Job%
 # Development Collaboration 
 If you are a passionate developer looking to create innovative projects together, please don't hesitate to get in touch for potential collaboration.
 
-<symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
+<symbol class="center" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
   {%- include common/group.svg -%}
 </symbol>
 
@@ -27,7 +27,7 @@ Send me an email and [Click Here](mailto:theo.parashkevov@gmail.com?subject=%20D
 # Teaching 
 If you're seeking to enhance your programming skills or embark on a journey in software development, feel free to contact me for mentoring opportunities.
 
-<symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
+<symbol class="center" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
   {%- include common/browser.svg -%}
 </symbol>
 

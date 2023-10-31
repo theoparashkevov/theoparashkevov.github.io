@@ -5,3 +5,8 @@
 @import
   "minima/skins/{{ site.minima.skin | default: 'dark' }}",
   "minima/initialize";
+
+.center{
+  display: flex;
+  justify-content: center;
+}
