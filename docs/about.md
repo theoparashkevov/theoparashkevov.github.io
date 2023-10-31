@@ -14,7 +14,7 @@ Skills
 - Data Analysis: Strong capabilities in data preprocessing, exploratory data analysis, and statistical modeling, enabling insightful and data-driven decision-making.
 
 # Projects
-You can check my projects in the "Projects" page. 
+You can check my projects in the [**"Projects"**](https://theoparashkevov.github.io/projects/) page. 
 
 # Future Endeavors
 
