@@ -39,6 +39,16 @@ Over the years, I have honed my skills in various programming languages, includi
 
 ### Programming Languages and Tech stacks
 
+| Icon | Technology | Description |
+| ------------ | ----------- | ---- |
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40" style="max-width: 100%;"> |Python| Programming|
+||C/C++| Programming|
+||PostgreSQL|Database|
+||MySQL|Database|
+||AWS|Cloud Technology|
+||Docker|Virtualization/Hypervisor|
+
+
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40" style="max-width: 100%;">
 
 ### Soft SKills
