@@ -7,7 +7,7 @@ permalink: /contact/
 # Job Opportunities 
 If you are a recruiter or a hiring manager interested in my profile, I welcome you to reach out to me regarding any job opportunities.
 
-<symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414" >
+<symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" >
   {%- include common/suitcase.svg -%}
 </symbol>
 
