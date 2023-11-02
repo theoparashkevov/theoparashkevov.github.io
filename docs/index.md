@@ -49,9 +49,7 @@ Over the years, I have honed my skills in various programming languages, includi
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40" style="max-width: 100%;">|PostgreSQL|Database|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40" style="max-width: 100%;">|MySQL|Database|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40" style="max-width: 100%;">|AWS|Cloud Technology|
-
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40" style="max-width: 100%;">|Docker|Virtualization/Hypervisor|
-
 |<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="40" height="40" style="max-width: 100%;"  /> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original-wordmark.svg" width="40" height="40" style="max-width: 100%;" />|Linux|OS/System administration|
 
 ### Soft Skills
@@ -97,10 +95,9 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 ## Cloud certifications
 
- - <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40" style="max-width: 100%;"> [AWS Cloud Fundamentals](https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5)
-
-    - <i class="devicon-amazonwebservices-plain-wordmark"></i> 
-    <a href="https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK"> AWS Cloud Technical Essentials </a>
+ - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%; /> 
+ <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals</a>
+    - <a href="https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK">AWS Cloud Technical Essentials</a>
 
     - [AWS Cloud Addressing Security Risk](https://www.coursera.org/account/accomplishments/certificate/UN9M2TQRBBJV)
 
