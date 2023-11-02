@@ -151,6 +151,14 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
     - [AWS Cloud Building Serverless Applications](https://www.coursera.org/account/accomplishments/certificate/HPG7K3KRS52T)
     - [AWS Cloud Migrating to the AWS Cloud](https://www.coursera.org/account/accomplishments/certificate/4L4WXEKJA8GE)
 
+## Language certifications
+
+- Cambridge Certificate in Advanced English Level C1
+
+- Deutsche Sprachdiplom II (DSD) Level C1
+
+- Hanyu Shuiping Kaoshi (HSK) Level 4
+
 # Background
 
 In my previous roles, I have worked on a variety of projects, ranging from developing computer vision algorithms for autonomous vehicles to designing natural language processing models for chatbots. I have also been involved in building recommendation systems for e-commerce platforms, fraud detection systems for financial institutions, and sentiment analysis models for social media platforms.
