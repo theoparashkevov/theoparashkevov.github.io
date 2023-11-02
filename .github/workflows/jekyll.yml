@@ -43,10 +43,12 @@ jobs:
         id: pages
         uses: actions/configure-pages@v3
       - name: Install dependencies
-        run: bundle install --gemfile ./docs/Gemfile
+        working-directory: ./docs
+        run: bundle install
       - name: Build with Jekyll
+        working-directory: ./docs
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" -s ./docs
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
