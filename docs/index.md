@@ -91,6 +91,20 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 # Certification
 
+## Machine Learning and AI certifications
+
+## Cloud certifications
+
+ - <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40" style="max-width: 100%;"> [AWS Cloud Fundamentals](https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5)
+
+    - <i class="devicon-amazonwebservices-plain-wordmark"></i> 
+    <a href="https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK"> AWS Cloud Technical Essentials </a>
+
+    - [AWS Cloud Addressing Security Risk](https://www.coursera.org/account/accomplishments/certificate/UN9M2TQRBBJV)
+
+    - [AWS Cloud Building Serverless Applications](https://www.coursera.org/account/accomplishments/certificate/HPG7K3KRS52T)
+
+    - [AWS Cloud Migrating to the AWS Cloud](https://www.coursera.org/account/accomplishments/certificate/4L4WXEKJA8GE)
 
 # Background
 
