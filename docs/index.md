@@ -41,16 +41,13 @@ Over the years, I have honed my skills in various programming languages, includi
 
 |  | Technology | Description |
 | ------------ | ----------- | ---- |
-| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40" style="max-width: 100%;"> |Python| Programming|
-|<img src="https://camo.githubusercontent.com/69ce21304adac467a8251181f98932e1785abd9d718cdd8edc78d1abbf2dcb49/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f302f30352f5363696b69745f6c6561726e5f6c6f676f5f736d616c6c2e737667" alt="scikit_learn" width="40" height="40" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" style="max-width: 100%;">|Scikit-Learn| ML framework in Python|
-|<img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/pandas/pandas-original.svg" alt="pandas" width="40" height="40" style="max-width: 100%;">|Pandas|Data science framework in Python|
+| <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40" style="max-width: 100%;"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original-wordmark.svg" width="40" height="40" style="max-width: 100%;"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" width="40" height="40" style="max-width: 100%;"/><img src="https://camo.githubusercontent.com/69ce21304adac467a8251181f98932e1785abd9d718cdd8edc78d1abbf2dcb49/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f302f30352f5363696b69745f6c6561726e5f6c6f676f5f736d616c6c2e737667" alt="scikit_learn" width="40" height="40" data-canonical-src="https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg" style="max-width: 100%;">|Python, Pandas, NUmpy, Scikit-learn| Programming, ML framework, Data Science|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40" style="max-width: 100%;"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40" style="max-width: 100%;">|C/C++| Programming|
 |<img src="https://camo.githubusercontent.com/fbfcb9e3dc648adc93bef37c718db16c52f617ad055a26de6dc3c21865c3321d/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6769742d73636d2f6769742d73636d2d69636f6e2e737667" alt="git" width="40" height="40" data-canonical-src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" style="max-width: 100%;">|Git|Version Control|
-|<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40" style="max-width: 100%;">|PostgreSQL|Database|
-|<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40" style="max-width: 100%;">|MySQL|Database|
+|<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40" style="max-width: 100%;"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40" style="max-width: 100%;">|PostgreSQL, MySQL|Database|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40" style="max-width: 100%;">|AWS|Cloud Technology|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40" style="max-width: 100%;">|Docker|Virtualization/Hypervisor|
-|<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="40" height="40" style="max-width: 100%;"  /> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original-wordmark.svg" width="40" height="40" style="max-width: 100%;" />|Linux|OS/System administration|
+|<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="40" height="40" style="max-width: 100%;"  /> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original-wordmark.svg" width="40" height="40" style="max-width: 100%;" /><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" width="40" height="40" style="max-width: 100%;" />|Linux|OS/System administration|
 
 ### Soft Skills
 - **Communication skills**: I have strong communication skills, which are vital for effective collaboration with other developers, data scientists, and stakeholders, as well as for delivering high-quality solutions that meet and exceed expectations.
@@ -93,15 +90,14 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 ## Machine Learning and AI certifications
 
+-
+
 ## Cloud certifications
 
- - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%;" /> <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals</a>
-    - <a href="https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK">AWS Cloud Technical Essentials</a>
-
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%;" /> <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals</a>
+    - [AWS Cloud Technical Essentials](https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK)
     - [AWS Cloud Addressing Security Risk](https://www.coursera.org/account/accomplishments/certificate/UN9M2TQRBBJV)
-
     - [AWS Cloud Building Serverless Applications](https://www.coursera.org/account/accomplishments/certificate/HPG7K3KRS52T)
-
     - [AWS Cloud Migrating to the AWS Cloud](https://www.coursera.org/account/accomplishments/certificate/4L4WXEKJA8GE)
 
 # Background
