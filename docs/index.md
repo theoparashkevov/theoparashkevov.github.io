@@ -141,11 +141,20 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 ## Machine Learning and AI certifications
 
-- <img src="{{ "assets/img/ai.svg" | relative_url }}" width="40" height="40" /> 
+- <img src="{{ "assets/img/ai.svg" | relative_url }}" width="40" height="40" /> <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/MACTRCAXVALX"> Deep Learning Specialization by DeepLearning.ai</a>
+
+    - [Neural Networks and Deep Learning](https://www.coursera.org/account/accomplishments/verify/FD8HY2KD3T55?utm_source=link)
+    - [Improving Deep Neural Networks: Hyperparameter Tuning, Regularization and Optimization](https://www.coursera.org/account/accomplishments/verify/C4M3ZQ33PMTK)
+    - [Structureing Machine Learning Projects](https://www.coursera.org/account/accomplishments/certificate/6BP3V33D9TFX)
+    - [Convolutional Neural Networks](https://www.coursera.org/account/accomplishments/certificate/3AEMV7WBXUUT)
+    - [Sequence Models](https://www.coursera.org/account/accomplishments/certificate/ZNAKAYUTN3Z3)
+
+- <img src="{{ "assets/img/ai.svg" | relative_url }}" width="40" height="40" /> <a href="https://www.coursera.org/account/accomplishments/certificate/DENPFNEAEPBV" > Machine Learning by Stanford <a>
+
 
 ## Cloud certifications
 
-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%;" /> <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals</a>
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%;" /> <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals Specialization by Amazon</a>
     - [AWS Cloud Technical Essentials](https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK)
     - [AWS Cloud Addressing Security Risk](https://www.coursera.org/account/accomplishments/certificate/UN9M2TQRBBJV)
     - [AWS Cloud Building Serverless Applications](https://www.coursera.org/account/accomplishments/certificate/HPG7K3KRS52T)
