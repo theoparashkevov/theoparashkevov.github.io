@@ -141,7 +141,11 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 ## Machine Learning and AI certifications
 
-- <symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" > {%- include common/ai.svg -%} </symbol>
+<ul>
+    <li>
+        <symbol fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" > {%- include common/ai.svg -%} </symbol>
+    </li>
+</ul>
 
 ## Cloud certifications
 
