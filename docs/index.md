@@ -149,6 +149,7 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
     - [Convolutional Neural Networks](https://www.coursera.org/account/accomplishments/certificate/3AEMV7WBXUUT)
     - [Sequence Models](https://www.coursera.org/account/accomplishments/certificate/ZNAKAYUTN3Z3)
 
+
 - <img src="{{ "assets/img/ai.svg" | relative_url }}" width="40" height="40" /> <a href="https://www.coursera.org/account/accomplishments/certificate/DENPFNEAEPBV" > Machine Learning by Stanford <a>
 
 
