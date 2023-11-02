@@ -50,7 +50,7 @@ Over the years, I have honed my skills in various programming languages, includi
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40" style="max-width: 100%;">|MySQL|Database|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40" style="max-width: 100%;">|AWS|Cloud Technology|
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40" style="max-width: 100%;">|Docker|Virtualization/Hypervisor|
-|<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40" style="max-width: 100%;">|Linux|OS/System administration|
+|<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40" style="max-width: 100%;"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original-wordmark.svg" />|Linux|OS/System administration|
 
 ### Soft Skills
 - **Communication skills**: I have strong communication skills, which are vital for effective collaboration with other developers, data scientists, and stakeholders, as well as for delivering high-quality solutions that meet and exceed expectations.
