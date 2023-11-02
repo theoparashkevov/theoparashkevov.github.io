@@ -95,8 +95,7 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 ## Cloud certifications
 
- - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%; /> 
- <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals</a>
+ - <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" width="60" height="60" style="max-width: 100%;" /> <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BW8ZJKANHPH5">AWS Cloud Fundamentals</a>
     - <a href="https://www.coursera.org/account/accomplishments/certificate/42KDWYQFQ9SK">AWS Cloud Technical Essentials</a>
 
     - [AWS Cloud Addressing Security Risk](https://www.coursera.org/account/accomplishments/certificate/UN9M2TQRBBJV)
