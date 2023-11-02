@@ -153,11 +153,11 @@ My swift adaptation and adeptness in acclimatizing to unfamiliar environments sh
 
 ## Language certifications
 
-- Cambridge Certificate in Advanced English Level C1
+- <img src="https://media.licdn.com/dms/image/C4E0BAQGLqHVOwtQeUQ/company-logo_100_100/0/1663833278405?e=1706745600&amp;v=beta&amp;t=7Wqe7aNXQrbNxe5AhIX2f88gnVX9l_sgulbQJWPW00g" width="60" height="60" > Cambridge Certificate in Advanced English Level C1
 
-- Deutsche Sprachdiplom II (DSD) Level C1
+- <img src="https://media.licdn.com/dms/image/C4D0BAQEkckDZK5_vLw/company-logo_100_100/0/1618575127222?e=1706745600&amp;v=beta&amp;t=pPibdayoxauR2ZVBpM9XpGvcCdXryIwJMYarCs511lI" width="60" height="60" > Deutsche Sprachdiplom II (DSD) Level C1
 
-- Hanyu Shuiping Kaoshi (HSK) Level 4
+- <img src="https://media.licdn.com/dms/image/C4D0BAQGL8lnOlwiUQg/company-logo_100_100/0/1578576711805?e=1706745600&amp;v=beta&amp;t=6qhmrxsBeJ_9Mk0YqIbkx5pUqowohIjUZaWMeQs24Bk" width="60" height="60" > Hanyu Shuiping Kaoshi (HSK) Level 4
 
 # Background
 
