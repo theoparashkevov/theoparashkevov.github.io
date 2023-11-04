@@ -30,6 +30,14 @@ kramdown:
   parse_block_html: true
 
 
+# --------------------
+# Front Matter
+# --------------------
+defaults:
+  - scope:
+      path: ""
+    values:
+      toc: true
 
 
 # --------------------
