@@ -21,14 +21,14 @@
   overflow-y: auto;
   border: 1px solid #ddd;
   padding: 10px;
+  border-radius: 3px;
+
 }
 
-/* Style for the table of contents */
-.toc-section-nav {
-  list-style-type: none;
-  padding: 0;
+.toc-list-class {
+  list-style-type: upper-alpha;
 }
 
-.toc-sublist-class  {
-  margin: 0;
+.toc-sublist-class {
+  list-style-type: lower-alpha;
 }
