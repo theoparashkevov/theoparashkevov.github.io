@@ -30,6 +30,13 @@ kramdown:
   parse_block_html: true
 
 
+toc:
+  list_id: toc 
+  list_class: toc-section-nav
+  sublist_class: toc-sublist-class 
+  item_class: toc-entry 
+  item_prefix: toc- 
+
 # --------------------
 # Front Matter
 # --------------------
