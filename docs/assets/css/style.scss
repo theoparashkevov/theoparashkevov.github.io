@@ -32,3 +32,10 @@
 .toc-sublist-class {
   list-style-type: lower-alpha;
 }
+
+/* Hide the TOC on mobile devices */
+@media (max-width: 768px) {
+  .toc-container {
+    display: none;
+  }
+}
