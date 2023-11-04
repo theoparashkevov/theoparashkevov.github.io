@@ -8,7 +8,9 @@ author:
 description: >
   My personal development blog.
 
+# --------------------
 # Build settings
+# --------------------
 
 theme: minima
 
@@ -17,8 +19,22 @@ plugins:
   - jekyll-seo-tag
   - jekyll-toc
 
-# Theme-specific settings
 
+
+# --------------------
+# Markdown
+# --------------------
+markdown: kramdown
+
+kramdown:
+  parse_block_html: true
+
+
+
+
+# --------------------
+# Theme-specific settings
+# --------------------
 minima:
   skin: dark
   # Minima date format.
