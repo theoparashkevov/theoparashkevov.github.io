@@ -27,7 +27,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # --------------------
   # Build job
+  # --------------------
   build:
     runs-on: ubuntu-latest
     steps:
@@ -55,9 +57,12 @@ jobs:
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ./docs
+          path: ./docs/_site
 
+  
+  # --------------------
   # Deployment job
+  # --------------------
   deploy:
     environment:
       name: github-pages
