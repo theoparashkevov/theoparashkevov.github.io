@@ -133,9 +133,7 @@ My outstanding performance was exemplified not only by my remarkable academic st
 
 ## University
 
-...
-<img class="center" src="/assets/img/SEU.jpg" alt="deutsche-schule-ruse" width="150" height="150" style="max-width: 100%; border-radius: 15px;" />
-
+<img class="center" src="/assets/img/SEU.jpg" alt="deutsche-schule-ruse" width="150" height="150" style="max-width: 100%; border-radius: 15px; display: flex; justify-content: center;" />
 
 Continuing my academic odyssey in a new cultural milieu, I embraced the challenge of studying at **Southeast University** in **Nanjing, China**. Undaunted by the linguistic differences, I immersed myself in a rigorous one-year Chinese language program, swiftly attaining a commendable proficiency that enabled me to seamlessly transition into a four-year **Bachelor's degree** in **Computer Science and Engineering** __entirely conducted in Chinese__.
 
