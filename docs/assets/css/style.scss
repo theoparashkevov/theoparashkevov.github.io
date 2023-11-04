@@ -14,9 +14,9 @@
 /* Table of Contents TOC */
 .toc-container {
   position: fixed;
-  top: 50px; /* Adjust this value to set the top position of the TOC */
-  right: 0;
-  width: 200px; /* Adjust this value to set the width of the TOC */
+  top: 5em; /* Adjust this value to set the top position of the TOC */
+  right: 0.5em;
+  width: 20em; /* Adjust this value to set the width of the TOC */
   height: 80%; /* Adjust this value to set the height of the TOC */
   overflow-y: auto;
   border: 1px solid #ddd;
