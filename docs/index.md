@@ -125,18 +125,17 @@ You can check my projects in the [**"Projects"**](https://theoparashkevov.github
 
 ## Highschool 
 
-<div class="center">
-    <img src="assets/img/deutsche-schule-ruse.jpg" alt="deutsche-schule-ruse" width="130" height="130"  style="max-width: 100%; border-radius: 15px;" />
-</div>
+<img src="assets/img/deutsche-schule-ruse.jpg" alt="deutsche-schule-ruse" width="130" height="130"  style="max-width: 100%; border-radius: 15px;" />
+
 With an educational journey marked by a diverse linguistic prowess and an unwavering commitment to academic excellence, my educational trajectory is an impressive narrative of linguistic mastery and adaptability. Hailing from the German language school in Ruse, Bulgaria, I excelled as an exemplary student, graduating at the zenith of my class with well-deserved honors.
 
 My outstanding performance was exemplified not only by my remarkable academic standing but also by my commendable acquisition of the **German language diploma DSD II**, demonstrating a commendable proficiency at the **C1 level**. Moreover, my linguistic triumphs extended beyond the realm of German, as evidenced by my acquisition of a **Cambridge language certificate** at the **C1 level**, further underscoring my linguistic dexterity and multifaceted academic accomplishments.
 
 ## University
 
-<div class="center">
-    <img class="center" src="/assets/img/SEU.jpg" alt="deutsche-schule-ruse" width="150" height="150" style="max-width: 100%; border-radius: 15px;" />
-</div>
+...
+<img class="center" src="/assets/img/SEU.jpg" alt="deutsche-schule-ruse" width="150" height="150" style="max-width: 100%; border-radius: 15px;" />
+
 
 Continuing my academic odyssey in a new cultural milieu, I embraced the challenge of studying at **Southeast University** in **Nanjing, China**. Undaunted by the linguistic differences, I immersed myself in a rigorous one-year Chinese language program, swiftly attaining a commendable proficiency that enabled me to seamlessly transition into a four-year **Bachelor's degree** in **Computer Science and Engineering** __entirely conducted in Chinese__.
 
