@@ -31,6 +31,8 @@ kramdown:
 
 
 toc:
+  min_level: 1
+  max_level: 3
   list_id: toc 
   list_class: toc-container
   list_class: toc-list-class
