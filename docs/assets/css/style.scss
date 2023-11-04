@@ -34,7 +34,7 @@
 }
 
 /* Hide the TOC on mobile devices */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .toc-container {
     display: none;
   }
