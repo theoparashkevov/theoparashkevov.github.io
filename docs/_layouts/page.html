@@ -9,12 +9,8 @@ layout: base
     <br>
   </header>
 
-  <div id="table-of-contents" class="toc-container">
-    {{ toc }}
-  </div>
-
   <div class="post-content">
-    {{ content }}
+    {{ content | toc }}
   </div>
 
 </article>

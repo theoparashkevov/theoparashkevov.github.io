@@ -32,7 +32,7 @@ kramdown:
 
 toc:
   list_id: toc 
-  list_class: toc-section-nav
+  list_class: toc-container
   sublist_class: toc-sublist-class 
   item_class: toc-entry 
   item_prefix: toc- 
