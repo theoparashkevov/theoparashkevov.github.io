@@ -29,7 +29,7 @@ markdown: kramdown
 kramdown:
   parse_block_html: true
 
-
+# https://github.com/toshimaru/jekyll-toc
 toc:
   min_level: 1
   max_level: 3
