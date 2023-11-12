@@ -102,10 +102,8 @@ In the realm of virtualization and hypervisors, a versatile tech stack often inc
 |  | Technology | Description |
 | ------------ | ----------- | ---- |
 |<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40" style="max-width: 100%;">|Docker|Virtualization/Hypervisor|
-|<img src="https://en.wikipedia.org/wiki/QEMU#/media/File:Qemu_logo.svg" alt="docker" width="40" height="40" style="max-width: 100%;">|QEMU|Virtualization/Hypervisor|
-|<img src="https://en.wikipedia.org/wiki/VirtualBox#/media/File:Virtualbox_logo.png" alt="docker" width="40" height="40" style="max-width: 100%;">|VirtualBox|Virtualization/Hypervisor|
-
-
+|<img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Qemu_logo.svg" alt="qemu" width="40" height="40" style="max-width: 100%;">|QEMU|Virtualization/Hypervisor|
+|<img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Virtualbox_logo.png" alt="virtualbox" width="40" height="40" style="max-width: 100%;">|VirtualBox|Virtualization/Hypervisor|
 
 #### System administration / Networking 
 
