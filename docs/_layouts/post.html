@@ -38,4 +38,21 @@ layout: base
   {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+
+  <br>
+  <hr>
+  <br>
+
+  <!-- Share and Donate Section -->
+  <div class="share-donate">
+    <p>If you enjoyed this post, please consider sharing it with others or making a small donation for a coffee.</p>
+    <div class="share-buttons">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="share-button">Share on Facebook</a>
+        <a href="#" class="share-button">Tweet</a>
+    </div>
+
+    <!-- Donate Button -->
+    <a href="https://your-donation-link.com" class="donate-button">Buy me a coffee</a>
+</div>
+
 </article>
