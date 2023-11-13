@@ -68,6 +68,7 @@ where $p_{i}$ is the probability and $c_{i}$ is the cost
 ### AMN (Average moving number)
 
 When __Inserting__
+<div>
 $$
 \begin{aligned}
     AMN_{insert} &= \frac{1}{n+1} \sum_{i=1}^n (n-i) \\
@@ -76,6 +77,7 @@ $$
         &= \frac{n}{2}
 \end{aligned}
 $$
+</div>
 
 When __Deleting__
 $$
