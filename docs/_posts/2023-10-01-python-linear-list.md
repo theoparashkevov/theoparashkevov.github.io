@@ -5,6 +5,7 @@ category: python
 author:
 - Teo Parashkevov
 meta: [data structures, python]
+usemathjax: true
 ---
 
 ```python
@@ -68,9 +69,6 @@ where $p_{i}$ is the probability and $c_{i}$ is the cost
 ### AMN (Average moving number)
 
 When __Inserting__
-{% raw %}
-<div>
-<script type="text/x-mathjax-config">
 
 $$
 \begin{aligned}
@@ -80,11 +78,6 @@ $$
         &= \frac{n}{2}
 \end{aligned}
 $$
-
-</script>
-</div>
-{% endraw %}
-
 
 When __Deleting__
 $$
