@@ -26,6 +26,8 @@ plugins:
 # --------------------
 markdown: kramdown
 
+mathjax: true
+
 kramdown:
   parse_block_html: true
 
