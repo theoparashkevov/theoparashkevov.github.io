@@ -68,6 +68,7 @@ where $p_{i}$ is the probability and $c_{i}$ is the cost
 ### AMN (Average moving number)
 
 When __Inserting__
+{% raw %}
 <div>
 $$
 \begin{aligned}
@@ -78,6 +79,7 @@ $$
 \end{aligned}
 $$
 </div>
+{% endraw %}
 
 When __Deleting__
 $$
