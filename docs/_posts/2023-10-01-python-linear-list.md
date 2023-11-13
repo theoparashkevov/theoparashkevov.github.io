@@ -70,6 +70,7 @@ where $p_{i}$ is the probability and $c_{i}$ is the cost
 When __Inserting__
 
 <div>
+<script type="text/x-mathjax-config">
 {% raw %}
 $$
 \begin{aligned}
@@ -80,6 +81,7 @@ $$
 \end{aligned}
 $$
 {% endraw %}
+</script>
 </div>
 
 
