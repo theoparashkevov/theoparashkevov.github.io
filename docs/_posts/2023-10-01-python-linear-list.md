@@ -78,6 +78,8 @@ $$
 \end{aligned}
 $$
 
+<br><br><br>
+
 When __Deleting__
 $$
 \begin{aligned}
