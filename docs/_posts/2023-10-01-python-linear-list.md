@@ -71,6 +71,7 @@ where $p_{i}$ is the probability and $c_{i}$ is the cost
 When __Inserting__
 
 <div>
+{% raw %}
 $$
 \begin{aligned}
     AMN_{insert} &= \frac{1}{n+1} \sum_{i=1}^n (n-i) \\
@@ -79,6 +80,7 @@ $$
         &= \frac{n}{2}
 \end{aligned}
 $$
+{% endraw %}
 </div>
 
 When __Deleting__
