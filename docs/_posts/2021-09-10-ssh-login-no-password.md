@@ -40,7 +40,7 @@ In order to accomplish this, you will need 2 programs: ssh-keygen and ssh-copy-i
 
 2.Copy the generated id_rsa to the remote machine using ssh-copy-id. Use the -i option to specify the id_rsa key and the -p option to specify the port to your remote machine.
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/2.jpeg" | relative_url }}" width="550"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/2.jpg" | relative_url }}" width="550"/>
 
 ```bash
 [ user@hostname ]$ ssh-copy -i id_rsa -p <port> <user>@<ssh_server>
@@ -48,7 +48,7 @@ In order to accomplish this, you will need 2 programs: ssh-keygen and ssh-copy-i
 
 3.Connect
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/3.jpeg" | relative_url }}" width="550"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/3.jpg" | relative_url }}" width="550"/>
 
 # Manual Configuration
 
