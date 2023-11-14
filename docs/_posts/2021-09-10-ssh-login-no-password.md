@@ -30,7 +30,7 @@ Because of the nature of the SSH technology, especially under GNU/Linux systems,
 
 In order to accomplish this, you will need 2 programs: ssh-keygen and ssh-copy-id
 
-    1. Generate you local machines key by running the ssh-keygen command in the terminal. It will ask for a storage location (default: /home/current_user/.ssh). Then you will be asked to input a passphrase, leave it empty ! The output should look like this.
+1. Generate you local machines key by running the ssh-keygen command in the terminal. It will ask for a storage location (default: /home/current_user/.ssh). Then you will be asked to input a passphrase, leave it empty ! The output should look like this.
 
 <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/1.png" | relative_url }}" width="550"/>
 
@@ -38,7 +38,7 @@ In order to accomplish this, you will need 2 programs: ssh-keygen and ssh-copy-i
 [ user@hostname ]$ ssh-keygen # generate key and store locally
 ```
 
-    2. Copy the generated id_rsa to the remote machine using ssh-copy-id. Use the -i option to specify the id_rsa key and the -p option to specify the port to your remote machine.
+2. Copy the generated id_rsa to the remote machine using ssh-copy-id. Use the -i option to specify the id_rsa key and the -p option to specify the port to your remote machine.
 
 <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/2.jpg" | relative_url }}" width="550"/>
 
@@ -46,7 +46,7 @@ In order to accomplish this, you will need 2 programs: ssh-keygen and ssh-copy-i
 [ user@hostname ]$ ssh-copy -i id_rsa -p <port> <user>@<ssh_server>
 ```
 
-    3. Connect
+3. Connect
 
 <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/3.jpg" | relative_url }}" width="550"/>
 
