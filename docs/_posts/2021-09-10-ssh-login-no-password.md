@@ -5,11 +5,12 @@ category: linux
 author:
 - Teo Parashkevov
 meta: [linux, system administration]
-description: This is a post description.
+description: A step by step tutorial for automating the login process to a remote machine using SSH.
 usemathjax: false
 ---
 
-A step by step tutorial for automating the login process to a remote machine using SSH.
+
+# Introduction
 
 Logging in to a remote server using ssh by default requires administrators to authenticate themselves with the password of some user of the system that they are connecting to. This is troublesome, because it can expose not only the target system to security risks, but also accumulate a wastage of time.
 
