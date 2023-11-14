@@ -24,3 +24,9 @@
     text-decoration: none;
     border-radius: 5px;
 }
+
+.description {
+
+    font-style: italic;
+    font-weight: 300;
+}
