@@ -76,13 +76,15 @@
 
 
 .blog-category-container {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     max-width: 800px; /* Change this to your desired max width */
+
+    margin-left: 2em;
 }
 
 .blog-category-container h3 {
     margin: 0.2em;
     padding: 0.3em;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
 }
