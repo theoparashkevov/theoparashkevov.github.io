@@ -10,8 +10,6 @@ usemathjax: false
 thumbnail_location: ssh-login-no-password
 ---
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/thumbnail.png" | relative_url }}" />
-
 # Introduction
 
 Logging in to a remote server using ssh by default requires administrators to authenticate themselves with the password of some user of the system that they are connecting to. This is troublesome, because it can expose not only the target system to security risks, but also accumulate a wastage of time.
