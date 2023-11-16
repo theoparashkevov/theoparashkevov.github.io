@@ -7,6 +7,7 @@ author:
 meta: [linux, system administration]
 description: A step by step tutorial for automating the login process to a remote machine using SSH.
 usemathjax: false
+thumbnail_location: ssh-login-no-password
 ---
 
 <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/thumbnail.png" | relative_url }}" width="550"/>

@@ -34,6 +34,12 @@ layout: base
         <div class="description">
           {{ post.description }}
         </div>
+
+        <div>
+          <img  style="display: block; float: none; margin-left: auto; margin-right:auto;" 
+                src="/assets/img/posts/{{ post.ssh-login-no-password}}/thumbnail.png" width="100"/>
+        </div>
+
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
         {%- endif -%}
