@@ -32,7 +32,16 @@
 
 .blog-post-item {
     display: flex;
+    align-items: flex-start;    /* Align items at the start of the flex container */
+    margin-bottom: 5em;         /* Adjust spacing between posts */
 }
+
+.blog-post-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden; /* Hide overflowing content */
+  }
 
 .blog-post-info {
     flex: 1 1 auto;
@@ -53,7 +62,14 @@
 }
 
 .blog-post-thumbnail {
+    width: 200px; /* Set a fixed width for the thumbnail */
+    flex-shrink: 0; /* Prevent thumbnail from shrinking */
     display: block;
     margin-right: 2em;
     margin-left: 5em;
 }
+
+.blog-post-thumbnail img {
+    width: 200px; /* Make sure the image fills its container */
+    height: auto;
+  }

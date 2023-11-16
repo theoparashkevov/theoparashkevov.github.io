@@ -26,7 +26,8 @@ layout: base
       {%- for post in posts -%}
       <li>
         <div class="blog-post-item">
-          
+          <div class="blog-post-content">
+
             <div class="blog-post-info">
               <div class="blog-post-date">
                 <span class="post-meta">{{ post.date | date: date_format }}</span>
@@ -49,17 +50,18 @@ layout: base
 
           {%- if post.thumbnail_location -%}
           <div class="blog-post-thumbnail">
-            <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png" width="200"/>
+            <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png"/>
           </div>
           {%- else -%}
           <div class="blog-post-thumbnail">
-            <img src="/assets/img/posts/default-thumbnail.png" width="200"/>
+            <img src="/assets/img/posts/default-thumbnail.png" />
           </div>
           {%- endif -%}
 
             {%- if site.show_excerpts -%}
               {{ post.excerpt }}
             {%- endif -%}
+          </div>
       </div>
       </li>
       {%- endfor -%}
