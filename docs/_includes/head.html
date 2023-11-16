@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/css/toc.css" | relative_url }}">
 
+  {% if page.thumbnail_location %}
+    <meta property="og:image" content="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png">
+  {% else %}
+    <meta property="og:image" content="/assets/img/posts/default_thumbnail.png">
+  {% endif %}
+
 
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
