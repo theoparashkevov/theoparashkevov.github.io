@@ -9,6 +9,7 @@ description: A step by step tutorial for automating the login process to a remot
 usemathjax: false
 ---
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/ssh-login-no-password/thumbnail.png" | relative_url }}" width="550"/>
 
 # Introduction
 
