@@ -36,7 +36,17 @@ layout: base
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
+
+    {%- if page.thumbnail_location -%}
+      <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="/assets/img/posts/{{ page.thumbnail_location}}/thumbnail.png"/>
+    {%- else -%}
+      <img  style="display: block; float: none; margin-left: auto; margin-right:auto;"src="/assets/img/posts/default-thumbnail.png" />
+    {%- endif -%}
+
+    <br>
+    
     {{ content }}
+
   </div>
 
   {%- if site.disqus.shortname -%}
