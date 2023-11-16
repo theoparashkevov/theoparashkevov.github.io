@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{ "/assets/css/toc.css" | relative_url }}">
 
   {% if page.thumbnail_location %}
-    <meta property="og:image" content="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png">
+    <meta property="og:image" content="/assets/img/posts/{{ page.thumbnail_location}}/thumbnail.png">
   {% else %}
     <meta property="og:image" content="/assets/img/posts/default_thumbnail.png">
   {% endif %}
