@@ -7,17 +7,11 @@ layout: base
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
-  <div class="blog-category-container">
-  {% for category in site.categories %}
-    <h3>
-      <a href="/categories/{{ category[0] }}/">{{ category[0] | capitalize }}</a>
-    </h3>
-  {% endfor %}
-  </div>
-
   <div class="description">
     Here you will find my latest blog posts. 
   </div>
+
+  <a href="/categories/">Categories</a>
 
   <br>
   <hr>
