@@ -47,9 +47,15 @@ layout: base
               </div>
           </div>
 
+          {%- if post.thumbnail_location -%}
           <div class="blog-post-thumbnail">
             <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png" width="200"/>
           </div>
+          {%- else -%}
+          <div class="blog-post-thumbnail">
+            <img src="/assets/img/posts/default-thumbnail.png" width="200"/>
+          </div>
+          {%- endif -%}
 
             {%- if site.show_excerpts -%}
               {{ post.excerpt }}
