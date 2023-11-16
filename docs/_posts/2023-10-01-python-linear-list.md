@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Data Structures - Linear List in Python
-category: python
+categories:
+    - python
 author:
 - Teo Parashkevov
 meta: [data structures, python]

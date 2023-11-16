@@ -1,7 +1,8 @@
 ---
 layout: post
 title: SSH login without a password
-category: linux
+categories: 
+    - linux
 author:
 - Teo Parashkevov
 meta: [linux, system administration]
