@@ -10,7 +10,7 @@ layout: base
   <div class="blog-category-container">
   {% for category in site.categories %}
     <h3>
-      <a href="#">{{ category[0] | capitalize }}</a>
+      <a href="/categories/{{ category[0] }}/">{{ category[0] | capitalize }}</a>
     </h3>
   {% endfor %}
   </div>
