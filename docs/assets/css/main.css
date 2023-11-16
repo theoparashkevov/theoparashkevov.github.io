@@ -29,3 +29,12 @@
     font-style: italic;
     font-weight: 300;
 }
+
+.blog-post-item {
+    display: flex;
+}
+
+.blog-post-thumbnail {
+    display: block;
+    margin-right: 2em;
+}
