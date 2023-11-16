@@ -36,6 +36,7 @@
 
 .blog-post-info {
     flex: 1 1 auto;
+    display: block;
 }
 
 .blog-post-date {
