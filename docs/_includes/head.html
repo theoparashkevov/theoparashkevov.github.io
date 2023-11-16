@@ -4,9 +4,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   {% if page.thumbnail_location %}
-    <meta property="og:image" content="{{site.baseurl}}/assets/img/posts/{{ page.thumbnail_location}}/thumbnail.png">
+    <meta property="og:image" content="{{ site.baseurl }}/assets/img/posts/{{ page.thumbnail_location}}/thumbnail.png">
   {% else %}
-    <meta property="og:image" content="{{site.baseurl}}/assets/img/posts/default_thumbnail.png">
+    <meta property="og:image" content="{{ site.baseurl }}/assets/img/posts/default_thumbnail.png">
   {% endif %}
 
   {%- seo -%}
