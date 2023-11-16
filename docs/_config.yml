@@ -78,11 +78,6 @@ header_pages:
   - projects.md
   - contact.md
 
-collections:
-  categories:
-    output: true
-    permalink: /categories/:name/
-
 # Set to `true` to show excerpts on the homepage.
 #
 # show_excerpts: false
