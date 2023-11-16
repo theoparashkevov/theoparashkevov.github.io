@@ -34,6 +34,22 @@
     display: flex;
 }
 
+.blog-post-info {
+    flex: 1 1 auto;
+}
+
+.blog-post-date {
+    display: block;
+}
+
+.blog-post-title {
+    display: block;
+}
+
+.blog-post-description {
+    display: block;
+}
+
 .blog-post-thumbnail {
     display: block;
     margin-right: 2em;

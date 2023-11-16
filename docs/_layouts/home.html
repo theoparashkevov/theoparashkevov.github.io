@@ -27,21 +27,29 @@ layout: base
       <li>
         <div class="blog-post-item">
           
-            <span class="post-meta">{{ post.date | date: date_format }}</span>
-            
-            <h3>
-              <a class="post-link" href="{{ post.url | relative_url }}">
-                {{ post.title | escape }}
-              </a>
-            </h3>
+            <div class="blog-post-info">
+              <div class="blog-post-date">
+                <span class="post-meta">{{ post.date | date: date_format }}</span>
+              </div>
 
-            <div class="description">
-              {{ post.description }}
-            </div>
+              <div class="blog-post-title">
+                <h3>
+                  <a class="post-link" href="{{ post.url | relative_url }}">
+                    {{ post.title | escape }}
+                  </a>
+                </h3>
+              </div>
 
-            <div class="blog-post-thumbnail">
-              <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png" width="100"/>
-            </div>
+              <div class="blog-post-description">
+                <div class="description">
+                  {{ post.description }}
+                </div>
+              </div>
+          </div>
+
+          <div class="blog-post-thumbnail">
+            <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png" width="100"/>
+          </div>
 
             {%- if site.show_excerpts -%}
               {{ post.excerpt }}
