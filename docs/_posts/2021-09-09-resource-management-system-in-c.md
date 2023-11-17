@@ -169,15 +169,25 @@ Finally, we clean up all the allocated space for the buffers and flush all the p
 
 [ Note ] When _flag is set to 1, the print statements get executed, when _flag is set to 0 the print statements are not executed. This is a simple implementation of verbosity management.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/10.jpg" | relative_url }}" />
+
 - directory_files * list_files_in_directory(char * _dir_path ) — This function takes one parameter, namely _dir_path and allocates a piece of memory to store the names of the files listed in that particular directory. Afterwards, this allocated memory block is being pointed to by pointer _p of the structure directory_files and also the number of files present inside the directory is saved inside the variable _count inside that same structure. Here we have already predefined SIZE_FILE_NAME, therefore we allocate that much memory for the name of the first file listed inside the directory. We want to exclude the “.” and “..” paths, that being the reason why we have a conditional statement inside the while loop. On each iteration of the loop a new file from the directory is listed, then it is compared if it matches the excluded paths. If not, we reallocate i.e. expand the currently allocated memory block with filenames to have place for one more file name. We also increment the number of currently listed files. Finally, the function returns a pointer to a structure holding a pointer pointing to the beginning of the already expanded memory block with file names and a _count variable holding the number of listed files.
 
 [ Note ] The increment for the file names here is SIZE_FILE_NAME, not 1. This is the reason for having the line _current_file = _return_val + ( n * SIZE_FILE_NAME ) . Basically, for each new file name that must be stored in the per-allocated memory space there must be SIZE_FILE_NAME bytes, no matter if the file name is long enough to fill the whole SIZE_FILE_NAME space.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/11.jpg" | relative_url }}" />
+
 - long long int get_file_last_modified_time(char *_file_path) —This function acquires the last modified timestamp for a particular file using the stat structure and stat() function. On success the result is returned in Unix time, otherwise -1 is the return value.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/12.jpg" | relative_url }}" />
 
 - char * get_file_name(char * _file_name_w_extension) — This function has a parameter that is the file name with extension. This parameter is run through a for loop starting from the first character in the file name and looping through the whole name until the pointer has reached the ‘.’ character. Then the newly created file_name_no_extension is appended an end of string character “\0” indicating the termination of the loop and end of the file name. This new file name is then returned by the function.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/13.jpg" | relative_url }}" />
+
 - unsigned long long int get_folder_name( char * _path, int _size) — This function has two parameters _path, indicating the path to the folder and _size, indicating the length of the path string. For example /home/user/.config/telegram_bot/123456789/will be the _path parameter and 42 will be its length. The function starts from the end of the string skipping the last 2 characters. Then we loop the string until we have encountered a ”/” character indicating that the directory name has been fully looped through. On each iteration we reduce the current character value by 48 [the ASCII number for the ‘0’ character] producing an integer value corresponding to its character. On each iteration we also multiply the base by 10 and add the sum to the result, namely getting the 10th place 100th place 1000th place .. number and summing them all together.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/14.jpg" | relative_url }}" />
 
 ## The main.cpp Program
 
@@ -195,6 +205,8 @@ Finally, a new process is forked for the current file name and assigned the rece
 
 [ Note ] When looping through the files in the directory_files structure, the increment is not 1, rather than the predefined SIZE_FILE_NAME.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/15.jpg" | relative_url }}" />
+
 [ Note ] In order to compile the program correctly, you need to have the TgBot, Boost system, SSL, Cryptography and Threading libraries installed on your system and point the library files to the compiler.
 
 ```bash
@@ -211,6 +223,8 @@ In the System Manager module we create a simple systemd service that is going to
 If set to process, only the main process itself is killed (not recommended!)
 
 For more information please visit this link.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/16.jpg" | relative_url }}" />
 
 In order to stop/kill the service and all its CGroup processes use systemctl kill <telegram-bot.service>
 
