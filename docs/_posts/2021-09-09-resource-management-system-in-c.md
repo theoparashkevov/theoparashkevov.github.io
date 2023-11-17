@@ -232,4 +232,6 @@ In order to stop/kill the service and all its CGroup processes use systemctl kil
 
 The final product can be seen on the image below. Here I am showing how to start the Telegram Bot systemd service. This is also a demonstration of the response time of the Telegram Bot system when a particular file get modified.
 
-We can conclude that this resource management system is quite reliable and robust. I hope
+We can conclude that this resource management system is quite reliable and robust.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/2.gif" | relative_url }}" />
