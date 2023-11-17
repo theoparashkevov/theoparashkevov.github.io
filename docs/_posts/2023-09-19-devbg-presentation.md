@@ -15,6 +15,4 @@ description: A presentation on Python’s Versatility - Syntax, Object-Oriented 
 ---
 # Resources
 
-<div>
-    You can download the presentation as a PDF from <a href="/assets/img/posts/{{ post.thumbnail_location}}/presentation.pdf"> here </a>.
-</div>
+You can download the presentation as a PDF from [here](/assets/img/posts/{{ post.thumbnail_location}}/presentation.pdf).
