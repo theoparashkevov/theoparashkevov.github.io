@@ -6,7 +6,7 @@ categories:
 author:
 - Teo Parashkevov
 meta: [resource, management, c, c++]
-# thumbnail_location: 2023-10-01-python-linear-list.md
+thumbnail_location: resource-management-system-in-c
 description: A guide to creating a system resource information messaging system using the Telegram Bot API in C/C++
 ---
 
