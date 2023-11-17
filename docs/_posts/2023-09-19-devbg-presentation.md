@@ -15,4 +15,4 @@ description: A presentation on Python’s Versatility - Syntax, Object-Oriented 
 ---
 # Resources
 
-You can download the presentation as a PDF from [here](/assets/img/posts/{{ post.thumbnail_location}}/presentation.pdf).
+You can download the presentation as a PDF from [here](/assets/img/posts/devbg-presentation/presentation.pdf).
