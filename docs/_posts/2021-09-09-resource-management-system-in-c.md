@@ -38,6 +38,8 @@ These 3 modules lay the foundation to all Telegram Bots that use this library. T
 
 As show in the official website here, creating a Telegram Bot does not require any special programming skills. The process is quite simple, and anyone with an active Telegram account can create a number of bots.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/3.png" | relative_url }}" />
+
 As described in the Bot Father section, the first step in creating a Bot is to open a chat with Bot Father — Telegrams specialized Frond-end for creating other bots. Then send the command /newbot(strings starting with “/” represent commands to be executed by the bots ) to the chat with Bot Father. The third step is to provide the newly created Bot with a display name and a username. After all the above steps have been completed successfully, Bot Father will display general information about the newly created bot.
 
 The most important piece of information regarding your bot is the TOKEN. Only through the token can one access the capabilities of the bot and program specialized software for bot management. The token usually is a string with the following format: 
@@ -66,6 +68,9 @@ The architecture of the system is quite simple. I will divide each feature of th
 There are some scripts that are execute and gather information about the system; They write that information into files; The Telegram Bot program will create N processes for each file that needs to be watched. Each process is responsible for one file only; If a file gets modified, a message will be sent to the recipient using the Telegram Bot API with the modified file contents. All of this will be managed by a systemd service.
 
 In order to make things clear, I would like to conceptually divide the content information from the actual perpetrator which will send messages through the Telegram Bot API. The program responsible for the Telegram Bot will not deal with or manage any files on the filesystem, it will only be allowed to read a particular file and nothing more. This will increases the security of the system overall. The main reason being the low coupling of the module responsible for file management and the module responsible for sending the messages. Another reason I believe increases the level of security is the fact that even if, one day, a particular bug is found in the Telegram API that grants access to the remote executing program, the program itself will not have many features/options that give the attacker any type of advantage over the system.
+
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/4.jpg" | relative_url }}" />
 
 Figure 1 provides a simple example of how the system architecture will look. In this example there are 5 resources that need to be managed by the system — CPU usage, RAM usage, Network traffic, system temperature and some other resource. There are 5 jobs belonging to the information gathering module which write information to their respective files on the filesystem. The main Telegram Bot process creates 5 child processes to manage each resource file. Each child process is responsible for one file only and it checks its file descriptor every M milliseconds for modifications. If the file has been modified, the contents are sent to the Telegram Bot object shared by all child processes and then sent to a specific chat. If the file has not been modified, the child process does not execute any additional code.
 
