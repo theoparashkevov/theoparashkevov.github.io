@@ -30,6 +30,31 @@ The expansive Python ecosystem, a hallmark of its prowess, encompasses machine l
 
 A comparative analysis unveils Python's interpreted nature against C's compiled architecture. Looping over 450 million numbers starkly illustrates this divergence. While C, being compiled, executes this task around 40 times faster than Python, the latter's interpretive nature embodies flexibility and ease of prototyping, underscoring the trade-off between performance and development agility.
 
+```python 
+import sys
+NUMBER = int(sys.argv[1]) 
+s = 0
+for i in range(NUMBER):
+    s += 1
+```
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/1.png" | relative_url }}" width="550"/>
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char **argv) {
+    int NUMBER, i, s;
+    NUMBER = atoi(argv[1]);
+    for (s = i = 0; i < NUMBER; ++i) {
+        s += 1;
+    }
+    return 0;
+}
+```
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/2.png" | relative_url }}" width="550"/>
+
 # Syntax and Features
 
 Python's syntax is a tapestry of elegance and functionality, adorned with powerful features like context managers and decorators.
