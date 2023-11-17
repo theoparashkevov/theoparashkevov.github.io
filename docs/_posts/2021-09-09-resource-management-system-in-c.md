@@ -87,11 +87,15 @@ This paragraph describes the design of the communication module, responsible for
 
 The main Telegram Bot process will be responsible for the creation of N child processes, which will constantly be checking if their designated file has been modified. On Figure 1 the main Telegram Bot process is represented as a blue square, each child process is a line inside the square which gets information from a specific file on the filesystem. For example, the CPU process reads the cpu.file.txt every M milliseconds and keeps track of the last modified timestamp.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/5.jpg" | relative_url }}" />
+
 In order to optimize this service a bit, we can implement an environment variable specific for each child process. This environment variable will contain the value of the last_modified_timestamp of the respective file [in Unix time]. In this way, each child process is self-sufficient and does not rely on anything else for its execution. The environment variable names are shown on Figure 2 in each child process box in green.
 
 [ Note ] In GNU/Linux when a process creates a child process, the child process is “granted access” to the parent processes’ resources i.e. environment variables. However, the child does not share its environment with its parent.
 
 Once this environment variable has been set, it is then compared to the real-time last_modified_timestamp every M milliseconds.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/6.jpg" | relative_url }}" />
 
 Figure 3 shows the process of sending the file contents from the cpu.file.txt. After the cpu get info job has written the new content to the file, the modified flag has changed. As this happens, the child process responsible for the cpu file has waited M milliseconds and therefore can go and compare the last_modified_timestamp value, stored in CPU_ENV_VAR with the current modified flag of the file. Because the file was modified within the M millisecond “sleep” time period of the child process, the two modified values do not match. Therefore, the contents of the file have to be sent to the Telegram Bot object, which is shared among all child processes. After that the Telegram Bot object can call send_message() function and send the new file content to a specific chat [chat_id].
 
@@ -130,6 +134,8 @@ This header file contains include directives for the required libraries, definit
 
 Inside config.h there is also a structure called directory_files, which includes two variables; _p which is the pointer to an allocated space where the file names of a particular directory are stored; _count which returns the number of files in that particular directory. This structure is used in the return type of the function list_files_in_directory().
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/7.jpg" | relative_url }}" />
+
 Function declarations include the following functions:
 
 - create_environment_variable() — creates environment variable with name _name and value _val inside the invoking process.
@@ -144,6 +150,9 @@ Function declarations include the following functions:
 The config.cpp file contains implementations of the function definitions from the config.h header file.
 
 - int create_environment_variable(char * _name, char * _val) — This function takes two parameters _name and _val and creates an environment variable in the current process using the setenv() function. We add fflush(stdout) because when a child process is called and executes this function inside systemd service, the journal program that keeps logs of each service in systemd will not get the output of printf() unless flushed. [ Important ] If not flushed, this buffer (stdout) can grow a lot and consume a vast amount of memory resource.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/8.jpg" | relative_url }}" />
+
 - void send_message_to_chat(unsigned long long int _chat_id, char * env_var_name, TgBot::Bot *b, char * _file_path, int _flag) — This function is basically one big infinite while loop. This function is called once a new child process has been successfully created. Therefore keeping each child process inside its own infinite loop.
 
 Firstly, this functions tries to get the environment variable env_var_name and its value. If this process is not successful, the loop is broken and there is nothing else to do. Therefore the programmer must investigate this issue.
@@ -151,6 +160,8 @@ Firstly, this functions tries to get the environment variable env_var_name and i
 Once the environment variable with the last_modified_timestamp has been gotten, then the function executes get_last_modified_time() onto the file with path _file_path. Then this value gets stored inside a string _last_modified_char. Afterwards the environment variable value and the current last modified time stamp are to be compared. If they differ this means that the file has been modified within the sleep period, therefore a message must be send to chat_id. If they are the same nothing is to be done.
 
 Secondly, the file contents must be acquired. We allocate CONTENT_BUFFER_SIZE amount of space for the contents of the file. Afterwards while the content of the file is being looped over a temporary character stores the current character of the file content in the content buffer. Once the End Of the File has been reached, we append 0x00 to indicate the end of the content buffer. After this procedure has been done, we can close the file.
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/resource-management-system-in-c/9.jpg" | relative_url }}" />
 
 Thirdly, after the information from the file has been copied to the content buffer, it must be appended inside a message variable of type string. This message variable is later passed to the sendMessage() function by the Telegram Bot object. Sending a message using the Telegram Bot object must be enclosed inside a try..catch.. block because of error prevention. For example, if for some reason the machine that is running this service is not connected to the internet and does not have the possibility to contact the Telegram API, then sending a message will result in an error. We catch 2 types of errors inside this block: 1) a system error and 2) TgException error.
 
