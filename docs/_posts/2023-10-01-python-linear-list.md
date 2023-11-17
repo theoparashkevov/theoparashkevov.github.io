@@ -7,6 +7,7 @@ author:
 - Teo Parashkevov
 meta: [data structures, python]
 usemathjax: true
+thumbnail_location: linear-list-python
 ---
 
 ```python
