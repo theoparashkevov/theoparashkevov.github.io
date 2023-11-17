@@ -38,7 +38,7 @@ for i in range(NUMBER):
     s += 1
 ```
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/1.png" | relative_url }}" width="550"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/1.png" | relative_url }}" />
 
 ```C
 #include <stdio.h>
@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/2.png" | relative_url }}" width="550"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/2.png" | relative_url }}" />
 
 # Syntax and Features
 
