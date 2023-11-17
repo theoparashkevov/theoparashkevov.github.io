@@ -78,6 +78,8 @@ header_pages:
   - projects.md
   - contact.md
 
+google_analytics: G-FL4MFK5HC5
+
 # Set to `true` to show excerpts on the homepage.
 #
 # show_excerpts: false
