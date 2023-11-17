@@ -67,6 +67,24 @@ At the heart of Python's resource management lies context managers. These constr
 
 Decorators, an equally compelling feature, enhance the flexibility and extensibility of functions or methods. These constructs empower developers to modify the behavior of functions without altering their original structure. By wrapping functions within other functions, decorators enable the addition of functionalities such as logging, authentication, or caching. This promotes code reusability and simplifies the implementation of cross-cutting concerns. Decorators serve as a testament to Python's support for higher-order functions and metaprogramming, fostering cleaner and more modular codebases.
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/3.jpeg" | relative_url }}" />
+
+<br>
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/4.jpeg" | relative_url }}" />
+
+<br>
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/5.jpeg" | relative_url }}" />
+
+<br>
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/6.jpeg" | relative_url }}" />
+
+<br>
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/devbg-presentation/7.png" | relative_url }}" />
+
 # Object-Oriented Programming
 
 Within Python's realm of Object-Oriented Programming, the intricate interplay of classes, encapsulation, polymorphism, and inheritance lays the foundation for robust software design.
