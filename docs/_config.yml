@@ -3,7 +3,8 @@ author:
   name: theoparashkevov
   email: theo.parashkevov@gmail.com
 
-baseurl: https://theoparashkevov.github.io
+baseurl: ""
+url: "https://theoparashkevov.github.io"
 # The `>` after `description:` means to ignore line-breaks until next key.
 # If you want to omit the line-break after the end of text, use `>-` instead.
 description: >
