@@ -30,18 +30,26 @@
     font-weight: 300;
 }
 
+/* 
+--------------------------------------------------------
+Blog home
+--------------------------------------------------------
+*/
+
+/* For large screens */
+@media (min-width: 800px) {
 .blog-post-item {
     display: flex;
-    align-items: flex-start;    /* Align items at the start of the flex container */
-    margin-bottom: 5em;         /* Adjust spacing between posts */
+    align-items: flex-start;
+    margin-bottom: 5em;
 }
 
 .blog-post-content {
     display: flex;
     flex-direction: row;
     flex: 1;
-    overflow: hidden; /* Hide overflowing content */
-  }
+    overflow: hidden;
+}
 
 .blog-post-info {
     flex: 1 1 auto;
@@ -62,18 +70,50 @@
 }
 
 .blog-post-thumbnail {
-    width: 200px; /* Set a fixed width for the thumbnail */
-    flex-shrink: 0; /* Prevent thumbnail from shrinking */
+    width: 200px;
+    flex-shrink: 0;
     display: block;
     margin-right: 2em;
     margin-left: 5em;
 }
 
 .blog-post-thumbnail img {
-    width: 200px; /* Make sure the image fills its container */
+    width: 200px;
     height: auto;
+}
+}
+
+
+/* For small screens */
+@media (max-width: 799px) {
+    .blog-post-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .blog-post-thumbnail {
+      width: 100%; /* Occupy full width */
+      margin-right: 0;
+      margin-left: 0;
+      margin-bottom: 1em; /* Adjust spacing for smaller screens */
+    }
+  
+    .blog-post-thumbnail img {
+      width: 100%; /* Make the image fill its container */
+      height: auto;
+    }
   }
 
+
+
+
+
+
+/* 
+--------------------------------------------------------
+Blog Categories
+--------------------------------------------------------
+*/
 
 .blog-category-container {
     /* display: flex; */
