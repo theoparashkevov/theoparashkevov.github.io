@@ -35,6 +35,11 @@ The main focus of this model is to address the main common features of business 
 
 The Prophet Forecasting Model uses a decomposable time series model with three main components: trend, seasonality, and holidays.
 
+$$
+\begin{aligned}
+    y(t)=g(t)+s(t)+h(t)+\epsilon_t
+\end{aligned}
+$$
 
 Where g(t) is the trend function, s(t) is the seasonality function, h(t) is the holidays' function, and at last place an error term. The Trend function models non-periodic changes in the value of the time series. The Seasonality function models periodic changes - daily, weekly, monthly, yearly, etc. The Holiday function represents the effects of holidays that occur on potentially irregular schedules over a defined period of time. 
 
@@ -68,6 +73,13 @@ The main question that this model can answer is how the population has grown til
 <span class="span-red"> The authors assume logistic growth for the nonlinear saturating growth model. </span>
 
 
+$$
+\begin{aligned}
+    g(t)=\frac{C}{1+e^{-k(t-m)}}
+\end{aligned}
+$$
+
+
 Where C is the carrying capacity, k is the growth rate, and m is the offset parameter.
 
 There are two important aspects that are NOT captured in this equation. 
@@ -82,6 +94,11 @@ There are two important aspects that are NOT captured in this equation.
 
 The piecewise logistic model is then converted into this. 
 
+$$
+\begin{aligned}
+    g(t)=\frac{C(t)}{1+e^{-(k+\bf{a(t)}^{T}{\delta})(t-(m+\bf{a(t)}^{T}\gamma))}}
+\end{aligned}
+$$
 
 where δ is the rate adjustment to the changepoints and γ is the rate adjustment to the offset (making it continuous)
 
@@ -91,6 +108,11 @@ An important set of parameters in this model is the carrying capacity at differe
 
 For forecasting problems that do not exhibit saturating growth, a piece-wise constant rate of g*rowth provides a good solution and often is considered a useful model.
 
+$$
+\begin{aligned}
+    g(t)=(k+\bf{a(t)}^{T}{\delta})t+(m+\bf{a(t)}^{T}\gamma))
+\end{aligned}
+$$
 
 ### Automatic Changepoint Selection
 
