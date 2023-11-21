@@ -30,6 +30,18 @@
     font-weight: 300;
 }
 
+.span-blue {
+    color: rgb(97, 68, 242);
+}
+
+.span-red {
+    color: rgb(245, 66, 81);
+}
+
+.span-yellow {
+    color: rgb(229, 235, 73);
+}
+
 /* 
 --------------------------------------------------------
 Blog home
