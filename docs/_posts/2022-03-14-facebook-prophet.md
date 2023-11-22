@@ -6,6 +6,7 @@ categories:
 author:
 - Teo Parashkevov
 meta: [facebook, prophet, forecasting, timeseries, ar, ma, arima]
+thumbnail_location: facebook-prophet
 description: > 
     Forecasting at scale
     Sean J. Taylor∗ † Facebook, Menlo Park, California, United States sjt@fb.com and Benjamin Letham† Facebook, Menlo Park, California, United States bletham@fb.com
@@ -41,7 +42,7 @@ $$
 \end{aligned}
 $$
 
-Where g(t) is the trend function, s(t) is the seasonality function, h(t) is the holidays' function, and at last place an error term. The Trend function models non-periodic changes in the value of the time series. The Seasonality function models periodic changes - daily, weekly, monthly, yearly, etc. The Holiday function represents the effects of holidays that occur on potentially irregular schedules over a defined period of time. 
+Where **g(t)** is the trend function, **s(t)** is the seasonality function, **h(t)** is the holidays' function, and at last place an error term. The Trend function models non-periodic changes in the value of the time series. The Seasonality function models periodic changes - daily, weekly, monthly, yearly, etc. The Holiday function represents the effects of holidays that occur on potentially irregular schedules over a defined period of time. 
 
 <span class="span-red"> The authors of this paper assume that the error term is normally distributed. </span>
 
@@ -68,6 +69,7 @@ This tradeoff yields the following advantages, stated by the authors:
 The authors have implemented 2 trend models that cover particular Facebook-related applications. These two trend models are **the nonlinear, saturating growth model** and **the piecewise linear model**.
 
 ### Nonlinear, saturating growth model
+
 The main question that this model can answer is how the population has grown till now and how it is expected to continue growing. The authors compare growth in Facebook (based on the number of users) is similar to population growth in the natural ecosystem, where nonlinear growth has a saturation capacity. This growth is **usually**, (but not limited to) modeled by a logistic growth model. 
 
 <span class="span-red"> The authors assume logistic growth for the nonlinear saturating growth model. </span>
@@ -80,15 +82,15 @@ $$
 $$
 
 
-Where C is the carrying capacity, k is the growth rate, and m is the offset parameter.
+Where **C** is the carrying capacity, **k** is the growth rate, and **m** is the offset parameter.
 
 There are two important aspects that are NOT captured in this equation. 
 
-1. The carrying capacity C is not a constant
+1. The carrying capacity **C** is **not** a constant
 
     a. The example given is such that the number of people with access to the internet increases, the ceiling for this growth function also increases. Therefore C is a function of time t → C(t).
 
-2. The growth rate k is not a constant
+2. The growth rate **k** is **not** a constant
 
     a. The example given is such that the rate of change/growth may vary depending on the new product releases etc. Therefore, the model must be able to incorporate a varying rate in order to fit historical data. This is solved by incorporating changepoints in the growth model by explicitly defining changepoints (location) where the growth rate is allowed to change. 
 
@@ -100,7 +102,7 @@ $$
 \end{aligned}
 $$
 
-where δ is the rate adjustment to the changepoints and γ is the rate adjustment to the offset (making it continuous)
+where **δ** is the rate adjustment to the changepoints and **γ** is the rate adjustment to the offset (making it continuous)
 
 An important set of parameters in this model is the carrying capacity at different points in time. The authors state that the __“**Analysts often have insight into market sizes and can set these accordingly**”s__.
 
@@ -124,7 +126,7 @@ There are 2 possible ways to specify changepoint location:
 
 Automatic selection can be accomplished by putting a sparse prior to the rate adjustment δ.
 
-This sparse prior is of the form δj ∼ Laplace(0, τ ), by default changepoint count is one per month for several years of history. The authors state that. **The parameter τ directly controls the flexibility of the model in altering its rate. Importantly, a sparse prior on the rate adjustments δ has no impact on the primary growth rate k, so as τ goes to 0 the fit reduces to standard (not-piecewise) logistic or linear growth**.
+This sparse prior is of the form **δj ∼ Laplace(0, τ )**, by default changepoint count is one per month for several years of history. The authors state that. **The parameter τ directly controls the flexibility of the model in altering its rate. Importantly, a sparse prior on the rate adjustments δ has no impact on the primary growth rate k, so as τ goes to 0 the fit reduces to standard (not-piecewise) logistic or linear growth**.
 
 ###  Trend forecast uncertainty
 
@@ -137,7 +139,13 @@ The authors assume that the forecast will have the same average frequency and ma
 The authors assume that business time series often have multi-period seasonality because of the human behaviors they represent. This leads them to use the Fourier series to simulate these seasonalities because the Fourier series are quite reliable and good at estimating a wide variety of functions. Therefore,  the authors state that matching the seasonality problem is then converted to a simple function approximation problem.
 
 
-The authors assume the seasonality prior comes from a normal distribution - β ∼ Normal(0, σ2 )
+The authors assume the seasonality prior comes from a normal distribution - **β ∼ Normal(0, σ2 )**
+
+$$
+\begin{aligned}
+s(t)=\sum_{n=1}^{N}(a_n\cos(\frac{2{\pi}nt}{P})+b_n\sin(\frac{2{\pi}nt}{P}))
+\end{aligned}
+$$
 
 ## Holidays and Events
 
@@ -201,7 +209,16 @@ The forecasts are made over a specific forecast horizon, denoted by H. This hori
 
 In order to form an estimate of this accuracy and how it varies with h, it is common to specify a parametric model for the error term and to estimate its parameters from data. The authors give an example using an AR(1) model as a specific parametric model. Then we could form expectations using any distance function through simulation or by using an analytic expression for the expectation of the sum of the errors. Unfortunately, the authors state that these approaches only give correct estimates of error conditional on having specified the correct model for the process – a condition that is unlikely to hold in practice.
 
-A non-parametric approach to estimating expected errors that are applicable across models may be preferred. The approach is similar to applying cross-validation to estimate out-of-sample error for models making predictions on i.i.d. data. Given a set of historical forecasts, we fit a model of the expected error we would make at different forecast horizons h: 
+A **non-parametric** approach to estimating expected errors that are applicable across models may be preferred. The approach is similar to applying cross-validation to estimate out-of-sample error for models making predictions on i.i.d. data. Given a set of historical forecasts, we fit a model of the expected error we would make at different forecast horizons h: 
+
+
+
+$$
+\begin{aligned}
+\xi(h)=E[\phi(T,h)]
+\end{aligned}
+$$
+
 
 
 The authors state that this model should be flexible but can impose some simple assumptions. First, the function should be locally smooth in h because we expect any mistakes we make on consecutive days to be relatively similar. Second, we may impose the assumption that the function should be weakly increasing in h, although this need not be the case for all forecast models. In practice, they use a local regression or isotonic regression as flexible non-parametric models of error curves.
