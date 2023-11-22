@@ -16,7 +16,9 @@ description: >
 
 # Introduction
 
-The authors of this paper start with an introduction of the problem that forecasting is a data science task that is central to many activities within an organization.  As examples, they give resource management, resource allocation, and others. Furthermore, the authors state the two main techniques of forecast creation - automatic statistical forecasting, which can be hard to tune and adjust without an in-depth knowledge of the underlying mathematics, and the analysts' technique of relying on the objective view of a particular professional regarding a given problem. 
+The authors of this paper start with an introduction of the problem that forecasting is a data science task that is central to many activities within an organization.  As examples, they give resource management, resource allocation, and others. Furthermore, the authors state the two main techniques of forecast creation - automatic statistical forecasting, which can be hard to tune and adjust without an in-depth knowledge of the underlying mathematics, and the analysts' technique of relying on the objective view of a particular professional regarding a given problem.
+
+You can download the paper as a PDF from [here](/assets/img/posts/facebook-prophet/paper.pdf).
 
 The result is that the demand for high-quality forecasts often far outstrips the pace at which they are produced.
 
