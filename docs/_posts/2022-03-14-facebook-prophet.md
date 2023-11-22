@@ -7,6 +7,7 @@ author:
 - Teo Parashkevov
 meta: [facebook, prophet, forecasting, timeseries, ar, ma, arima]
 thumbnail_location: facebook-prophet
+usemathjax: true
 description: > 
     Forecasting at scale
     Sean J. Taylor∗ † Facebook, Menlo Park, California, United States sjt@fb.com and Benjamin Letham† Facebook, Menlo Park, California, United States bletham@fb.com
