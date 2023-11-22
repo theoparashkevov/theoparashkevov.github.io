@@ -106,7 +106,7 @@ Following the above declared rule, we get 7 possible positions, marked with gree
 
 <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/distributed-hash-tables/7.jpg" | relative_url }}" />
 
-## Querying the network for a particular resource ( O(n) )
+## Querying the network for a particular resource - O(n)
 
 When performing a query for a specific key on the network, the parameter with the greatest wight is “connectivity”. Connectivity here means the number of direct connections a node has to other nodes, i.e. how many successors / predecessors does a given node have.
 
@@ -122,7 +122,7 @@ Because we are traversing linearly through the whole network in both directions,
 
 <img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/distributed-hash-tables/8.jpg" | relative_url }}" />
 
-## Querying the network for a particular resource ( O(logN) )
+## Querying the network for a particular resource - O(logN)
 
 We saw in section for, that querying a network with linear architecture implementation has a significantly large complexity — O(n). In order to reduce this complexity we can add additional links / shortcuts to other nodes. Basically, a node would have an additional pointer named shortcut that would point to another, much more distant node. In our example, each node will have a shortcut to the (i+3)th node. (Node 10 would have a shortcut pointing to Node 40, Node 20 would have a shortcut pointing to Node 50 etc.) The shortcut implementation of this architecture is shown on Figure 9. The yellow lines represent shortcuts.
 
