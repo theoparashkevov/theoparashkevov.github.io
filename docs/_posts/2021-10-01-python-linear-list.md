@@ -171,7 +171,7 @@ print(sequential_list)
 
 ---
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/linked_list.jpg" | relative_url }}" width="550"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/1.png" | relative_url }}" />
 
 
 ### Definition
@@ -179,7 +179,7 @@ print(sequential_list)
 A Linked List can be defined as a subset of a linear list that consists of nodes, where each node holds a value and a pointer to the next node in the sequence. Unlike other linear list structures, such as arrays, a linked list does not require contiguous memory allocation. Instead, each node in the linked list is dynamically allocated and connected through pointers, enabling flexibility in element insertion, deletion, and rearrangement operations. This allows for efficient manipulation of elements in the middle of the list, at the cost of slower random access compared to arrays.
 
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/ram.jpg" | relative_url }}" width="750"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/2.png" | relative_url }}" />
 
 
 ### Advantages of linked lists:
