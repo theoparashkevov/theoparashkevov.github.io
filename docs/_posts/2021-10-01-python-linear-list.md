@@ -297,8 +297,14 @@ head_node.iterate_print_data()
 
 ---
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/insert.jpg" | relative_url }}" width="750"/>
 
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/3.png" | relative_url }}" />
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/4.png" | relative_url }}" />
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/5.png" | relative_url }}" />
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/6.png" | relative_url }}" />
 
 
 Insertion operation in a linked list can occur in three possible situations:
