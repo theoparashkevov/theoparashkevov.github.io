@@ -846,9 +846,196 @@ insert_operation_df.head(10)
 insert_operation_df.to_csv('insert_operation_timed.csv')
 ```
 
-    . . . 
-
 ### Applications
 
-Expression parser
+#### Expression parser
+
+
+```python
+# Declare Nodes
+expression_head  = Node('Head')
+expression_tail  = Node('Tail')
+e_node_1         = Node((2, 0))   # 2
+e_node_2         = Node((5, 1))   # 5x
+e_node_3         = Node((13, 2))  # 13x^2
+e_node_4         = Node((97, 3))  # 97x^3
+e_node_5         = Node((8, 4))   # 8x^4
+e_node_6         = Node((23, 5))  # 23x^5
+
+# Assign pointers
+expression_head.next_node = e_node_1
+e_node_1.next_node = e_node_2
+e_node_2.next_node = e_node_3
+e_node_3.next_node = e_node_4
+e_node_4.next_node = e_node_5
+e_node_5.next_node = e_node_6
+e_node_6.next_node = expression_tail
+
+# Print expression
+expression_head.iterate_print_data()
+```
+
+    [Head] -> [(2, 0)] -> [(5, 1)] -> [(13, 2)] -> [(97, 3)] -> [(8, 4)] -> [(23, 5)] -> [Tail]
+
+
+#### Expression Addition
+
+
+```python
+def expression_create_linked_list(size_of_list, size_of_coef, size_of_exp):
+    if size_of_exp <= size_of_list:
+        raise Exception('(size_of_exp) must be greater than (size_of_list)')
+        
+    expression_head  = Node('Head')
+    expression_tail  = Node('Tail')
+
+    tmp_exponent  = 1 
+    last_exponent = tmp_exponent
+    
+    for i in range(0, size_of_list):
+        _exp_upper_limit = (i+1)*int(size_of_exp/size_of_list)
+        # Create coeficient and exponent 
+        _coef  = randint(1, size_of_coef)
+        _exp   = randint(tmp_exponent+1, _exp_upper_limit)
+        _node  = Node((_coef, _exp))
+
+        # Assign Node
+        if expression_head.next_node is None:
+            expression_head.next_node = _node
+        else:
+            tmp_node = expression_head.next_node
+            while tmp_node.next_node is not None:
+                tmp_node = tmp_node.next_node
+            tmp_node.next_node = _node
+                
+        tmp_exponent  = _exp
+        
+    # Assign Tail
+    tmp_node = expression_head.next_node
+    while tmp_node.next_node is not None:
+        tmp_node = tmp_node.next_node
+    tmp_node.next_node = expression_tail
+
+    return expression_head
+```
+
+
+```python
+def expression_add_two_expressions(expression_1, expression_2):
+    sum_expression_head      = Node('Head')
+    sum_expression_last_node = sum_expression_head
+    sum_expression_tail      = Node('Tail')
+
+    tmp_node_exp_1 = expression_1.next_node if 'Head' in str(expression_1) else expression_1
+    tmp_node_exp_2 = expression_2.next_node if 'Head' in str(expression_2) else expression_2
+
+    while (tmp_node_exp_1 is not None) and (tmp_node_exp_2 is not None):
+
+        if ('Tail' in str(tmp_node_exp_1)) and ('Tail' in str(tmp_node_exp_2)):
+            break
+
+        # 
+        if ('Tail' in str(tmp_node_exp_1)) or (tmp_node_exp_1 is None):
+            # add current expression_2
+            _tmp_node = deepcopy(tmp_node_exp_2)
+            _tmp_node.next_node = None
+            sum_expression_last_node.next_node = _tmp_node
+            sum_expression_last_node = sum_expression_last_node.next_node
+            
+            # move expression_2
+            tmp_node_exp_2 = tmp_node_exp_2.next_node
+            
+            continue
+
+        # 
+        if ('Tail' in str(tmp_node_exp_2)) or (tmp_node_exp_2 is None):
+            # add current expression_1
+            _tmp_node = deepcopy(tmp_node_exp_1)
+            _tmp_node.next_node = None
+            sum_expression_last_node.next_node = _tmp_node
+            sum_expression_last_node = sum_expression_last_node.next_node
+            
+            # move expression_1
+            tmp_node_exp_1 = tmp_node_exp_1.next_node
+            
+            continue
+        
+        _coef_1 = tmp_node_exp_1.data[0]
+        _exp_1  = tmp_node_exp_1.data[1]
+        _coef_2 = tmp_node_exp_2.data[0]
+        _exp_2  = tmp_node_exp_2.data[1]
+
+        if _exp_1 == _exp_2:
+            # print('Adding: ', tmp_node_exp_1, tmp_node_exp_2)
+            # create new node
+            _data = (_coef_1+_coef_2, _exp_1)
+            tmp_sum_expression_node  = Node(_data)
+            tmp_sum_expression_node.next_node = None
+
+            # add to sum_expression
+            sum_expression_last_node.next_node = tmp_sum_expression_node
+            sum_expression_last_node = sum_expression_last_node.next_node
+
+            # move expression_1 and expression_2
+            tmp_node_exp_1 = tmp_node_exp_1.next_node
+            tmp_node_exp_2 = tmp_node_exp_2.next_node
+
+            continue
+        elif _exp_1 < _exp_2:
+            # print(tmp_node_exp_2, f' has an exponent of {_exp_2}, which is greater than {_exp_1}',  tmp_node_exp_1)
+            
+            # add current expression_1
+            _tmp_node = deepcopy(tmp_node_exp_1)
+            _tmp_node.next_node = None
+            sum_expression_last_node.next_node = _tmp_node
+            sum_expression_last_node = sum_expression_last_node.next_node
+            
+            # move expression_1
+            tmp_node_exp_1 = tmp_node_exp_1.next_node
+            
+            continue
+        elif _exp_1 > _exp_2:
+            # print(tmp_node_exp_1, f' has an exponent of {_exp_1}, which is greater than {_exp_2}',  tmp_node_exp_2)
+
+            # add current expression_2
+            _tmp_node = deepcopy(tmp_node_exp_2)
+            _tmp_node.next_node = None
+            sum_expression_last_node.next_node = _tmp_node
+            sum_expression_last_node = sum_expression_last_node.next_node
+            
+            # move expression_2
+            tmp_node_exp_2 = tmp_node_exp_2.next_node         
+            
+            continue
+        else:
+            pass
+
+    sum_expression_last_node.next_node = sum_expression_tail
+    
+    return sum_expression_head
+```
+
+
+```python
+expression_head_1 = expression_create_linked_list(5, 10, 10)
+expression_head_2 = expression_create_linked_list(5, 10, 10)
+
+expression_head_1.iterate_print_data()
+
+print()
+expression_head_2.iterate_print_data()
+
+print()
+sum_of_expressions_head = expression_add_two_expressions(expression_head_1, expression_head_2)
+sum_of_expressions_head.iterate_print_data()
+
+```
+
+    [Head] -> [(7, 2)] -> [(2, 4)] -> [(6, 5)] -> [(10, 8)] -> [(4, 10)] -> [Tail]
+    
+    [Head] -> [(2, 2)] -> [(6, 3)] -> [(7, 4)] -> [(7, 7)] -> [(9, 10)] -> [Tail]
+    
+    [Head] -> [(9, 2)] -> [(6, 3)] -> [(9, 4)] -> [(6, 5)] -> [(7, 7)] -> [(10, 8)] -> [(13, 10)] -> [Tail]
+
+
 
