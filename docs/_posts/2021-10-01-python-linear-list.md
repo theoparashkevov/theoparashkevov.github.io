@@ -572,7 +572,11 @@ print('\n\n[End]\n', end_avg_time)
 
 ---
 
-<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/delete.jpg" | relative_url }}" width="750"/>
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/7.png" | relative_url }}" />
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/8.png" | relative_url }}" />
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/9.png" | relative_url }}" />
 
 
 Deletion operation in a linked list can occur in three possible situations:
