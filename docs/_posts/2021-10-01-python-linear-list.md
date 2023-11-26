@@ -1037,5 +1037,3 @@ sum_of_expressions_head.iterate_print_data()
     
     [Head] -> [(9, 2)] -> [(6, 3)] -> [(9, 4)] -> [(6, 5)] -> [(7, 7)] -> [(10, 8)] -> [(13, 10)] -> [Tail]
 
-
-
