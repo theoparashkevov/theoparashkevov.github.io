@@ -848,6 +848,8 @@ insert_operation_df.to_csv('insert_operation_timed.csv')
 
 ### Applications
 
+---
+
 #### Expression parser
 
 
@@ -879,6 +881,8 @@ expression_head.iterate_print_data()
 
 
 #### Expression Addition
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/linear-list-python/10.png" | relative_url }}" />
 
 
 ```python
