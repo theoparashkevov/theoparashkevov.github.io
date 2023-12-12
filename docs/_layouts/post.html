@@ -3,6 +3,8 @@ layout: base
 ---
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
+  <!-- Post Header -->
+
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
@@ -31,9 +33,18 @@ layout: base
         {{ page.description }}
       </div>
 
+      <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+              data-id="theoparashkevov" data-description="Support me on Buy me a coffee!" 
+              data-message="Thank you for your time." data-color="#FF813F" data-position="Right" 
+              data-x_margin="18" data-y_margin="18">
+      </script>
+
     <hr>
     <br>
   </header>
+
+  <!-- Post Content -->
+
 
   <div class="post-content e-content" itemprop="articleBody">
 
@@ -69,7 +80,12 @@ layout: base
     </div>
 
     <!-- Donate Button -->
-    <a href="https://www.buymeacoffee.com/theoparashkevov" class="donate-button">Buy me a coffee</a>
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
+          data-name="bmc-button" data-slug="theoparashkevov" data-color="#FFDD00" data-emoji="☕"  
+          data-font="Lato" data-text="Buy me a coffee" data-outline-color="#000000" 
+          data-font-color="#000000" data-coffee-color="#ffffff" >
+    </script>
+
 </div>
 
 </article>
