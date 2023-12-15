@@ -30,6 +30,12 @@
     font-weight: 300;
 }
 
+.donation {
+    font-style: italic;
+    font-weight: 500;
+    font-size: medium;
+}
+
 .span-blue {
     color: rgb(97, 68, 242);
 }
