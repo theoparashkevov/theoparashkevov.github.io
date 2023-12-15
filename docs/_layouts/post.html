@@ -28,6 +28,16 @@ layout: base
       {%- endif -%}</p>
 
       <br>
+
+      <!-- Donation -->
+      {%- if page.donation -%}
+        <br>
+        <div class="donation">
+          If you like the content I post, consider making a donation or buying me a coffee. 
+
+          Thank you for your support. 
+        </div>
+      {%- endif -%}
       
       <div class="description">
         {{ page.description }}
@@ -39,20 +49,9 @@ layout: base
               data-x_margin="18" data-y_margin="18">
       </script>
 
-    <br>
-
-    <!-- Donation -->
-    {%- if page.donation -%}
-    <div class="donation">
-      If you like the content I post, consider making a donation or buying me a coffee. 
-
-      Thank you for your support. 
-    </div>
-    {%- endif -%}
-
     <hr>
     <br>
-    
+
   </header>
 
   <!-- Post Content -->
