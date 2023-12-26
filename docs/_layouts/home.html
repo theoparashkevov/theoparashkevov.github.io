@@ -40,7 +40,10 @@ layout: base
 
             <div class="blog-post-info">
               <div class="blog-post-date">
-                <span class="post-meta">{{ post.date | date: date_format }}</span>
+                Published: <span class="post-meta">{{ post.date | date: date_format }}</span>
+              </div>
+              <div class="blog-post-date">
+                Last Updated: <span class="post-meta">{{ post.modified_date | date: date_format }}</span>
               </div>
 
               <div class="blog-post-title">
