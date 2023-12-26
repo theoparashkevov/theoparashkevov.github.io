@@ -1,6 +1,7 @@
 ---
 layout: post
 title: DevBG Presentation
+modified_date: 2023-09-19
 categories:
     - Python
     - ai

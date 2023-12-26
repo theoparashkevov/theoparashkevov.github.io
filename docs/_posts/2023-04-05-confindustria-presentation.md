@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Confindustria Presentation
+modified_date: 2023-04-05
 categories:
     - Python
     - ai

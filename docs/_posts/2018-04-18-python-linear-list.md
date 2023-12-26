@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Data Structures - Linear List in Python
+modified_date: 2018-05-20
 categories:
     - python
 author:
