@@ -79,7 +79,8 @@ Blog home
 }
 
 .blog-post-date {
-    display: block;
+    display: flex;
+    align-content: end;
 }
 
 .blog-post-title {
