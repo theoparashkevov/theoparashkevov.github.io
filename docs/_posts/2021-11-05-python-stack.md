@@ -44,32 +44,32 @@ A sequential stack, also known as an array-based stack, is a type of stack imple
 
 ### Advantages of sequential stacks
 
-- <span style="color: rgb(229, 235, 73);"> __Efficient random access__ </span>: Sequential stacks provide efficient random access to elements due to the underlying array representation.
-- <span style="color: rgb(229, 235, 73);"> __Constant-time operations__ </span>: Insertion and deletion operations in sequential stacks have a constant time complexity, making them efficient.
-- <span style="color: rgb(229, 235, 73);"> __Space efficiency__ </span>: Sequential stacks have efficient memory utilization as they only require storage for the elements themselves and the fixed-size array.
+- <span class="span-yellow"> __Efficient random access__ </span>: Sequential stacks provide efficient random access to elements due to the underlying array representation.
+- <span class="span-yellow"> __Constant-time operations__ </span>: Insertion and deletion operations in sequential stacks have a constant time complexity, making them efficient.
+- <span class="span-yellow"> __Space efficiency__ </span>: Sequential stacks have efficient memory utilization as they only require storage for the elements themselves and the fixed-size array.
 
 
 
 ### Disadvantages of sequential stacks
 
-- <span style="color: rgb(229, 235, 73);"> __Fixed size__ </span>: Sequential stacks have a fixed size determined during initialization, which means they cannot dynamically resize to accommodate varying numbers of elements. This limitation can lead to stack overflow or underflow if the number of elements exceeds the capacity or if the stack becomes empty.
-- <span style="color: rgb(229, 235, 73);"> __Inefficient resizing__ </span>: Resizing a sequential stack requires creating a new larger array and copying all elements, resulting in additional time complexity and potential memory allocation issues.
-- <span style="color: rgb(229, 235, 73);"> __Wasteful memory usage__ </span>: If the stack does not utilize its entire capacity, the memory allocated for the unused portion of the array is wasted.
-- <span style="color: rgb(229, 235, 73);"> __Limited scalability__ </span>: Due to the fixed-size nature, sequential stacks may not be suitable for applications with unpredictable or varying numbers of elements, as they require upfront determination of the maximum capacity.
+- <span class="span-yellow"> __Fixed size__ </span>: Sequential stacks have a fixed size determined during initialization, which means they cannot dynamically resize to accommodate varying numbers of elements. This limitation can lead to stack overflow or underflow if the number of elements exceeds the capacity or if the stack becomes empty.
+- <span class="span-yellow"> __Inefficient resizing__ </span>: Resizing a sequential stack requires creating a new larger array and copying all elements, resulting in additional time complexity and potential memory allocation issues.
+- <span class="span-yellow"> __Wasteful memory usage__ </span>: If the stack does not utilize its entire capacity, the memory allocated for the unused portion of the array is wasted.
+- <span class="span-yellow"> __Limited scalability__ </span>: Due to the fixed-size nature, sequential stacks may not be suitable for applications with unpredictable or varying numbers of elements, as they require upfront determination of the maximum capacity.
 
 ### Advantages
 
-- <span style="color: rgb(97, 68, 242);"> __Efficient random access__ </span>
-- <span style="color: rgb(97, 68, 242);"> __Constant-time operations__ </span>
-- <span style="color: rgb(97, 68, 242);"> __Space efficiency__ </span>
+- <span class="span-blue"> __Efficient random access__ </span>
+- <span class="span-blue"> __Constant-time operations__ </span>
+- <span class="span-blue"> __Space efficiency__ </span>
 
 
 ### Disadvantages
 
-- <span style="color: rgb(245, 66, 81);"> __Fixed size__ </span>
-- <span style="color: rgb(245, 66, 81);"> __Inefficient resizing__ </span>
-- <span style="color: rgb(245, 66, 81);"> __Wasteful memory usage__ </span>
-- <span style="color: rgb(245, 66, 81);"> __Limited scalability__ </span>
+- <span class="span-red"> __Fixed size__ </span>
+- <span class="span-red"> __Inefficient resizing__ </span>
+- <span class="span-red"> __Wasteful memory usage__ </span>
+- <span class="span-red"> __Limited scalability__ </span>
 
 _In python lists and some other data structures grow and shrink dynamically. Which means that, strictly speaking, the implementation of the sequential stack is not achievable with a list. Mainly, because Python will always give free space for the next element in the stack. In order to go around this "flaw", we will implement a custom function in our SequentialStack class that will tell us when we have reach the theoretical max_size set when the stack gets initialized._
 
@@ -249,34 +249,34 @@ A linked stack, also referred to as a linked list-based stack, is a type of stac
 
 ### Advantages of Linked Stack:
 
-- <span style="color: rgb(229, 235, 73);"> __Dynamic size__ </span>: Linked stack allows for a dynamic size, as elements can be added or removed easily without any need for resizing or shifting of elements.
-- <span style="color: rgb(229, 235, 73);"> __Efficient memory utilization__ </span>: Linked stack optimizes memory utilization as it only allocates memory for the elements actually stored in the stack, unlike an array-based stack which requires a fixed size allocation.
-- <span style="color: rgb(229, 235, 73);"> __Ease of implementation__ </span>: Implementing a linked stack is relatively straightforward, requiring minimal coding and no need for complex resizing strategies.
-- <span style="color: rgb(229, 235, 73);"> __Flexibility__ </span>: Linked stack allows for easy implementation of additional operations such as copying or merging stacks, which can be useful in various applications.
+- <span class="span-yellow"> __Dynamic size__ </span>: Linked stack allows for a dynamic size, as elements can be added or removed easily without any need for resizing or shifting of elements.
+- <span class="span-yellow"> __Efficient memory utilization__ </span>: Linked stack optimizes memory utilization as it only allocates memory for the elements actually stored in the stack, unlike an array-based stack which requires a fixed size allocation.
+- <span class="span-yellow"> __Ease of implementation__ </span>: Implementing a linked stack is relatively straightforward, requiring minimal coding and no need for complex resizing strategies.
+- <span class="span-yellow"> __Flexibility__ </span>: Linked stack allows for easy implementation of additional operations such as copying or merging stacks, which can be useful in various applications.
 
 
 
 
 ### Disadvantages of Linked Stack:
 
-- <span style="color: rgb(229, 235, 73);"> __Overhead of pointers__ </span>: Each element in a linked stack requires additional memory space for storing pointers, which can result in increased overhead when compared to an array-based stack.
-- <span style="color: rgb(229, 235, 73);"> __Slower access times__ </span>: Accessing an element in a linked stack requires traversing through the nodes, leading to slower access times compared to direct indexing in an array-based stack.
-- <span style="color: rgb(229, 235, 73);"> __Extra memory overhead__ </span>: Linked stack utilizes additional memory to store the pointers, which can result in higher memory overhead compared to the actual data being stored.
-- <span style="color: rgb(229, 235, 73);"> __Potential for memory fragmentation__ </span>: If elements are frequently added and removed from a linked stack, it can lead to memory fragmentation over time, which may cause inefficient memory usage.
+- <span class="span-yellow"> __Overhead of pointers__ </span>: Each element in a linked stack requires additional memory space for storing pointers, which can result in increased overhead when compared to an array-based stack.
+- <span class="span-yellow"> __Slower access times__ </span>: Accessing an element in a linked stack requires traversing through the nodes, leading to slower access times compared to direct indexing in an array-based stack.
+- <span class="span-yellow"> __Extra memory overhead__ </span>: Linked stack utilizes additional memory to store the pointers, which can result in higher memory overhead compared to the actual data being stored.
+- <span class="span-yellow"> __Potential for memory fragmentation__ </span>: If elements are frequently added and removed from a linked stack, it can lead to memory fragmentation over time, which may cause inefficient memory usage.
 
 ### Advantages
 
-- <span style="color: rgb(97, 68, 242);"> __Dynamic size__ </span>
-- <span style="color: rgb(97, 68, 242);"> __Efficient memory utilization__ </span>
-- <span style="color: rgb(97, 68, 242);"> __Ease of implementation__ </span>
-- <span style="color: rgb(97, 68, 242);"> __Flexibility__ </span>
+- <span class="span-blue"> __Dynamic size__ </span>
+- <span class="span-blue"> __Efficient memory utilization__ </span>
+- <span class="span-blue"> __Ease of implementation__ </span>
+- <span class="span-blue"> __Flexibility__ </span>
 
 ### Disadvantages
 
-- <span style="color: rgb(245, 66, 81);">  __Overhead of pointers__ </span>
-- <span style="color: rgb(245, 66, 81);">  __Slower access times__ </span>
-- <span style="color: rgb(245, 66, 81);">  __Extra memory overhead__ </span>
-- <span style="color: rgb(245, 66, 81);">  __Potential for memory fragmentation__ </span>
+- <span class="span-red">  __Overhead of pointers__ </span>
+- <span class="span-red">  __Slower access times__ </span>
+- <span class="span-red">  __Extra memory overhead__ </span>
+- <span class="span-red">  __Potential for memory fragmentation__ </span>
 
 
 
@@ -1059,3 +1059,5 @@ for l in print_path:
     ['-', '-', '-', '-', '-', '-', '-', '-', '-', 'o', 'o', '-', '-', '-', '-', 'o', '-']
     ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'o']
     ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']
+
+<img style="display: block; float: none; margin-left: auto; margin-right:auto;" src="{{ "/assets/img/posts/stack-python/Maze-Solver.gif" | relative_url }}" />
