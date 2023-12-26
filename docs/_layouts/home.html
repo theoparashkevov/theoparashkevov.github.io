@@ -39,12 +39,6 @@ layout: base
           <div class="blog-post-content">
 
             <div class="blog-post-info">
-              <div class="blog-post-date">
-                Published: <span class="post-meta">{{ post.date | date: date_format }}</span>
-              </div>
-              <div class="blog-post-date">
-                Last Updated: <span class="post-meta">{{ post.modified_date | date: date_format }}</span>
-              </div>
 
               <div class="blog-post-title">
                 <h3>
@@ -52,6 +46,15 @@ layout: base
                     {{ post.title | escape }}
                   </a>
                 </h3>
+              </div>
+
+              <div class="blog-post-date">
+                <div style="margin-right: 2rem;"> Published: </div>
+                <span class="post-meta">{{ post.date | date: date_format }}</span>
+              </div>
+              <div class="blog-post-date">
+                <div style="margin-right: 2rem;"> Last Updated: </div>
+                <span class="post-meta">{{ post.modified_date | date: date_format }}</span>
               </div>
 
               <div class="blog-post-description">
