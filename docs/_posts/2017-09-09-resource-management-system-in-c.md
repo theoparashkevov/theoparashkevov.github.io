@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Resource management system in C/C++
-modified_date: 2020-05-16
+modified_date: 2018-05-16
 categories:
     - C/C++
 author:
