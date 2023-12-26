@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Data Structures - Stack in Python
+modified_date: 2023-11-05
 categories:
     - python
 author:
