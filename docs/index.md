@@ -11,9 +11,9 @@ layout: page
 
 Here you will find information about me (Teo Parashkevov). 
 
-<div style="text-align: center;">
-    <img src="/assets/img/Teo-Parashkevov-Home.jpg" alt="Image" class="circle-image">
-</div>
+
+
+<img src="/assets/img/Teo-Parashkevov-Home.jpg" class="circle-image">
 
 
 
