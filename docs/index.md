@@ -12,9 +12,7 @@ layout: page
 Here you will find information about me (Teo Parashkevov). 
 
 <p class="center">
-    <div style="text-align: center;">
-        <img src="/assets/img/Teo-Parashkevov-Home.jpg" class="circle-image">
-    </div>
+    <div style="width: 10rem; height: 10rem; background-image: url('/assets/img/Teo-Parashkevov-Home.jpg'); background-size: cover; background-position: center;"></div>
 </p>
 
 
