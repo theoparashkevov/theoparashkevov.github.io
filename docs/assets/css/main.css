@@ -1,3 +1,13 @@
+/*
+    Home Page
+*/
+
+.circle-image {
+  border-radius: 50%;
+  width: 200px; /* adjust the width and height as needed */
+  height: 200px;
+}
+
 .center{
     display: flex;
     justify-content: center;

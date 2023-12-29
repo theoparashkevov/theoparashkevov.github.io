@@ -11,6 +11,12 @@ layout: page
 
 Here you will find information about me (Teo Parashkevov). 
 
+<div style="text-align: center;">
+    <img src="/assets/img/Teo-Parashkevov-Home.jpg" alt="Image" class="circle-image">
+</div>
+
+
+
 # About Me
 
 I am a passionate and experienced Machine Learning / Software Engineer with a deep understanding of cutting-edge technologies. With a solid foundation in both theoretical and practical aspects of the field, I bring a wealth of knowledge and expertise to every project I undertake.
