@@ -3,9 +3,9 @@
 */
 
 .circle-image {
-  border-radius: 50%;
-  width: 10rem; /* adjust the width and height as needed */
-  height: 10rem;
+  border-radius: 25%;
+  width: 15rem; /* adjust the width and height as needed */
+  height: 20rem;
   background-size: cover;
   background-position: center;
 }
