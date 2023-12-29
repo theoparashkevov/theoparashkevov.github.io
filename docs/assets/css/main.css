@@ -4,8 +4,10 @@
 
 .circle-image {
   border-radius: 50%;
-  width: 200px; /* adjust the width and height as needed */
-  height: 200px;
+  width: 10rem; /* adjust the width and height as needed */
+  height: 10rem;
+  background-size: cover;
+  background-position: center;
 }
 
 .center{
