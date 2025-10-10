@@ -1,2 +1,119 @@
 // Placeholder to allow defining custom styles that override everything else.
 // (Use `_sass/minima/custom-variables.scss` to override variable defaults)
+// Modern look overrides
+
+body {
+	font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+	background: linear-gradient(120deg, #f8fafc 0%, #e9ecef 100%);
+	color: #222;
+}
+
+.page-content .wrapper {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 2rem 1.5rem;
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 4px 32px rgba(60,72,88,0.08);
+}
+
+.blog-post-item {
+	display: flex;
+	align-items: center;
+	background: #f6f8fa;
+	border-radius: 14px;
+	box-shadow: 0 2px 12px rgba(60,72,88,0.06);
+	margin-bottom: 2rem;
+	padding: 1.5rem;
+	transition: box-shadow 0.2s;
+}
+.blog-post-item:hover {
+	box-shadow: 0 6px 24px rgba(60,72,88,0.12);
+}
+.blog-post-thumbnail img {
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 12px;
+	margin-right: 2rem;
+	box-shadow: 0 2px 8px rgba(60,72,88,0.10);
+}
+.blog-post-title h3 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
+.blog-post-date {
+	font-size: 0.95rem;
+	color: #6c757d;
+	margin-bottom: 0.25rem;
+	display: flex;
+	align-items: center;
+}
+.blog-post-description .description {
+	font-size: 1.05rem;
+	color: #495057;
+	margin-top: 0.5rem;
+}
+.post-link {
+	color: #2563eb;
+	text-decoration: none;
+	transition: color 0.2s;
+}
+.post-link:hover {
+	color: #1e40af;
+	text-decoration: underline;
+}
+.donate-button, .btn {
+	display: inline-block;
+	padding: 0.75rem 1.5rem;
+	background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	font-weight: 500;
+	font-size: 1rem;
+	box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+.donate-button:hover, .btn:hover {
+	background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+	box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+}
+.site-header, .site-footer {
+	background: #fff;
+	border-radius: 0 0 18px 18px;
+	box-shadow: 0 2px 12px rgba(60,72,88,0.06);
+}
+.site-title {
+	font-weight: 700;
+	font-size: 2rem;
+	color: #2563eb;
+}
+.site-nav .page-link {
+	color: #2563eb;
+	font-weight: 500;
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+	transition: background 0.2s;
+}
+.site-nav .page-link:hover {
+	background: #e0e7ff;
+}
+.footer-col-wrapper {
+	gap: 2rem;
+}
+@media (max-width: 700px) {
+	.blog-post-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.blog-post-thumbnail img {
+		margin-right: 0;
+		margin-bottom: 1rem;
+	}
+	.page-content .wrapper {
+		padding: 1rem 0.5rem;
+	}
+}

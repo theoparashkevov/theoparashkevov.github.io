@@ -2,7 +2,7 @@
 layout: base
 ---
 
-<div class="home">
+<div class="home modern-home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
@@ -31,15 +31,20 @@ layout: base
     {%- if page.list_title -%}
       <h2 class="post-list-heading">{{ page.list_title }}</h2>
     {%- endif -%}
-    <ul class="post-list">
+  <ul class="post-list modern-post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
       <li>
-        <div class="blog-post-item">
+        <div class="blog-post-item card">
+          <div class="blog-post-thumbnail">
+            {% if post.thumbnail_location %}
+              <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png"/>
+            {% else %}
+              <img src="/assets/img/posts/default-thumbnail.png" />
+            {% endif %}
+          </div>
           <div class="blog-post-content">
-
             <div class="blog-post-info">
-
               <div class="blog-post-title">
                 <h3>
                   <a class="post-link" href="{{ post.url | relative_url }}">
@@ -47,38 +52,25 @@ layout: base
                   </a>
                 </h3>
               </div>
-
               <div class="blog-post-date">
-                <div style="margin-right: 3.5rem;"> Published: </div>
+                <div style="margin-right: 1rem;"> Published: </div>
                 <span class="post-meta">{{ post.date | date: date_format }}</span>
               </div>
               <div class="blog-post-date">
-                <div style="margin-right: 2rem;"> Last Updated: </div>
+                <div style="margin-right: 1rem;"> Last Updated: </div>
                 <span class="post-meta">{{ post.modified_date | date: date_format }}</span>
               </div>
-
               <div class="blog-post-description">
                 <div class="description">
                   {{ post.description }}
                 </div>
               </div>
-          </div>
-
-          {%- if post.thumbnail_location -%}
-          <div class="blog-post-thumbnail">
-            <img src="/assets/img/posts/{{ post.thumbnail_location}}/thumbnail.png"/>
-          </div>
-          {%- else -%}
-          <div class="blog-post-thumbnail">
-            <img src="/assets/img/posts/default-thumbnail.png" />
-          </div>
-          {%- endif -%}
-
-            {%- if site.show_excerpts -%}
+            </div>
+            {% if site.show_excerpts %}
               {{ post.excerpt }}
-            {%- endif -%}
+            {% endif %}
           </div>
-      </div>
+        </div>
       </li>
       {%- endfor -%}
     </ul>
