@@ -26,38 +26,69 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+
 jobs:
-  # --------------------
-  # Build job
-  # --------------------
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-x64
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          ruby-version: '3.1' # Not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          cache-version: 0 # Increment this number if you need to re-download cached gems
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
+
       - name: Install dependencies
-        working-directory: ./docs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git curl autoconf bison build-essential libssl-dev libyaml-dev libreadline-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
+          git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+          echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+          source ~/.bashrc
+          git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+          ~/.rbenv/bin/rbenv install 3.1.0
+          ~/.rbenv/bin/rbenv global 3.1.0
+
+      # Continue with bundler and Jekyll steps
+      - name: Set up Bundler
+        run: gem install bundler
+
+      - name: Install gems
         run: bundle install
-      - name: Build with Jekyll
-        working-directory: ./docs
-        # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
-        env:
-          JEKYLL_ENV: production
-      - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs/_site
+
+      - name: Build site
+        run: bundle exec jekyll build
+
+
+# jobs:
+#   # --------------------
+#   # Build job
+#   # --------------------
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#       - name: Setup Ruby
+#         uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+#         with:
+#           ruby-version: '3.1' # Not needed with a .ruby-version file
+#           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+#           cache-version: 0 # Increment this number if you need to re-download cached gems
+#       - name: Setup Pages
+#         id: pages
+#         uses: actions/configure-pages@v3
+#       - name: Install dependencies
+#         working-directory: ./docs
+#         run: bundle install
+#       - name: Build with Jekyll
+#         working-directory: ./docs
+#         # Outputs to the './_site' directory by default
+#         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+#         env:
+#           JEKYLL_ENV: production
+#       - name: Upload artifact
+#         # Automatically uploads an artifact from the './_site' directory by default
+#         uses: actions/upload-pages-artifact@v3
+#         with:
+#           path: ./docs/_site
 
   
   # --------------------
