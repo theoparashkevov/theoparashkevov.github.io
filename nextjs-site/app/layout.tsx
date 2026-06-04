@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="min-h-screen bg-neutral-50 text-neutral-800">
+      <body className="min-h-screen bg-neutral-50 text-neutral-700">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           <Navigation />
           <main className="mt-8">{children}</main>

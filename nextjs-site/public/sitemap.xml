@@ -32,6 +32,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://theoparashkevov.github.io/blog/python-stack</loc>
+    <lastmod>2023-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theoparashkevov.github.io/blog/facebook-prophet</loc>
+    <lastmod>2023-01-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://theoparashkevov.github.io/blog/confindustria-presentation</loc>
     <lastmod>2023-04-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -58,18 +70,6 @@
   <url>
     <loc>https://theoparashkevov.github.io/blog/distributed-hash-tables</loc>
     <lastmod>2018-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theoparashkevov.github.io/blog/python-stack</loc>
-    <lastmod>2023-11-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theoparashkevov.github.io/blog/facebook-prophet</loc>
-    <lastmod>2023-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

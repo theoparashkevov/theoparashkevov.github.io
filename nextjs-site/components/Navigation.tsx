@@ -12,7 +12,7 @@ const Navigation = () => {
     <nav className="border-b border-neutral-200 pb-4 mb-8">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <Link href="/" className="text-lg font-semibold text-neutral-800">
+          <Link href="/" className="text-lg font-semibold text-neutral-800 hover:text-accent transition-colors">
             Teo Parashkevov
           </Link>
         </div>

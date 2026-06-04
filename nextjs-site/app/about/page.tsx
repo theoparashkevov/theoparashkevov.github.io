@@ -15,7 +15,7 @@ export default async function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{page.title}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-neutral-800">{page.title}</h1>
         <div className="h-px w-16 bg-primary"></div>
       </header>
       
@@ -25,41 +25,41 @@ export default async function AboutPage() {
       
       {/* Skills - simplified */}
       <div className="border-t border-neutral-200 pt-8">
-        <h2 className="text-xl font-semibold mb-4">Technical Skills</h2>
+        <h2 className="text-xl font-semibold mb-4 text-neutral-800">Technical Skills</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="font-medium mb-3">Languages & Frameworks</h3>
+          <div className="border border-neutral-200 rounded-lg p-5">
+            <h3 className="font-medium mb-3 text-neutral-800">Languages & Frameworks</h3>
             <ul className="space-y-2">
               <li className="flex items-center">
                 <span className="text-primary mr-2">•</span>
-                <span>Python, Pandas, NumPy, Scikit-learn</span>
+                <span className="text-neutral-700">Python, Pandas, NumPy, Scikit-learn</span>
               </li>
               <li className="flex items-center">
                 <span className="text-primary mr-2">•</span>
-                <span>Django, HTML5, CSS3, JavaScript</span>
+                <span className="text-neutral-700">Django, HTML5, CSS3, JavaScript</span>
               </li>
               <li className="flex items-center">
                 <span className="text-primary mr-2">•</span>
-                <span>C/C++, Object-Oriented Programming</span>
+                <span className="text-neutral-700">C/C++, Object-Oriented Programming</span>
               </li>
             </ul>
           </div>
           
-          <div>
-            <h3 className="font-medium mb-3">Tools & Technologies</h3>
+          <div className="border border-neutral-200 rounded-lg p-5">
+            <h3 className="font-medium mb-3 text-neutral-800">Tools & Technologies</h3>
             <ul className="space-y-2">
               <li className="flex items-center">
                 <span className="text-primary mr-2">•</span>
-                <span>Git, GitHub, CI/CD</span>
+                <span className="text-neutral-700">Git, GitHub, CI/CD</span>
               </li>
               <li className="flex items-center">
                 <span className="text-primary mr-2">•</span>
-                <span>PostgreSQL, MySQL</span>
+                <span className="text-neutral-700">PostgreSQL, MySQL</span>
               </li>
               <li className="flex items-center">
                 <span className="text-primary mr-2">•</span>
-                <span>AWS, Docker, Linux</span>
+                <span className="text-neutral-700">AWS, Docker, Linux</span>
               </li>
             </ul>
           </div>

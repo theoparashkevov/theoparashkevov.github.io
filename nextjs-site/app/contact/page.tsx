@@ -47,7 +47,7 @@ export default async function ContactPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{page.title}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-neutral-800">{page.title}</h1>
         <p className="text-neutral-600">
           Let&apos;s connect and collaborate on interesting projects.
         </p>
@@ -63,13 +63,13 @@ export default async function ContactPage() {
         {contactMethods.map((method, index) => (
           <div
             key={index}
-            className="border border-neutral-200 rounded-lg p-5"
+            className="border border-neutral-200 rounded-lg p-5 hover:border-primary/30 transition-colors"
           >
             <div className="flex items-center mb-3">
               <div className="text-primary mr-3">
                 {method.icon}
               </div>
-              <h3 className="font-semibold">{method.title}</h3>
+              <h3 className="font-semibold text-neutral-800">{method.title}</h3>
             </div>
             
             <p className="text-neutral-600 text-sm mb-3">
@@ -80,7 +80,7 @@ export default async function ContactPage() {
               href={method.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:underline text-sm font-medium"
+              className="text-primary hover:text-primary-dark hover:underline text-sm font-medium"
             >
               {method.linkText}
             </a>

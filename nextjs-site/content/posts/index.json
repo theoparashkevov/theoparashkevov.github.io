@@ -1,7 +1,27 @@
 [
   {
+    "title": "Data Structures - Stack in Python",
+    "date": "2026-06-04T15:00:25.434Z",
+    "slug": "python-stack",
+    "description": "Stack as a data structure in Python.",
+    "categories": [
+      "python"
+    ],
+    "thumbnail_location": "stack-python"
+  },
+  {
+    "title": "Facebook Prophet library paper review",
+    "date": "2026-06-04T15:00:25.434Z",
+    "slug": "facebook-prophet",
+    "description": "Forecasting at scale Sean J. Taylor from Facebook, and Benjamin Letham from Facebook Analysis by Teo Parashkevov \n",
+    "categories": [
+      "ai"
+    ],
+    "thumbnail_location": "facebook-prophet"
+  },
+  {
     "title": "Confindustria Presentation",
-    "date": "2026-06-04T13:09:43.247Z",
+    "date": "2026-06-04T15:00:25.434Z",
     "slug": "confindustria-presentation",
     "description": "A presentation on AI and Machine Learning Applications",
     "categories": [
@@ -12,7 +32,7 @@
   },
   {
     "title": "DevBG Presentation",
-    "date": "2026-06-04T13:09:43.247Z",
+    "date": "2026-06-04T15:00:25.434Z",
     "slug": "devbg-presentation",
     "description": "A presentation on Python’s Versatility - Syntax, Object-Oriented Programming, and Machine Learning Applications",
     "categories": [
@@ -23,7 +43,7 @@
   },
   {
     "title": "Resource management system in C/C++",
-    "date": "2026-06-04T13:09:43.246Z",
+    "date": "2026-06-04T15:00:25.433Z",
     "slug": "resource-management-system-in-c",
     "description": "A guide to creating a system resource information messaging system using the Telegram Bot API in C/C++",
     "categories": [
@@ -33,7 +53,7 @@
   },
   {
     "title": "Data Structures - Linear List in Python",
-    "date": "2026-06-04T13:09:43.246Z",
+    "date": "2026-06-04T15:00:25.433Z",
     "slug": "python-linear-list",
     "description": "Linear List as a data structure in Python.",
     "categories": [
@@ -43,35 +63,15 @@
   },
   {
     "title": "Data Structures - Distributed Hash Tables",
-    "date": "2026-06-04T13:09:43.246Z",
+    "date": "2026-06-04T15:00:25.433Z",
     "slug": "distributed-hash-tables",
     "description": "A clarification on some of the concepts and properties regarding Distributed hash tables (DHT)",
     "categories": [],
     "thumbnail_location": "distributed-hash-tables"
   },
   {
-    "title": "Data Structures - Stack in Python",
-    "date": "2026-06-04T13:09:43.246Z",
-    "slug": "python-stack",
-    "description": "Stack as a data structure in Python.",
-    "categories": [
-      "python"
-    ],
-    "thumbnail_location": "stack-python"
-  },
-  {
-    "title": "Facebook Prophet library paper review",
-    "date": "2026-06-04T13:09:43.246Z",
-    "slug": "facebook-prophet",
-    "description": "Forecasting at scale Sean J. Taylor from Facebook, and Benjamin Letham from Facebook Analysis by Teo Parashkevov \n",
-    "categories": [
-      "ai"
-    ],
-    "thumbnail_location": "facebook-prophet"
-  },
-  {
     "title": "SSH login without a password",
-    "date": "2026-06-04T13:09:43.245Z",
+    "date": "2026-06-04T15:00:25.432Z",
     "slug": "ssh-login-no-password",
     "description": "A step by step tutorial for automating the login process to a remote machine using SSH.",
     "categories": [

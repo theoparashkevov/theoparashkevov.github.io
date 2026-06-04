@@ -2,8 +2,24 @@
 
 import { BlogPost } from '@/lib/content/types';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect } from 'react';
+
+// Type declaration for KaTeX
+declare global {
+  interface Window {
+    renderMathInElement: (
+      element: HTMLElement,
+      options: {
+        delimiters: Array<{
+          left: string;
+          right: string;
+          display: boolean;
+        }>;
+        throwOnError: boolean;
+      }
+    ) => void;
+  }
+}
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -24,16 +40,52 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
       })
     : null;
 
-  // Load KaTeX CSS if the post uses math
+  // Load and render KaTeX if the post uses math
   useEffect(() => {
     if (post.usemathjax) {
+      // Load KaTeX CSS
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css';
       document.head.appendChild(link);
 
+      // Load KaTeX JS
+      const script1 = document.createElement('script');
+      script1.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js';
+      script1.integrity = 'sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8';
+      script1.crossOrigin = 'anonymous';
+      
+      const script2 = document.createElement('script');
+      script2.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js';
+      script2.integrity = 'sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05';
+      script2.crossOrigin = 'anonymous';
+
+      // When both scripts are loaded, render math
+      Promise.all([
+        new Promise(resolve => { script1.onload = resolve; }),
+        new Promise(resolve => { script2.onload = resolve; })
+      ]).then(() => {
+        if (window.renderMathInElement) {
+          window.renderMathInElement(document.body, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\\\(', right: '\\\\)', display: false},
+              {left: '\\\\[', right: '\\\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      });
+
+      document.head.appendChild(script1);
+      document.head.appendChild(script2);
+
       return () => {
+        // Cleanup
         document.head.removeChild(link);
+        document.head.removeChild(script1);
+        document.head.removeChild(script2);
       };
     }
   }, [post.usemathjax]);
@@ -45,225 +97,185 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         <div className="mb-6">
           <Link
             href="/blog"
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-primary hover:underline"
           >
             ← Back to Blog
           </Link>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
-
-        <div className="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
-          <div className="flex items-center">
-            <span className="font-medium">Published:</span>
-            <time className="ml-2" dateTime={post.date.toISOString()}>
-              {formattedDate}
-            </time>
-          </div>
-
-          {formattedModifiedDate && (
-            <div className="flex items-center">
-              <span className="font-medium">Updated:</span>
-              <time className="ml-2" dateTime={post.modified_date!.toISOString()}>
-                {formattedModifiedDate}
-              </time>
-            </div>
-          )}
+        <div className="flex flex-wrap items-center gap-4 text-neutral-600 mb-6">
+          <time dateTime={post.date.toISOString()} className="font-medium">
+            {formattedDate}
+          </time>
         </div>
 
-        {/* Author */}
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-neutral-800">
+          {post.title}
+        </h1>
+
         <div className="flex items-center mb-8">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold mr-4">
-            TP
+          <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+            <div className="text-primary font-bold">TP</div>
           </div>
           <div>
-            <div className="font-semibold">{post.author}</div>
-            <div className="text-gray-600 dark:text-gray-400">Machine Learning Engineer</div>
+            <div className="font-semibold text-neutral-800">
+              Teo Parashkevov
+            </div>
+            <div className="text-neutral-600">Machine Learning Engineer</div>
           </div>
         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {post.categories.map((category) => (
-            <span
-              key={category}
-              className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium"
-            >
-              {category}
-            </span>
-          ))}
-        </div>
-
-        {/* Thumbnail */}
-        {post.thumbnail_location && (
-          <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8">
-            <Image
-              src={`/assets/img/posts/${post.thumbnail_location}/thumbnail.png`}
-              alt={post.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 1024px"
-            />
+        {post.categories && post.categories.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            {post.categories.map((category) => (
+              <span
+                key={category}
+                className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium"
+              >
+                {category}
+              </span>
+            ))}
           </div>
         )}
       </header>
 
       {/* Content */}
-      <div className="prose prose-lg dark:prose-invert max-w-none">
+      <div className="prose prose-lg max-w-none mb-12">
         {post.htmlContent ? (
-          <div 
-            dangerouslySetInnerHTML={{ __html: post.htmlContent }}
-            className="blog-post-content"
-          />
+          <div dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
         ) : (
-          <div className="whitespace-pre-wrap">{post.content}</div>
+          <div className="text-neutral-600 italic">
+            Content not available. Please rebuild the site to generate HTML content.
+          </div>
         )}
       </div>
 
       {/* Footer */}
-      <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <footer className="mt-16 pt-8 border-t border-neutral-200">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Share this post</h3>
-            <div className="flex space-x-4">
-              <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
-                Twitter
+            <h3 className="text-lg font-semibold mb-2 text-neutral-800">
+              Share this post
+            </h3>
+            <div className="flex gap-3">
+              <button
+                className="p-2 rounded-full bg-neutral-100 hover:bg-neutral-200"
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.open(
+                      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                        post.title
+                      )}&url=${encodeURIComponent(
+                        window.location.href
+                      )}`,
+                      '_blank'
+                    );
+                  }
+                }}
+              >
+                𝕏
               </button>
-              <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
-                LinkedIn
+              <button
+                className="p-2 rounded-full bg-neutral-100 hover:bg-neutral-200"
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.open(
+                      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                        window.location.href
+                      )}`,
+                      '_blank'
+                    );
+                  }
+                }}
+              >
+                in
               </button>
-              <button className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
-                Copy Link
+              <button
+                className="p-2 rounded-full bg-neutral-100 hover:bg-neutral-200"
+                onClick={() => {
+                  if (typeof window !== 'undefined') {
+                    window.open(
+                      `mailto:?subject=${encodeURIComponent(
+                        post.title
+                      )}&body=${encodeURIComponent(
+                        `Check out this blog post: ${window.location.href}`
+                      )}`,
+                      '_self'
+                    );
+                  }
+                }}
+              >
+                ✉️
               </button>
             </div>
           </div>
 
-          <div className="text-right">
-            <Link
-              href="/blog"
-              className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
-            >
-              ← Back to all posts
-            </Link>
+          {formattedModifiedDate && (
+            <div className="text-sm text-neutral-600">
+              Last updated: {formattedModifiedDate}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 pt-8 border-t border-neutral-200">
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold mb-4 text-neutral-800">
+                About the author
+              </h3>
+              <div className="p-6 bg-neutral-50 rounded-xl">
+                <div className="flex items-start">
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                    <div className="text-primary font-bold">TP</div>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-neutral-800 mb-2">
+                      Teo Parashkevov
+                    </h4>
+                    <p className="text-neutral-600">
+                      Senior Python Developer & Machine Learning Engineer with expertise in
+                      building scalable AI solutions and data-intensive applications.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold mb-4 text-neutral-800">
+                Categories
+              </h3>
+              <div className="p-6 bg-neutral-50 rounded-xl">
+                {post.categories && post.categories.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {post.categories.map((category) => (
+                      <span
+                        key={category}
+                        className="px-3 py-1 bg-neutral-100 text-neutral-700 rounded-full text-sm"
+                      >
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-neutral-600">
+                    This post is not categorized.
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Related posts suggestion */}
-        <div className="mt-12">
-          <h3 className="text-xl font-bold mb-6">Keep reading</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 bg-gray-50 dark:bg-gray-900 rounded-xl">
-              <h4 className="font-semibold mb-2">Previous post</h4>
-              <p className="text-gray-600 dark:text-gray-400">
-                Check out my other articles on machine learning and software engineering.
-              </p>
-            </div>
-            <div className="p-6 bg-gray-50 dark:bg-gray-900 rounded-xl">
-              <h4 className="font-semibold mb-2">Next post</h4>
-              <p className="text-gray-600 dark:text-gray-400">
-                Explore more technical content in the blog section.
-              </p>
-            </div>
-          </div>
+        <div className="mt-8">
+          <Link
+            href="/blog"
+            className="text-primary hover:underline font-medium"
+          >
+            ← View all blog posts
+          </Link>
         </div>
       </footer>
-
-      {/* Custom CSS for blog post styling */}
-      <style jsx>{`
-        .blog-post-content :global(p) {
-          margin-bottom: 1.5rem;
-          line-height: 1.8;
-        }
-
-        .blog-post-content :global(h1),
-        .blog-post-content :global(h2),
-        .blog-post-content :global(h3),
-        .blog-post-content :global(h4) {
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-          font-weight: 700;
-        }
-
-        .blog-post-content :global(h1) {
-          font-size: 2.25rem;
-        }
-
-        .blog-post-content :global(h2) {
-          font-size: 1.875rem;
-        }
-
-        .blog-post-content :global(h3) {
-          font-size: 1.5rem;
-        }
-
-        .blog-post-content :global(code) {
-          background-color: #f3f4f6;
-          padding: 0.2rem 0.4rem;
-          border-radius: 0.25rem;
-          font-size: 0.875em;
-          color: #1f2937;
-        }
-
-        .blog-post-content :global(pre) {
-          background-color: #1f2937;
-          color: #f3f4f6;
-          padding: 1.5rem;
-          border-radius: 0.5rem;
-          overflow-x: auto;
-          margin: 1.5rem 0;
-          font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
-          font-size: 0.9rem;
-          line-height: 1.6;
-          border: 1px solid #374151;
-        }
-
-.blog-post-content :global(pre code) {
-          background-color: transparent;
-          padding: 0;
-          border-radius: 0;
-          font-size: inherit;
-          color: inherit;
-          font-family: inherit;
-        }
-
-        /* Syntax highlighting colors for different languages */
-        .blog-post-content :global(.language-bash .token.keyword) {
-          color: #f472b6;
-        }
-        
-        .blog-post-content :global(.language-python .token.keyword) {
-          color: #60a5fa;
-        }
-        
-        .blog-post-content :global(.language-javascript .token.keyword) {
-          color: #fbbf24;
-        }
-        
-        .blog-post-content :global(.language-cpp .token.keyword) {
-          color: #34d399;
-        }
-
-        @media (prefers-color-scheme: dark) {
-          .blog-post-content :global(code) {
-            background-color: #374151;
-            color: #d1d5db;
-          }
-
-          .blog-post-content :global(pre) {
-            background-color: #111827;
-            border-color: #374151;
-          }
-
-          .blog-post-content :global(th),
-          .blog-post-content :global(td) {
-            border-color: #4b5563;
-          }
-
-          .blog-post-content :global(th) {
-            background-color: #111827;
-          }
-        }
-      `}</style>
     </article>
   );
 };

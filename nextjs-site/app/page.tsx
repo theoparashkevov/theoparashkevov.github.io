@@ -10,7 +10,7 @@ export default function Home() {
     <div className="space-y-12">
       {/* Simple Header */}
       <section className="text-center py-8">
-        <h1 className="text-4xl font-bold mb-4">Welcome</h1>
+        <h1 className="text-4xl font-bold mb-4 text-neutral-800">Welcome</h1>
         <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
           Senior Python Developer & Machine Learning Engineer writing about 
           scalable systems, AI solutions, and software engineering.
@@ -20,10 +20,10 @@ export default function Home() {
       {/* Latest Posts */}
       <section>
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold">Latest Posts</h2>
+          <h2 className="text-2xl font-bold text-neutral-800">Latest Posts</h2>
           <Link
             href="/blog"
-            className="text-primary hover:underline font-medium"
+            className="text-primary hover:text-primary-dark hover:underline font-medium"
           >
             View all →
           </Link>

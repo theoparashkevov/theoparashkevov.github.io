@@ -9,30 +9,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Cool Minimalist Palette
+        // Creative Tech Palette
         primary: {
-          DEFAULT: '#2563EB', // Deep Blue - for primary actions, links
+          DEFAULT: '#3B82F6', // Royal Blue - primary interactive color
+          dark: '#2563EB',     // Darker blue for hover states
+        },
+        accent: {
+          DEFAULT: '#F59E0B', // Amber Orange - minimal use for highlights
         },
         secondary: {
-          DEFAULT: '#0D9488', // Muted Teal - for subtle highlights
+          DEFAULT: '#10B981', // Emerald Green - for positive/success elements
         },
         neutral: {
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          200: '#E5E7EB',
-          300: '#D1D5DB',
-          400: '#9CA3AF',
-          500: '#6B7280',
-          600: '#4B5563',
-          700: '#374151',
-          800: '#1F2937', // Main text color
-          900: '#111827',
+          50: '#F8FAFC',     // Off-white background
+          100: '#F1F5F9',
+          200: '#E2E8F0',    // Light blue-gray borders
+          300: '#CBD5E1',
+          400: '#94A3B8',
+          500: '#64748B',
+          600: '#475569',
+          700: '#334155',    // Slate Gray - main text color
+          800: '#1E293B',
+          900: '#0F172A',
         },
         success: {
-          DEFAULT: '#059669', // Forest Green
+          DEFAULT: '#10B981', // Emerald Green
         },
         error: {
-          DEFAULT: '#DC2626', // Soft Red
+          DEFAULT: '#EF4444', // Softer red
         },
       },
       fontFamily: {
