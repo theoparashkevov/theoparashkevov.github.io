@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://theoparashkevov.github.io/sitemap.xml
+
+# Disallow crawling of admin pages or internal tools
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all other pages

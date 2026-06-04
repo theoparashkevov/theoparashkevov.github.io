@@ -1,0 +1,7 @@
+{
+  "title": "Projects",
+  "layout": "page",
+  "permalink": "/projects/",
+  "content": "\nProjects page.\n\n| Project Name | Description | Link |\n| ------------ | ----------- | ---- |\n|Manufacturing Optimization| MRP/ERP Optimization software based on Linear programming and Neural Network optimization||\n|Referendo| Python-based medical healthcare web platform for data analytics using surveys|[Referendo.com](https://referendo.com)|\n| Python Learning Materials | This Project contains various resources for learning Python programming language, including code examples, exercises, and projects. Whether you are a beginner or an experienced programmer, you will find something useful here to help you improve your Python skills. | [Python Learning Materials](https://theoparashkevov.github.io/python-learning-materials/) |\n|Telegram Resource Management Bot| A resource management bot service for Linux written in C/C++ | [Telegram Resource Management Bot](https://github.com/theoparashkevov/TelegramBot-C-CPP) |",
+  "slug": "projects"
+}

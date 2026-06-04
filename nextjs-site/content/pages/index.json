@@ -1,0 +1,26 @@
+[
+  {
+    "title": "About",
+    "slug": "about",
+    "permalink": "/about/"
+  },
+  {
+    "title": "Blog",
+    "slug": "blog",
+    "permalink": "/blog/"
+  },
+  {
+    "title": "Contact Me",
+    "slug": "contact",
+    "permalink": "/contact/"
+  },
+  {
+    "title": "Hello",
+    "slug": "index"
+  },
+  {
+    "title": "Projects",
+    "slug": "projects",
+    "permalink": "/projects/"
+  }
+]

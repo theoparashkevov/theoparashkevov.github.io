@@ -1,0 +1,29 @@
+
+/* Table of Contents TOC */
+.toc-container {
+    position: fixed;
+    top: 5em; /* Adjust this value to set the top position of the TOC */
+    right: 0.5em;
+    width: 20em; /* Adjust this value to set the width of the TOC */
+    height: 80%; /* Adjust this value to set the height of the TOC */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 3px;
+  
+  }
+  
+  .toc-list-class {
+    list-style-type: upper-alpha;
+  }
+  
+  .toc-sublist-class {
+    list-style-type: lower-alpha;
+  }
+  
+  /* Hide the TOC on mobile devices */
+  @media (max-width: 1400px) {
+    .toc-container {
+      display: none;
+    }
+  }
