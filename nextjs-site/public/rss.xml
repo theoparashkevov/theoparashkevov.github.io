@@ -5,24 +5,15 @@
     <link>https://theoparashkevov.github.io</link>
     <description>Personal blog and portfolio of Teo Parashkevov, Machine Learning Engineer and Senior Python Developer</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jun 2026 12:44:55 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2026 13:09:43 GMT</lastBuildDate>
     <atom:link href="https://theoparashkevov.github.io/rss.xml" rel="self" type="application/rss+xml"/>
     
     
     <item>
-      <title><![CDATA[Facebook Prophet library paper review]]></title>
-      <link>https://theoparashkevov.github.io/blog/facebook-prophet</link>
-      <guid isPermaLink="true">https://theoparashkevov.github.io/blog/facebook-prophet</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
-      <description><![CDATA[Forecasting at scale Sean J. Taylor from Facebook, and Benjamin Letham from Facebook Analysis by Teo Parashkevov 
-]]></description>
-      <category><![CDATA[ai]]></category>
-    </item>
-    <item>
       <title><![CDATA[Confindustria Presentation]]></title>
       <link>https://theoparashkevov.github.io/blog/confindustria-presentation</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/confindustria-presentation</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[A presentation on AI and Machine Learning Applications]]></description>
       <category><![CDATA[Python]]></category>
       <category><![CDATA[ai]]></category>
@@ -31,7 +22,7 @@
       <title><![CDATA[DevBG Presentation]]></title>
       <link>https://theoparashkevov.github.io/blog/devbg-presentation</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/devbg-presentation</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[A presentation on Python’s Versatility - Syntax, Object-Oriented Programming, and Machine Learning Applications]]></description>
       <category><![CDATA[Python]]></category>
       <category><![CDATA[ai]]></category>
@@ -40,7 +31,7 @@
       <title><![CDATA[Resource management system in C/C++]]></title>
       <link>https://theoparashkevov.github.io/blog/resource-management-system-in-c</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/resource-management-system-in-c</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[A guide to creating a system resource information messaging system using the Telegram Bot API in C/C++]]></description>
       <category><![CDATA[C/C++]]></category>
     </item>
@@ -48,7 +39,7 @@
       <title><![CDATA[Data Structures - Linear List in Python]]></title>
       <link>https://theoparashkevov.github.io/blog/python-linear-list</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/python-linear-list</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[Linear List as a data structure in Python.]]></description>
       <category><![CDATA[python]]></category>
     </item>
@@ -56,7 +47,7 @@
       <title><![CDATA[Data Structures - Distributed Hash Tables]]></title>
       <link>https://theoparashkevov.github.io/blog/distributed-hash-tables</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/distributed-hash-tables</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[A clarification on some of the concepts and properties regarding Distributed hash tables (DHT)]]></description>
       
     </item>
@@ -64,15 +55,24 @@
       <title><![CDATA[Data Structures - Stack in Python]]></title>
       <link>https://theoparashkevov.github.io/blog/python-stack</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/python-stack</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[Stack as a data structure in Python.]]></description>
       <category><![CDATA[python]]></category>
+    </item>
+    <item>
+      <title><![CDATA[Facebook Prophet library paper review]]></title>
+      <link>https://theoparashkevov.github.io/blog/facebook-prophet</link>
+      <guid isPermaLink="true">https://theoparashkevov.github.io/blog/facebook-prophet</guid>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
+      <description><![CDATA[Forecasting at scale Sean J. Taylor from Facebook, and Benjamin Letham from Facebook Analysis by Teo Parashkevov 
+]]></description>
+      <category><![CDATA[ai]]></category>
     </item>
     <item>
       <title><![CDATA[SSH login without a password]]></title>
       <link>https://theoparashkevov.github.io/blog/ssh-login-no-password</link>
       <guid isPermaLink="true">https://theoparashkevov.github.io/blog/ssh-login-no-password</guid>
-      <pubDate>Thu, 04 Jun 2026 12:44:54 GMT</pubDate>
+      <pubDate>Thu, 04 Jun 2026 13:09:43 GMT</pubDate>
       <description><![CDATA[A step by step tutorial for automating the login process to a remote machine using SSH.]]></description>
       <category><![CDATA[linux]]></category>
     </item>

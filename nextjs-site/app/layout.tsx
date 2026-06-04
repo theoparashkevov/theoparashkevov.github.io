@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 text-gray-900 dark:text-gray-100">
+      <body className="min-h-screen bg-neutral-50 text-neutral-800">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           <Navigation />
           <main className="mt-8">{children}</main>
