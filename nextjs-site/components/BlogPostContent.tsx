@@ -201,79 +201,57 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
           padding: 0.2rem 0.4rem;
           border-radius: 0.25rem;
           font-size: 0.875em;
-          color: #dc2626;
+          color: #1f2937;
         }
 
         .blog-post-content :global(pre) {
           background-color: #1f2937;
           color: #f3f4f6;
-          padding: 1rem;
+          padding: 1.5rem;
           border-radius: 0.5rem;
           overflow-x: auto;
           margin: 1.5rem 0;
+          font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Courier New', monospace;
+          font-size: 0.9rem;
+          line-height: 1.6;
+          border: 1px solid #374151;
         }
 
-        .blog-post-content :global(blockquote) {
-          border-left: 4px solid #3b82f6;
-          padding-left: 1rem;
-          margin: 1.5rem 0;
-          font-style: italic;
-          color: #6b7280;
+.blog-post-content :global(pre code) {
+          background-color: transparent;
+          padding: 0;
+          border-radius: 0;
+          font-size: inherit;
+          color: inherit;
+          font-family: inherit;
         }
 
-        .blog-post-content :global(ul),
-        .blog-post-content :global(ol) {
-          margin: 1.5rem 0;
-          padding-left: 2rem;
+        /* Syntax highlighting colors for different languages */
+        .blog-post-content :global(.language-bash .token.keyword) {
+          color: #f472b6;
         }
-
-        .blog-post-content :global(li) {
-          margin-bottom: 0.5rem;
+        
+        .blog-post-content :global(.language-python .token.keyword) {
+          color: #60a5fa;
         }
-
-        .blog-post-content :global(a) {
-          color: #3b82f6;
-          text-decoration: underline;
+        
+        .blog-post-content :global(.language-javascript .token.keyword) {
+          color: #fbbf24;
         }
-
-        .blog-post-content :global(a:hover) {
-          text-decoration: none;
-        }
-
-        .blog-post-content :global(.span-red) {
-          color: #ef4444;
-        }
-
-        .blog-post-content :global(.span-blue) {
-          color: #3b82f6;
-        }
-
-        .blog-post-content :global(.span-yellow) {
-          color: #f59e0b;
-        }
-
-        .blog-post-content :global(table) {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 1.5rem 0;
-        }
-
-        .blog-post-content :global(th),
-        .blog-post-content :global(td) {
-          border: 1px solid #e5e7eb;
-          padding: 0.75rem;
-          text-align: left;
-        }
-
-        .blog-post-content :global(th) {
-          background-color: #f9fafb;
-          font-weight: 600;
+        
+        .blog-post-content :global(.language-cpp .token.keyword) {
+          color: #34d399;
         }
 
         @media (prefers-color-scheme: dark) {
           .blog-post-content :global(code) {
             background-color: #374151;
-            color: #f87171;
+            color: #d1d5db;
+          }
+
+          .blog-post-content :global(pre) {
+            background-color: #111827;
+            border-color: #374151;
           }
 
           .blog-post-content :global(th),

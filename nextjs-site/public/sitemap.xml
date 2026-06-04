@@ -32,6 +32,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://theoparashkevov.github.io/blog/facebook-prophet</loc>
+    <lastmod>2023-01-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://theoparashkevov.github.io/blog/confindustria-presentation</loc>
     <lastmod>2023-04-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -40,6 +46,12 @@
   <url>
     <loc>https://theoparashkevov.github.io/blog/devbg-presentation</loc>
     <lastmod>2023-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theoparashkevov.github.io/blog/resource-management-system-in-c</loc>
+    <lastmod>2018-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -62,20 +74,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://theoparashkevov.github.io/blog/facebook-prophet</loc>
-    <lastmod>2023-01-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://theoparashkevov.github.io/blog/ssh-login-no-password</loc>
     <lastmod>2017-03-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theoparashkevov.github.io/blog/resource-management-system-in-c</loc>
-    <lastmod>2018-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

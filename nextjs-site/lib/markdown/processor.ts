@@ -1,18 +1,41 @@
-import { remark } from 'remark';
-import html from 'remark-html';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeStringify from 'rehype-stringify';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 /**
- * Convert Markdown to HTML
- * Simplified version without math support for now
+ * Convert Markdown to HTML with support for raw HTML
  */
 export async function markdownToHtml(markdown: string, options: { useMath?: boolean } = {}) {
   const { useMath = false } = options;
   
-  const result = await remark()
-    .use(html, { sanitize: false })
-    .process(markdown);
-
-  return result.toString();
+  try {
+    let processor = unified()
+      .use(remarkParse) // Parse markdown
+      .use(remarkRehype, { allowDangerousHtml: true }); // Convert to HTML AST with raw HTML support
+    
+    // Add math support if needed
+    if (useMath) {
+      processor = processor
+        .use(remarkMath)
+        .use(rehypeKatex);
+    }
+    
+    // Finish processing
+    const result = await processor
+      .use(rehypeRaw) // Parse raw HTML strings
+      .use(rehypeStringify) // Convert to HTML string
+      .process(markdown);
+    
+    return result.toString();
+  } catch (error) {
+    console.error('Error processing markdown:', error);
+    // Simple fallback - just return the markdown wrapped in <pre>
+    return `<pre>${markdown}</pre>`;
+  }
 }
 
 /**
@@ -24,20 +47,39 @@ export function processLiquidSyntax(html: string): string {
   let processed = html
     .replace(/\{\{\s*site\.url\s*\}\}/g, '')
     .replace(/\{\{\s*site\.baseurl\s*\}\}/g, '')
-    .replace(/\{\{\s*"([^"]+)"\s*\|\s*relative_url\s*\}\}/g, '$1')
     .replace(/\{\{\s*page\.([^}]+)\s*\}\}/g, '');
-  
+
   // Handle asset paths - common Liquid filters for images
+  // Match both with and without quotes: {{ "/assets/img/path.jpg" | relative_url }}
   processed = processed.replace(
     /\{\{\s*"([^"]+)"\s*\|\s*(?:asset_path|img_url|relative_url)\s*\}\}/g,
-    '/assets/$1'
+    (match, assetPath) => {
+      // If path already starts with /assets/, use as-is
+      // Otherwise prepend /assets/
+      if (assetPath.startsWith('/assets/')) {
+        return assetPath;
+      } else if (assetPath.startsWith('assets/')) {
+        return '/' + assetPath;
+      } else {
+        return '/assets/' + assetPath;
+      }
+    }
   );
   
-  // Handle inline image tags with Liquid filters
+  // Handle inline image tags with Liquid filters - for HTML already
   processed = processed.replace(
     /<img[^>]*src="\{\{\s*"([^"]+)"\s*\|\s*(?:asset_path|img_url|relative_url)\s*\}\}"[^>]*>/g,
     (match, assetPath) => {
-      return match.replace(/src="[^"]*"/, `src="/assets/${assetPath}"`);
+      // Determine correct path
+      let finalPath = assetPath;
+      if (assetPath.startsWith('/assets/')) {
+        finalPath = assetPath;
+      } else if (assetPath.startsWith('assets/')) {
+        finalPath = '/' + assetPath;
+      } else {
+        finalPath = '/assets/' + assetPath;
+      }
+      return match.replace(/src="[^"]*"/, `src="${finalPath}"`);
     }
   );
   

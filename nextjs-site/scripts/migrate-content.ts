@@ -44,16 +44,17 @@ async function migratePosts() {
   for (const post of posts) {
     console.log(`Processing: ${post.slug}`);
     
-    // Convert markdown to HTML
-    const htmlContent = await markdownToHtml(post.content, { 
+    // First process Liquid syntax in the markdown
+    const processedMarkdown = processLiquidSyntax(post.content);
+    
+    // Then convert processed markdown to HTML
+    const htmlContent = await markdownToHtml(processedMarkdown, { 
       useMath: post.usemathjax 
     });
     
-    const processedHtml = processLiquidSyntax(htmlContent);
-    
     const processedPost: ProcessedPost = {
       ...post,
-      htmlContent: processedHtml,
+      htmlContent,
     };
     
     // Save as JSON for Next.js to use
