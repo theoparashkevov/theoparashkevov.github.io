@@ -1,12 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
+import matter, { GrayMatterFile } from 'gray-matter';
 import { BlogPost, Page } from './types';
 
 /**
  * Parse a Jekyll-style Markdown file with YAML front matter
  */
-export function parseMarkdownFile(filePath: string, _slug: string): { data: any; content: string } {
+export function parseMarkdownFile(filePath: string, _slug: string): { data: GrayMatterFile<Buffer>['data']; content: string } {
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContent);
   
@@ -149,5 +149,5 @@ export function copyJekyllAssets(
   };
   
   copyRecursive(jekyllAssetsDir, destDir);
-  console.log(`Copied assets from ${jekyllAssetsDir} to ${destDir}`);
+  console.warn(`Copied assets from ${jekyllAssetsDir} to ${destDir}`);
 }

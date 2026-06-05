@@ -15,7 +15,14 @@ function generateSitemap() {
   const posts = getAllPosts();
   const _pages = getAllPages();
   
-  const urls = [
+  interface SitemapUrl {
+    url: string;
+    changefreq: string;
+    priority: number;
+    lastmod?: Date;
+  }
+  
+  const urls: SitemapUrl[] = [
     // Static pages
     { url: '/', changefreq: 'weekly', priority: 1.0 },
     { url: '/blog', changefreq: 'weekly', priority: 0.9 },
@@ -24,7 +31,7 @@ function generateSitemap() {
     { url: '/contact', changefreq: 'monthly', priority: 0.8 },
     
     // Blog posts
-    ...posts.map(post => ({
+    ...posts.map<SitemapUrl>(post => ({
       url: `/blog/${post.slug}`,
       changefreq: 'monthly',
       priority: 0.7,
@@ -36,7 +43,7 @@ function generateSitemap() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(item => {
-  const { url, changefreq, priority, lastmod } = item as any;
+  const { url, changefreq, priority, lastmod } = item;
   return `
   <url>
     <loc>${SITE_URL}${url}</loc>
@@ -48,7 +55,7 @@ ${urls.map(item => {
 </urlset>`;
   
   writeFileSync('public/sitemap.xml', sitemap);
-  console.log('Generated sitemap.xml');
+  console.warn('Generated sitemap.xml');
 }
 
 function generateRobotsTxt() {
@@ -66,7 +73,7 @@ Disallow: /private/
 # Allow all other pages`;
   
   writeFileSync('public/robots.txt', robots);
-  console.log('Generated robots.txt');
+  console.warn('Generated robots.txt');
 }
 
 function generateRSS() {
@@ -101,7 +108,7 @@ function generateRSS() {
 </rss>`;
   
   writeFileSync('public/rss.xml', rss);
-  console.log('Generated rss.xml');
+  console.warn('Generated rss.xml');
 }
 
 // Run all generators

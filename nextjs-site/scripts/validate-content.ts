@@ -144,27 +144,27 @@ const results = validateContent();
 const errors = results.filter((r) => r.type === 'error');
 const warnings = results.filter((r) => r.type === 'warning');
 
-console.log('\n=== Content Validation Results ===\n');
+console.warn('\n=== Content Validation Results ===\n');
 
 if (errors.length === 0 && warnings.length === 0) {
-  console.log('✅ All content is valid!');
+  console.warn('✅ All content is valid!');
 } else {
   if (errors.length > 0) {
-    console.log(`❌ Found ${errors.length} error(s):\n`);
+    console.warn(`❌ Found ${errors.length} error(s):\n`);
     errors.forEach((err) => {
-      console.log(`  [${err.file}] ${err.message}`);
+      console.warn(`  [${err.file}] ${err.message}`);
     });
   }
 
   if (warnings.length > 0) {
-    console.log(`\n⚠️  Found ${warnings.length} warning(s):\n`);
+    console.warn(`\n⚠️  Found ${warnings.length} warning(s):\n`);
     warnings.forEach((warn) => {
-      console.log(`  [${warn.file}] ${warn.message}`);
+      console.warn(`  [${warn.file}] ${warn.message}`);
     });
   }
 }
 
-console.log(`\nSummary: ${errors.length} errors, ${warnings.length} warnings\n`);
+console.warn(`\nSummary: ${errors.length} errors, ${warnings.length} warnings\n`);
 
 // Exit with error code if there are errors
 if (errors.length > 0) {

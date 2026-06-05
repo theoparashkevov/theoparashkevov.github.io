@@ -2,7 +2,6 @@
  * @jest-environment node
  */
 
-import fs from 'fs';
 import path from 'path';
 import {
   getAllPosts,
@@ -14,9 +13,9 @@ import {
 } from '@/lib/content/loader';
 
 describe('Content Loader', () => {
-  const testContentDir = path.join(process.cwd(), 'content');
-  const testPostsDir = path.join(testContentDir, 'posts');
-  const testPagesDir = path.join(testContentDir, 'pages');
+  const _testContentDir = path.join(process.cwd(), 'content');
+  const _testPostsDir = path.join(_testContentDir, 'posts');
+  const _testPagesDir = path.join(_testContentDir, 'pages');
 
   describe('getAllPosts', () => {
     it('returns an array of blog posts', () => {
