@@ -27,18 +27,18 @@ describe('generateSEO', () => {
     const metadata = generateSEO({ title: 'Test' });
     expect(metadata.openGraph).toBeDefined();
     expect(metadata.openGraph?.title).toContain('Test');
-    expect(metadata.openGraph?.type).toBe('website');
+    expect((metadata.openGraph as any).type).toBe('website');
   });
 
   it('uses article type for blog posts', () => {
     const metadata = generateSEO({ type: 'article' });
-    expect(metadata.openGraph?.type).toBe('article');
+    expect((metadata.openGraph as any).type).toBe('article');
   });
 
   it('includes Twitter Card metadata', () => {
     const metadata = generateSEO({ title: 'Test' });
     expect(metadata.twitter).toBeDefined();
-    expect(metadata.twitter?.card).toBe('summary_large_image');
+    expect((metadata.twitter as any).card).toBe('summary_large_image');
   });
 
   it('includes canonical URL', () => {
@@ -49,17 +49,17 @@ describe('generateSEO', () => {
   it('includes robots meta', () => {
     const metadata = generateSEO();
     expect(metadata.robots).toBeDefined();
-    expect(metadata.robots?.index).toBe(true);
+    expect((metadata.robots as any).index).toBe(true);
   });
 
   it('handles absolute image URLs', () => {
     const metadata = generateSEO({ image: 'https://example.com/image.jpg' });
-    expect(metadata.openGraph?.images?.[0]?.url).toBe('https://example.com/image.jpg');
+    expect((metadata.openGraph?.images as any)?.[0]?.url).toBe('https://example.com/image.jpg');
   });
 
   it('prepends site URL to relative image paths', () => {
     const metadata = generateSEO({ image: '/assets/image.jpg' });
-    expect(metadata.openGraph?.images?.[0]?.url).toContain('/assets/image.jpg');
+    expect((metadata.openGraph?.images as any)?.[0]?.url).toContain('/assets/image.jpg');
   });
 
   it('includes published time for articles', () => {
@@ -67,7 +67,7 @@ describe('generateSEO', () => {
       type: 'article',
       publishedTime: '2024-01-15T00:00:00.000Z',
     });
-    expect(metadata.openGraph?.publishedTime).toBe('2024-01-15T00:00:00.000Z');
+    expect((metadata.openGraph as any).publishedTime).toBe('2024-01-15T00:00:00.000Z');
   });
 
   it('includes tags as keywords', () => {

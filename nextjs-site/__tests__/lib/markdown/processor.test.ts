@@ -4,7 +4,7 @@
 
 // Mock the unified ecosystem to avoid ESM issues
 jest.mock('unified', () => {
-  const mockProcess = (markdown) => {
+  const mockProcess = (markdown: string) => {
     let html = markdown;
 
     // Headings
@@ -13,7 +13,7 @@ jest.mock('unified', () => {
     html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
 
     // Paragraphs
-    html = html.split('\n\n').map(p => {
+    html = html.split('\n\n').map((p: string) => {
       if (p.startsWith('<')) return p;
       return `<p>${p}</p>`;
     }).join('\n');
