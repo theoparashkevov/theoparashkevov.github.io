@@ -1,7 +1,16 @@
 import { getPageBySlug } from '@/lib/content/loader';
 import { markdownToHtml } from '@/lib/markdown/processor';
+import { sanitizeHTML } from '@/lib/utils/sanitize-html';
 import { notFound } from 'next/navigation';
 import { FaEnvelope, FaLinkedin, FaGithub, FaYoutube } from 'react-icons/fa';
+import type { Metadata } from 'next';
+import { generateSEO } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = generateSEO({
+  title: 'Contact',
+  description: 'Get in touch with Teo Parashkevov for collaboration, inquiries, or just to say hello.',
+  url: '/contact/',
+});
 
 export default async function ContactPage() {
   const page = getPageBySlug('contact');
@@ -10,8 +19,8 @@ export default async function ContactPage() {
     notFound();
   }
   
-  // Convert markdown to HTML
-  const htmlContent = await markdownToHtml(page.content);
+  // Convert markdown to HTML and sanitize for XSS prevention
+  const htmlContent = sanitizeHTML(await markdownToHtml(page.content));
   
   const contactMethods = [
     {
@@ -59,33 +68,37 @@ export default async function ContactPage() {
       </div>
       
       {/* Contact Methods - simplified */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {contactMethods.map((method, index) => (
-          <div
-            key={index}
-            className="border border-neutral-200 rounded-lg p-5 hover:border-primary/30 transition-colors"
-          >
-            <div className="flex items-center mb-3">
-              <div className="text-primary mr-3">
-                {method.icon}
-              </div>
-              <h3 className="font-semibold text-neutral-800">{method.title}</h3>
-            </div>
-            
-            <p className="text-neutral-600 text-sm mb-3">
-              {method.description}
-            </p>
-            
-            <a
-              href={method.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:text-primary-dark hover:underline text-sm font-medium"
+      <div>
+        <h2 className="text-2xl font-semibold mb-6 text-neutral-800">Get in Touch</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {contactMethods.map((method, index) => (
+            <div
+              key={index}
+              className="border border-neutral-200 rounded-lg p-5 hover:border-primary/30 transition-colors"
             >
-              {method.linkText}
-            </a>
-          </div>
-        ))}
+              <div className="flex items-center mb-3">
+                <div className="text-primary mr-3" aria-hidden="true">
+                  {method.icon}
+                </div>
+                <h3 className="font-semibold text-neutral-800">{method.title}</h3>
+              </div>
+
+              <p className="text-neutral-600 text-sm mb-3">
+                {method.description}
+              </p>
+
+              <a
+                href={method.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary-dark hover:underline text-sm font-medium"
+                aria-label={`${method.title}: ${method.linkText}`}
+              >
+                {method.linkText}
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

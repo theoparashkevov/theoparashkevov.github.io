@@ -1,0 +1,10 @@
+.next/
+out/
+node_modules/
+public/
+content/posts/
+content/pages/
+content/drafts/
+package-lock.json
+*.md
+public/assets/

@@ -85,7 +85,7 @@ export function processLiquidSyntax(html: string): string {
   
   // Simple include statements (we'll handle these differently)
   processed = processed.replace(
-    /\{\%\s*include\s+([^%]+)\s*\%\}/g,
+    /\{%\s*include\s+([^%]+)\s*%}/g,
     '<!-- include: $1 -->'
   );
   

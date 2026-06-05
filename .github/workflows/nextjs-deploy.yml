@@ -4,9 +4,13 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["master"]
-  
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+  # Run tests and checks on pull requests
+  pull_request:
+    branches: ["master"]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -21,18 +25,58 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Quality checks (lint, typecheck, test)
+  quality:
+    name: Quality Checks
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'nextjs-site/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./nextjs-site
+
+      - name: Run ESLint
+        run: npm run lint
+        working-directory: ./nextjs-site
+
+      - name: Run TypeScript type checking
+        run: npm run typecheck
+        working-directory: ./nextjs-site
+
+      - name: Check formatting
+        run: npm run format:check
+        working-directory: ./nextjs-site
+        continue-on-error: true
+
+      - name: Run tests
+        run: npm test -- --coverage
+        working-directory: ./nextjs-site
+
   build-and-deploy:
+    name: Build and Deploy
+    needs: quality
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    
+
     runs-on: ubuntu-latest
-    
+
     steps:
       # Checkout the repository
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,35 +84,41 @@ jobs:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: 'nextjs-site/package-lock.json'
-      
+
       # Install dependencies
       - name: Install dependencies
         run: npm ci
         working-directory: ./nextjs-site
-      
+
       # Migrate content from Jekyll
       - name: Migrate content
         run: npm run migrate
         working-directory: ./nextjs-site
-      
+
+      # Validate content
+      - name: Validate content
+        run: npm run validate
+        working-directory: ./nextjs-site
+        continue-on-error: true
+
       # Build the Next.js site
       - name: Build
         run: npm run build
         working-directory: ./nextjs-site
         env:
           NODE_ENV: production
-      
+
       # Setup Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
+
       # Upload artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload the entire out directory from Next.js build
           path: './nextjs-site/out'
-      
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment

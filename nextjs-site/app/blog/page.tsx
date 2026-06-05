@@ -1,5 +1,13 @@
 import { getAllPosts } from '@/lib/content/loader';
 import BlogCard from '@/components/BlogCard';
+import type { Metadata } from 'next';
+import { generateSEO } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = generateSEO({
+  title: 'Blog',
+  description: 'Read the latest blog posts by Teo Parashkevov on machine learning, software engineering, and technology.',
+  url: '/blog/',
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();

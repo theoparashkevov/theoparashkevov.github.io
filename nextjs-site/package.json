@@ -8,13 +8,25 @@
     "start": "next start",
     "migrate": "tsx scripts/migrate-content.ts",
     "seo": "tsx scripts/generate-seo-files.ts",
-    "prebuild": "npm run migrate && npm run seo",
+    "validate": "tsx scripts/validate-content.ts",
+    "prebuild": "npm run migrate && npm run seo && npm run validate",
     "preview": "next build && next start",
-    "deploy": "npm run prebuild && npm run build"
+    "deploy": "npm run prebuild && npm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
+    "@types/dompurify": "^3.0.5",
+    "dompurify": "^3.4.8",
     "gray-matter": "^4.0.3",
+    "isomorphic-dompurify": "^3.3.0",
     "next": "16.2.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -31,12 +43,28 @@
     "unified": "^11.0.5"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.60.1",
+    "@typescript-eslint/parser": "^8.60.1",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.7",
+    "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "prettier": "^3.8.3",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.11",
     "tsx": "^4.19.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.60.1"
   }
 }

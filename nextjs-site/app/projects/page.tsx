@@ -1,6 +1,15 @@
 import { getPageBySlug } from '@/lib/content/loader';
 import { markdownToHtml } from '@/lib/markdown/processor';
+import { sanitizeHTML } from '@/lib/utils/sanitize-html';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { generateSEO } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = generateSEO({
+  title: 'Projects',
+  description: 'Explore projects and work by Teo Parashkevov in machine learning, backend development, and more.',
+  url: '/projects/',
+});
 
 export default async function ProjectsPage() {
   const page = getPageBySlug('projects');
@@ -9,8 +18,8 @@ export default async function ProjectsPage() {
     notFound();
   }
   
-  // Convert markdown to HTML
-  const htmlContent = await markdownToHtml(page.content);
+  // Convert markdown to HTML and sanitize for XSS prevention
+  const htmlContent = sanitizeHTML(await markdownToHtml(page.content));
   
   return (
     <div className="max-w-4xl mx-auto">

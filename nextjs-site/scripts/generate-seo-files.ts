@@ -13,7 +13,7 @@ function generateAll() {
 
 function generateSitemap() {
   const posts = getAllPosts();
-  const pages = getAllPages();
+  const _pages = getAllPages();
   
   const urls = [
     // Static pages

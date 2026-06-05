@@ -6,7 +6,7 @@ import { BlogPost, Page } from './types';
 /**
  * Parse a Jekyll-style Markdown file with YAML front matter
  */
-export function parseMarkdownFile(filePath: string, slug: string): { data: any; content: string } {
+export function parseMarkdownFile(filePath: string, _slug: string): { data: any; content: string } {
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContent);
   
