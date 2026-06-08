@@ -37,6 +37,25 @@ export function extractSlugFromFilename(filename: string): string {
 }
 
 /**
+ * Extract date from Jekyll-style filename: YYYY-MM-DD-title.md
+ * Returns a Date object if found, null otherwise
+ */
+export function extractDateFromFilename(filename: string): Date | null {
+  const match = filename.match(/^(\d{4})-(\d{2})-(\d{2})-/);
+  
+  if (match) {
+    const year = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10) - 1; // JavaScript months are 0-indexed
+    const day = parseInt(match[3], 10);
+    
+    // Create date at noon UTC to avoid timezone issues
+    return new Date(Date.UTC(year, month, day, 12, 0, 0));
+  }
+  
+  return null;
+}
+
+/**
  * Load all blog posts from the Jekyll _posts directory
  */
 export function loadJekyllPosts(jekyllPostsDir: string): BlogPost[] {
@@ -53,11 +72,30 @@ export function loadJekyllPosts(jekyllPostsDir: string): BlogPost[] {
     
     const filePath = path.join(jekyllPostsDir, file);
     const slug = extractSlugFromFilename(file);
+    const filenameDate = extractDateFromFilename(file);
     const { data, content } = parseMarkdownFile(filePath, slug);
+    
+    // Determine the date to use with fallback logic:
+    // 1. Use date from front matter if present
+    // 2. Otherwise use date from filename if present
+    // 3. Otherwise fall back to modified_date from front matter (as Date object)
+    // 4. Otherwise use current date (shouldn't happen with valid Jekyll files)
+    let postDate: Date;
+    
+    if (data.date) {
+      postDate = data.date;
+    } else if (filenameDate) {
+      postDate = filenameDate;
+    } else if (data.modified_date) {
+      postDate = data.modified_date;
+    } else {
+      postDate = new Date();
+      console.warn(`No date found for post: ${file}. Using current date.`);
+    }
     
     const post: BlogPost = {
       title: data.title || '',
-      date: data.date || new Date(),
+      date: postDate,
       modified_date: data.modified_date,
       layout: data.layout || 'post',
       categories: Array.isArray(data.categories) ? data.categories : [],

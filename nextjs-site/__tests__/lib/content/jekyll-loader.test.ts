@@ -8,6 +8,7 @@ import os from 'os';
 import {
   parseMarkdownFile,
   extractSlugFromFilename,
+  extractDateFromFilename,
   loadJekyllPosts,
   loadJekyllPages,
   copyJekyllAssets,
@@ -29,7 +30,44 @@ describe('extractSlugFromFilename', () => {
   });
 });
 
-describe('parseMarkdownFile', () => {
+describe('extractDateFromFilename', () => {
+  it('extracts date from Jekyll filename with date prefix', () => {
+    const date = extractDateFromFilename('2024-01-15-my-post.md');
+    expect(date).toBeInstanceOf(Date);
+    expect(date!.getUTCFullYear()).toBe(2024);
+    expect(date!.getUTCMonth()).toBe(0); // January is 0
+    expect(date!.getUTCDate()).toBe(15);
+  });
+
+  it('returns null for filenames without date prefix', () => {
+    expect(extractDateFromFilename('my-post.md')).toBeNull();
+  });
+
+  it('handles complex filenames with date prefix', () => {
+    const date = extractDateFromFilename('2024-12-31-data-structures-in-python.md');
+    expect(date).toBeInstanceOf(Date);
+    expect(date!.getUTCFullYear()).toBe(2024);
+    expect(date!.getUTCMonth()).toBe(11); // December is 11
+    expect(date!.getUTCDate()).toBe(31);
+  });
+
+  it('handles edge cases with invalid dates', () => {
+    // Invalid month
+    const date1 = extractDateFromFilename('2024-13-01-my-post.md');
+    expect(date1).toBeInstanceOf(Date);
+    // JavaScript Date handles invalid months by rolling over
+    expect(date1!.getUTCFullYear()).toBe(2025);
+    expect(date1!.getUTCMonth()).toBe(0); // Rolls over to January 2025
+    
+    // Invalid day
+    const date2 = extractDateFromFilename('2024-02-31-my-post.md');
+    expect(date2).toBeInstanceOf(Date);
+    // February 31 rolls over to March
+    expect(date2!.getUTCFullYear()).toBe(2024);
+    expect(date2!.getUTCMonth()).toBe(2); // Rolls over to March
+  });
+});
+  describe('parseMarkdownFile', () => {
   let tempDir: string;
   let testFile: string;
 
@@ -156,6 +194,68 @@ Content`;
 
     const posts = loadJekyllPosts(tempDir);
     expect(posts[0].categories).toEqual([]);
+  });
+
+  it('uses filename date when no date in front matter', () => {
+    const post = `---
+title: Post without date
+categories: [test]
+---
+Content without date`;
+
+    fs.writeFileSync(path.join(tempDir, '2023-05-10-no-date-post.md'), post);
+
+    const posts = loadJekyllPosts(tempDir);
+    expect(posts.length).toBe(1);
+    expect(posts[0].title).toBe('Post without date');
+    expect(posts[0].slug).toBe('no-date-post');
+    expect(posts[0].date).toBeInstanceOf(Date);
+    expect(posts[0].date.getUTCFullYear()).toBe(2023);
+    expect(posts[0].date.getUTCMonth()).toBe(4); // May is month 4 (0-indexed)
+    expect(posts[0].date.getUTCDate()).toBe(10);
+  });
+
+  it('uses modified_date when no date in front matter and no filename date', () => {
+    const post = `---
+title: Post without date prefix
+modified_date: 2022-08-15
+---
+Content without date prefix`;
+
+    fs.writeFileSync(path.join(tempDir, 'no-date-prefix.md'), post);
+
+    const posts = loadJekyllPosts(tempDir);
+    expect(posts.length).toBe(1);
+    expect(posts[0].title).toBe('Post without date prefix');
+    expect(posts[0].slug).toBe('no-date-prefix');
+    expect(posts[0].date).toBeInstanceOf(Date);
+    expect(posts[0].date.getUTCFullYear()).toBe(2022);
+    expect(posts[0].date.getUTCMonth()).toBe(7); // August is month 7
+    expect(posts[0].date.getUTCDate()).toBe(15);
+  });
+
+  it('prefers front matter date over filename date', () => {
+    const post = `---
+title: Post with different dates
+date: 2021-03-20
+modified_date: 2021-04-01
+---
+Content with different dates`;
+
+    fs.writeFileSync(path.join(tempDir, '2020-12-25-different-dates.md'), post);
+
+    const posts = loadJekyllPosts(tempDir);
+    expect(posts.length).toBe(1);
+    expect(posts[0].title).toBe('Post with different dates');
+    // Should use front matter date (2021-03-20) not filename date (2020-12-25)
+    expect(posts[0].date.getUTCFullYear()).toBe(2021);
+    expect(posts[0].date.getUTCMonth()).toBe(2); // March is month 2
+    expect(posts[0].date.getUTCDate()).toBe(20);
+    // modified_date should be preserved
+    expect(posts[0].modified_date).toBeInstanceOf(Date);
+    expect(posts[0].modified_date!.getUTCFullYear()).toBe(2021);
+    expect(posts[0].modified_date!.getUTCMonth()).toBe(3); // April is month 3
+    expect(posts[0].modified_date!.getUTCDate()).toBe(1);
   });
 
   it('skips non-markdown files', () => {
