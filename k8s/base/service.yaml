@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: theoparashkevov-blog
+  labels:
+    app: theoparashkevov-blog
+spec:
+  type: ClusterIP
+  selector:
+    app: theoparashkevov-blog
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
