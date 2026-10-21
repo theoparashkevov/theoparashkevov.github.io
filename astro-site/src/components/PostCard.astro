@@ -1,0 +1,32 @@
+---
+import type { Post } from '../lib/posts';
+import { formatDate, postUrl, transitionName } from '../lib/posts';
+
+export interface Props {
+  post: Post;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const { title, description, pubDate, heroImage, heroAlt, categories } = post.data;
+---
+
+<article class:list={['rounded-2xl border border-border bg-surface p-5', featured && 'md:col-span-2']}>
+  <a href={postUrl(post)} class="block">
+    {
+      heroImage && (
+        <img
+          src={heroImage}
+          alt={heroAlt ?? ''}
+          loading="lazy"
+          class="mb-4 aspect-[16/9] w-full rounded-xl object-cover"
+          transition:name={transitionName('hero', post.id)}
+        />
+      )
+    }
+    {categories[0] && <span class="text-xs font-medium text-accent">{categories[0]}</span>}
+    <h3 class="mt-1 text-lg font-semibold" transition:name={transitionName('title', post.id)}>{title}</h3>
+    <p class="mt-2 line-clamp-2 text-sm text-muted">{description}</p>
+    <time class="mt-3 block text-xs text-subtle" datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+  </a>
+</article>

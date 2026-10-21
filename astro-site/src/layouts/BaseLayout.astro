@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { Props as HeadProps } from '../components/BaseHead.astro';
+
+export type Props = HeadProps & { mainClass?: string };
+
+const { mainClass = '', ...head } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="js">
+  <head>
+    <script is:inline>
+      (function () {
+        function applyTheme(doc) {
+          var stored = localStorage.getItem('theme');
+          var dark =
+            stored === 'dark' ||
+            (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          doc.documentElement.classList.toggle('dark', dark);
+          doc.documentElement.classList.add('js');
+        }
+        applyTheme(document);
+        document.addEventListener('astro:before-swap', function (event) {
+          applyTheme(event.newDocument);
+        });
+      })();
+    </script>
+    <BaseHead {...head} />
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-contrast"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class:list={['flex-1', mainClass]} transition:animate="fade">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      document.addEventListener('astro:page-load', initReveal);
+    </script>
+  </body>
+</html>

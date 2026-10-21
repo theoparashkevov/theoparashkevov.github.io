@@ -1,0 +1,80 @@
+/*
+ * Animation primitives. Contract used across the site:
+ *
+ *   data-reveal                 element fades/slides in when scrolled into view
+ *   data-reveal="up|fade|scale|left|right"   variant (default: up)
+ *   style="--reveal-delay: 120ms"            per-element delay
+ *   data-reveal-stagger         on a parent: children with data-reveal get
+ *                               increasing delays automatically
+ *
+ * src/scripts/reveal.ts toggles the `is-revealed` class. Everything is disabled
+ * under prefers-reduced-motion.
+ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease-out-expo),
+    transform 700ms var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+html.js [data-reveal='fade'] {
+  transform: none;
+}
+
+html.js [data-reveal='scale'] {
+  transform: scale(0.96);
+}
+
+html.js [data-reveal='left'] {
+  transform: translateX(-24px);
+}
+
+html.js [data-reveal='right'] {
+  transform: translateX(24px);
+}
+
+html.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

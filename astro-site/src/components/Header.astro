@@ -1,0 +1,27 @@
+---
+import { NAV_LINKS, SITE_TITLE } from '../consts';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur" transition:animate="none">
+  <nav class="container-page flex h-16 items-center justify-between" aria-label="Main">
+    <a href="/" class="font-semibold tracking-tight">{SITE_TITLE}</a>
+    <ul class="flex gap-5 text-sm">
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class:list={['hover:text-accent', isActive(link.href) ? 'text-accent' : 'text-muted']}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

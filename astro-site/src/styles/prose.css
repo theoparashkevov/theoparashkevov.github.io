@@ -1,0 +1,7 @@
+/*
+ * Article typography. Apply with class="prose-article" on the element that
+ * wraps rendered Markdown (<Content />).
+ */
+.prose-article {
+  @apply prose prose-lg max-w-none dark:prose-invert;
+}
