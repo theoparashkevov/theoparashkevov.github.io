@@ -1,6 +1,6 @@
 # ADR-0006: Quality gates: lint, typecheck, and tests before deploy
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-0009
 - **Date:** 2026-06-05 (commits `63ad35c`, `363ee8c`, `a23f028`, `ae84816`)
 - **Deciders:** Teo Parashkevov
 

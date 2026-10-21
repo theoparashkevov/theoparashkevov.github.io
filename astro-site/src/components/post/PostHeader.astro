@@ -1,0 +1,99 @@
+---
+import Icon from '../Icon.astro';
+import { AUTHOR } from '../../consts';
+import type { Post } from '../../lib/posts';
+import { formatDate, slugify, transitionName } from '../../lib/posts';
+
+export interface Props {
+  post: Post;
+  minutes: number;
+}
+
+const { post, minutes } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroAlt, categories, author } =
+  post.data;
+const showUpdated = updatedDate && updatedDate.getTime() !== pubDate.getTime();
+---
+
+<header class="post-header">
+  <div class="max-w-4xl">
+    {categories.length > 0 && (
+      <ul class="flex flex-wrap gap-2" aria-label="Categories" data-reveal="fade">
+        {categories.map((category) => (
+          <li>
+            <a
+              href={`/blog/category/${slugify(category)}/`}
+              class="inline-flex items-center rounded-full border border-accent/20 bg-accent-soft px-3 py-1 text-xs font-semibold tracking-wide text-accent uppercase transition-[color,background-color,border-color,scale] duration-200 hover:border-accent/50 hover:bg-accent hover:text-accent-contrast active:scale-95"
+            >
+              {category}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <h1
+      class="mt-5 text-3xl leading-tight font-extrabold tracking-tight text-balance text-fg sm:text-4xl lg:text-5xl lg:leading-[1.1]"
+      transition:name={transitionName('title', post.id)}
+    >
+      {title}
+    </h1>
+
+    {description && (
+      <p
+        class="mt-5 max-w-3xl text-lg leading-relaxed text-pretty text-muted sm:text-xl"
+        data-reveal
+      >
+        {description}
+      </p>
+    )}
+
+    <div
+      class="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-muted"
+      data-reveal
+      style="--reveal-delay: 80ms"
+    >
+      <span class="inline-flex items-center gap-2.5">
+        <img
+          src={AUTHOR.avatar}
+          alt=""
+          width="32"
+          height="32"
+          loading="eager"
+          class="size-8 rounded-full object-cover ring-2 ring-border"
+        />
+        <span class="font-medium text-fg">{author}</span>
+      </span>
+      <span class="hidden h-4 w-px bg-border sm:block" aria-hidden="true"></span>
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="calendar" size={16} class="text-subtle" />
+        <span class="sr-only">Published</span>
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+      </span>
+      {showUpdated && (
+        <span class="inline-flex items-center gap-1.5">
+          <span class="text-subtle">Updated</span>
+          <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time>
+        </span>
+      )}
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="clock" size={16} class="text-subtle" />
+        <span>{minutes} min read</span>
+      </span>
+    </div>
+  </div>
+
+  {heroImage && (
+    <figure class="mt-10 sm:mt-12">
+      <img
+        src={heroImage}
+        alt={heroAlt ?? ''}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="aspect-[16/9] w-full rounded-2xl border border-border bg-surface-2 object-cover shadow-soft sm:rounded-3xl"
+        transition:name={transitionName('hero', post.id)}
+      />
+    </figure>
+  )}
+</header>

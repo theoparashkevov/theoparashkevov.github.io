@@ -1,6 +1,6 @@
 # ADR-0004: Deploy to GitHub Pages via GitHub Actions
 
-- **Status:** Accepted
+- **Status:** Accepted, workflow details amended by ADR-0009
 - **Date:** 2026-06-04 (commits `495260e`, `f6dc678`)
 - **Deciders:** Teo Parashkevov
 

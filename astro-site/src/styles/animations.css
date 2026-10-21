@@ -4,12 +4,27 @@
  *   data-reveal                 element fades/slides in when scrolled into view
  *   data-reveal="up|fade|scale|left|right"   variant (default: up)
  *   style="--reveal-delay: 120ms"            per-element delay
- *   data-reveal-stagger         on a parent: children with data-reveal get
- *                               increasing delays automatically
+ *   data-reveal-stagger[="80"]  on a parent: its direct data-reveal children
+ *                               that enter the viewport together get increasing
+ *                               delays (step in ms, default 80)
  *
- * src/scripts/reveal.ts toggles the `is-revealed` class. Everything is disabled
- * under prefers-reduced-motion.
+ *   .hover-lift                 lifts 4px with shadow-lift on hover / keyboard focus
+ *   .link-underline             underline grows from the left on hover / focus
+ *                               (also when inside a hovered `.group`)
+ *   .press                      scales to .97 while pressed
+ *   .spotlight                  soft accent glow that follows the pointer
+ *
+ * src/scripts/reveal.ts toggles `is-revealed`, then `reveal-done` once the
+ * entrance has finished (which drops the reveal styles so hover transforms work).
+ * Content stays visible without JS: hiding requires the `js` class, and a
+ * CSS failsafe shows everything if the reveal script never starts.
+ * Everything is disabled under prefers-reduced-motion.
  */
+
+:root {
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
 @keyframes fade-in {
   from {
@@ -31,42 +46,260 @@
   }
 }
 
-html.js [data-reveal] {
+/* ---------------------------------------------------------------- reveal */
+
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html.js [data-reveal]:not(.reveal-done) {
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity 700ms var(--ease-out-expo),
-    transform 700ms var(--ease-out-expo);
-  transition-delay: var(--reveal-delay, 0ms);
+    opacity 700ms var(--motion-ease-out),
+    transform 700ms var(--motion-ease-out);
+  transition-delay: var(--reveal-delay, var(--reveal-stagger-delay, 0ms));
   will-change: opacity, transform;
 }
 
-html.js [data-reveal='fade'] {
+html.js [data-reveal='fade']:not(.reveal-done) {
   transform: none;
 }
 
-html.js [data-reveal='scale'] {
+html.js [data-reveal='scale']:not(.reveal-done) {
   transform: scale(0.96);
 }
 
-html.js [data-reveal='left'] {
+html.js [data-reveal='left']:not(.reveal-done) {
   transform: translateX(-24px);
 }
 
-html.js [data-reveal='right'] {
+html.js [data-reveal='right']:not(.reveal-done) {
   transform: translateX(24px);
 }
 
-html.js [data-reveal].is-revealed {
+html.js [data-reveal].is-revealed:not(.reveal-done) {
   opacity: 1;
   transform: none;
 }
 
+html.js:not(.reveal-ready) [data-reveal]:not(.reveal-done) {
+  animation: reveal-failsafe 500ms var(--motion-ease-out) 2500ms forwards;
+}
+
+/* ------------------------------------------------------ micro-interactions */
+
+.hover-lift,
+.press {
+  transition:
+    translate 450ms var(--motion-ease-spring),
+    scale 160ms var(--motion-ease-out),
+    transform 450ms var(--motion-ease-spring),
+    box-shadow 350ms var(--motion-ease-out),
+    border-color 250ms ease,
+    background-color 250ms ease,
+    color 250ms ease,
+    opacity 250ms ease,
+    filter 250ms ease,
+    outline-color 250ms ease,
+    text-decoration-color 250ms ease;
+}
+
+@media (hover: hover) {
+  .hover-lift:hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+.hover-lift:focus-visible,
+.hover-lift:has(:focus-visible) {
+  translate: 0 -4px;
+  box-shadow: var(--shadow-lift);
+}
+
+.press:active {
+  scale: 0.97;
+}
+
+.link-underline {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% max(1px, 0.075em);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition:
+    background-size 450ms var(--motion-ease-out),
+    color 250ms ease;
+}
+
+.link-underline:focus-visible,
+.group:focus-visible .link-underline {
+  background-size: 100% max(1px, 0.075em);
+}
+
+@media (hover: hover) {
+  .link-underline:hover,
+  .group:hover .link-underline {
+    background-size: 100% max(1px, 0.075em);
+  }
+}
+
+@layer components {
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      var(--spotlight-size, 22rem) circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in oklab, var(--accent) 14%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 350ms var(--motion-ease-out);
+  }
+
+  @media (hover: hover) {
+    .spotlight:hover::before {
+      opacity: 1;
+    }
+  }
+}
+
+/* -------------------------------------------------------- view transitions */
+
+@keyframes vt-rise-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+    mix-blend-mode: plus-lighter;
+  }
+}
+
+@keyframes vt-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    mix-blend-mode: plus-lighter;
+  }
+}
+
+@keyframes vt-sink-out {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+    mix-blend-mode: plus-lighter;
+  }
+}
+
+@keyframes vt-sink-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+    mix-blend-mode: plus-lighter;
+  }
+}
+
+/*
+ * Shared-element morphs (post card -> post page). The view-transition-class
+ * names are assigned by src/components/fx/MorphFx.astro from the
+ * transitionName() prefixes post-title- / post-hero- / post-meta- / post-card-.
+ */
+::view-transition-group(.post-hero),
+::view-transition-group(.post-title),
+::view-transition-group(.post-meta),
+::view-transition-group(.post-card) {
+  animation-duration: 560ms;
+  animation-timing-function: var(--motion-ease-out);
+}
+
+::view-transition-old(.post-hero),
+::view-transition-new(.post-hero),
+::view-transition-old(.post-card),
+::view-transition-new(.post-card) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: clip;
+  animation-duration: 320ms;
+}
+
+::view-transition-old(.post-title),
+::view-transition-new(.post-title),
+::view-transition-old(.post-meta),
+::view-transition-new(.post-meta) {
+  animation-duration: 420ms;
+}
+
+::view-transition-old(.post-title):only-child,
+::view-transition-old(.post-hero):only-child,
+::view-transition-old(.post-meta):only-child,
+::view-transition-old(.post-card):only-child {
+  animation: vt-rise-out 420ms var(--motion-ease-out) both;
+}
+
+::view-transition-new(.post-title):only-child,
+::view-transition-new(.post-hero):only-child,
+::view-transition-new(.post-meta):only-child,
+::view-transition-new(.post-card):only-child {
+  animation: vt-rise-in 420ms var(--motion-ease-out) both;
+}
+
+[data-astro-transition='back']::view-transition-old(.post-title):only-child,
+[data-astro-transition='back']::view-transition-old(.post-hero):only-child,
+[data-astro-transition='back']::view-transition-old(.post-meta):only-child,
+[data-astro-transition='back']::view-transition-old(.post-card):only-child {
+  animation-name: vt-sink-out;
+}
+
+[data-astro-transition='back']::view-transition-new(.post-title):only-child,
+[data-astro-transition='back']::view-transition-new(.post-hero):only-child,
+[data-astro-transition='back']::view-transition-new(.post-meta):only-child,
+[data-astro-transition='back']::view-transition-new(.post-card):only-child {
+  animation-name: vt-sink-in;
+}
+
+/* ---------------------------------------------------------- reduced motion */
+
 @media (prefers-reduced-motion: reduce) {
-  html.js [data-reveal] {
+  html.js [data-reveal]:not(.reveal-done) {
     opacity: 1;
     transform: none;
     transition: none;
+    animation: none;
+  }
+
+  .hover-lift:hover,
+  .hover-lift:focus-visible,
+  .hover-lift:has(:focus-visible) {
+    translate: none;
+  }
+
+  .press:active {
+    scale: none;
+  }
+
+  .spotlight::before {
+    display: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 
   *,

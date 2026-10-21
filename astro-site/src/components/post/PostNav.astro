@@ -1,0 +1,59 @@
+---
+import Icon from '../Icon.astro';
+import type { Post } from '../../lib/posts';
+import { formatDate, postUrl, transitionName } from '../../lib/posts';
+
+export interface Props {
+  prev?: Post;
+  next?: Post;
+}
+
+const { prev, next } = Astro.props;
+const items = [
+  prev && { post: prev, label: 'Previous post', direction: 'prev' as const },
+  next && { post: next, label: 'Next post', direction: 'next' as const },
+].filter((item) => !!item);
+---
+
+{items.length > 0 && (
+  <nav aria-label="More posts" class="grid gap-4 sm:grid-cols-2" data-reveal-stagger>
+    {items.map(({ post, label, direction }) => (
+      <a
+        href={postUrl(post)}
+        rel={direction}
+        data-reveal
+        class:list={[
+          'group relative flex flex-col gap-2 rounded-2xl border border-border bg-surface p-5 shadow-soft transition-[border-color,box-shadow,translate,scale] duration-300 ease-out-expo hover:-translate-y-1 hover:border-accent/40 hover:shadow-lift active:scale-[0.98]',
+          direction === 'next' && 'sm:col-start-2 sm:items-end sm:text-right',
+        ]}
+      >
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-subtle uppercase">
+          {direction === 'prev' && (
+            <Icon
+              name="arrow-left"
+              size={14}
+              class="transition-transform duration-300 ease-out-expo group-hover:-translate-x-1"
+            />
+          )}
+          {label}
+          {direction === 'next' && (
+            <Icon
+              name="arrow-right"
+              size={14}
+              class="transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
+            />
+          )}
+        </span>
+        <span
+          class="text-base leading-snug font-semibold text-balance text-fg transition-colors duration-200 group-hover:text-accent"
+          transition:name={transitionName('title', post.id)}
+        >
+          {post.data.title}
+        </span>
+        <time class="text-xs text-muted" datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate, 'short')}
+        </time>
+      </a>
+    ))}
+  </nav>
+)}

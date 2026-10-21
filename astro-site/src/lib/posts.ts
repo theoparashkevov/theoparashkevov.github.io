@@ -43,15 +43,19 @@ export function slugify(value: string): string {
 }
 
 export function getCategories(posts: Post[]): { name: string; slug: string; count: number }[] {
-  const counts = new Map<string, number>();
+  const bySlug = new Map<string, { name: string; slug: string; count: number }>();
   for (const post of posts) {
+    const seen = new Set<string>();
     for (const category of post.data.categories) {
-      counts.set(category, (counts.get(category) ?? 0) + 1);
+      const slug = slugify(category);
+      if (!slug || seen.has(slug)) continue;
+      seen.add(slug);
+      const entry = bySlug.get(slug);
+      if (entry) entry.count += 1;
+      else bySlug.set(slug, { name: category, slug, count: 1 });
     }
   }
-  return [...counts.entries()]
-    .map(([name, count]) => ({ name, slug: slugify(name), count }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+  return [...bySlug.values()].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 }
 
 export function transitionName(kind: 'title' | 'hero' | 'meta' | 'card', id: string): string {

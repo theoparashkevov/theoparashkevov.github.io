@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProjectCard from '../components/projects/ProjectCard.astro';
+import { PROJECTS } from '../components/projects/projects';
+import { SOCIAL_LINKS } from '../consts';
+
+const github = SOCIAL_LINKS.find((link) => link.label === 'GitHub');
+---
+
+<BaseLayout
+  title="Projects"
+  description="Explore projects and work by Teo Parashkevov in machine learning, optimization, backend development, and more."
+>
+  <section class="container-page pt-16 pb-10 sm:pt-24">
+    <p
+      class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted"
+      data-reveal="fade"
+    >
+      <Icon name="briefcase" size={14} class="text-accent" />
+      Selected work
+    </p>
+    <h1
+      class="mt-5 text-4xl font-bold tracking-tight text-fg sm:text-5xl"
+      data-reveal
+      style="--reveal-delay: 60ms"
+    >
+      <span class="text-gradient">Projects</span>
+    </h1>
+    <p
+      class="mt-4 max-w-2xl text-lg leading-relaxed text-muted"
+      data-reveal
+      style="--reveal-delay: 120ms"
+    >
+      A selection of my recent work and contributions, from manufacturing optimization and
+      healthcare analytics to open learning resources and systems tooling.
+    </p>
+  </section>
+
+  <section class="container-page pb-16" aria-label="Project list">
+    <ul class="grid gap-6 md:grid-cols-2" data-reveal-stagger>
+      {PROJECTS.map((project) => (
+        <li data-reveal>
+          <ProjectCard project={project} />
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {github && (
+    <section class="container-page pb-24">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-border bg-surface p-8 text-center shadow-soft sm:p-12"
+        data-reveal="scale"
+      >
+        <div
+          class="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-48 w-2/3 rounded-full bg-accent/15 blur-3xl"
+          aria-hidden="true"
+        ></div>
+        <h2 class="relative text-2xl font-semibold tracking-tight text-fg sm:text-3xl">
+          More on GitHub
+        </h2>
+        <p class="relative mx-auto mt-3 max-w-xl text-muted">
+          Code, experiments and open-source work live on my GitHub profile. Interested in
+          collaborating or learning more about my work? Get in touch.
+        </p>
+        <div class="relative mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={github.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="press group inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast shadow-soft transition-shadow duration-300 hover:shadow-lift"
+          >
+            <Icon name={github.icon} size={18} />
+            View GitHub profile
+            <span class="sr-only"> (opens in a new tab)</span>
+            <Icon
+              name="external"
+              size={16}
+              class="transition-transform duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none"
+            />
+          </a>
+          <a
+            href="/contact/"
+            class="press group inline-flex items-center gap-2 rounded-xl border border-border bg-surface-2 px-5 py-3 text-sm font-semibold text-fg transition-colors duration-300 hover:border-accent/40 hover:text-accent"
+          >
+            Get in touch
+            <Icon
+              name="arrow-right"
+              size={16}
+              class="transition-transform duration-300 ease-out-expo group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

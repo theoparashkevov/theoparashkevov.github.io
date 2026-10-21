@@ -1,0 +1,41 @@
+# CI for the Astro site (quality checks + build, no deploy; GitHub Actions deploys from master).
+# `runs-on: docker` must match a label registered by this Forgejo instance's runner;
+# adjust it if your runners use different labels (e.g. `ubuntu-latest`).
+name: CI
+
+on:
+  pull_request:
+    branches: ['development', 'master']
+  push:
+    branches: ['development']
+
+jobs:
+  ci:
+    name: Quality checks and build
+    runs-on: docker
+    container:
+      image: node:24-bookworm
+    defaults:
+      run:
+        working-directory: astro-site
+    steps:
+      - name: Checkout
+        uses: https://code.forgejo.org/actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build

@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import AboutHero from '../components/about/AboutHero.astro';
+import AboutIcon from '../components/about/AboutIcon.astro';
+import AboutSection from '../components/about/AboutSection.astro';
+import Certifications from '../components/about/Certifications.astro';
+import SectionNav from '../components/about/SectionNav.astro';
+import SkillCard from '../components/about/SkillCard.astro';
+import TechGroup from '../components/about/TechGroup.astro';
+import Timeline from '../components/about/Timeline.astro';
+import {
+  CERTIFICATION_GROUPS,
+  DOMAINS,
+  HARD_SKILLS,
+  JOURNEY,
+  LANGUAGES_AND_FRAMEWORKS,
+  PRINCIPLES,
+  SECTIONS,
+  SOFT_SKILLS,
+  TECH_GROUPS,
+} from '../components/about/data';
+import { AUTHOR, SOCIAL_LINKS } from '../consts';
+
+const linkedin = SOCIAL_LINKS.find((link) => link.icon === 'linkedin');
+---
+
+<BaseLayout
+  title="About"
+  description="About Teo Parashkevov, Machine Learning Engineer and Senior Python Developer: skills, tech stack, education, certifications and background."
+>
+  <AboutHero />
+
+  <div class="container-page grid grid-cols-1 gap-10 pb-24 lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-16">
+    <SectionNav sections={SECTIONS} />
+
+    <div class="min-w-0 space-y-24 sm:space-y-28 lg:pt-2">
+      <AboutSection
+        id="skills"
+        eyebrow="What I do"
+        title="Skills"
+        intro="I develop robust, scalable software systems that use machine learning algorithms to deliver exceptional performance and accuracy. Whether it's building data pipelines, training and evaluating models, or designing and implementing complex algorithms, I'm always up for a challenge."
+      >
+        <h3 class="text-sm font-semibold tracking-wider text-subtle uppercase" data-reveal>
+          Hard skills
+        </h3>
+        <ul
+          class="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-3"
+          role="list"
+          data-reveal-stagger="70"
+        >
+          {HARD_SKILLS.map((skill) => (
+            <li data-reveal>
+              <SkillCard skill={skill} />
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-8 rounded-2xl border border-dashed border-border p-5 sm:p-6" data-reveal>
+          <p class="text-sm leading-relaxed text-muted">
+            Over the years I have honed my skills in several programming languages and am
+            well-versed in popular machine learning frameworks, including:
+          </p>
+          <ul class="mt-4 flex flex-wrap gap-2" role="list">
+            {LANGUAGES_AND_FRAMEWORKS.map((name) => (
+              <li class="rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-fg">
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <h3 class="mt-14 text-sm font-semibold tracking-wider text-subtle uppercase" data-reveal>
+          Soft skills
+        </h3>
+        <ul
+          class="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-3"
+          role="list"
+          data-reveal-stagger="70"
+        >
+          {SOFT_SKILLS.map((skill) => (
+            <li data-reveal>
+              <SkillCard skill={skill} tone="muted" />
+            </li>
+          ))}
+        </ul>
+      </AboutSection>
+
+      <AboutSection
+        id="stack"
+        eyebrow="Toolbox"
+        title="Programming languages & tech stacks"
+        intro="The languages, frameworks and platforms I reach for, grouped by the kind of work they power."
+      >
+        <div class="space-y-5">
+          {TECH_GROUPS.map((group) => (
+            <TechGroup group={group} />
+          ))}
+        </div>
+      </AboutSection>
+
+      <AboutSection
+        id="journey"
+        eyebrow="Education & experience"
+        title="My journey"
+        intro="A path marked by languages and adaptability: from a German language school in Bulgaria to a Computer Science degree taught entirely in Chinese, and on to engineering machine learning systems."
+      >
+        <Timeline steps={JOURNEY} />
+      </AboutSection>
+
+      <AboutSection
+        id="certifications"
+        eyebrow="Credentials"
+        title="Certifications"
+        intro="Machine learning, cloud and language certifications. Course certificates link to their verification pages."
+      >
+        <Certifications groups={CERTIFICATION_GROUPS} />
+      </AboutSection>
+
+      <AboutSection
+        id="background"
+        eyebrow="Background"
+        title="Problems I've worked on"
+        intro="In my previous roles I have worked on a wide variety of projects across machine learning and software engineering."
+      >
+        <ul class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3" role="list" data-reveal-stagger="70">
+          {DOMAINS.map((domain) => (
+            <li data-reveal>
+              <div class="hover-lift h-full">
+                <div class="group flex h-full items-start gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors duration-300 hover:border-accent/50">
+                  <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent transition-transform duration-500 ease-spring motion-safe:group-hover:scale-110">
+                    <AboutIcon name={domain.icon} size={20} />
+                  </span>
+                  <span>
+                    <span class="block font-semibold tracking-tight">{domain.title}</span>
+                    <span class="mt-0.5 block text-sm text-muted">{domain.context}</span>
+                  </span>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div
+          class="mt-10 rounded-2xl border border-border bg-linear-to-br from-accent-soft to-surface p-6 sm:p-8"
+          data-reveal
+        >
+          <p class="text-lg leading-relaxed font-medium text-balance sm:text-xl">
+            As a Senior Python Developer and Machine Learning Engineer, I am committed to delivering
+            high-quality solutions that meet and exceed the expectations of my clients. I believe
+            the key to success is a combination of:
+          </p>
+          <ul class="mt-6 flex flex-wrap gap-3" role="list">
+            {PRINCIPLES.map((principle) => (
+              <li class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium shadow-soft">
+                <AboutIcon name={principle.icon} size={16} class="text-accent" />
+                {principle.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </AboutSection>
+
+      <section
+        id="whats-next"
+        aria-labelledby="whats-next-title"
+        class="scroll-mt-32 lg:scroll-mt-24"
+      >
+        <div
+          class="relative isolate overflow-hidden rounded-3xl border border-border bg-surface p-8 shadow-lift sm:p-12"
+          data-reveal="scale"
+        >
+          <div
+            class="absolute inset-0 -z-10 bg-[radial-gradient(40rem_20rem_at_100%_0%,var(--accent-soft),transparent_70%)]"
+            aria-hidden="true"
+          ></div>
+          <p class="text-sm font-semibold tracking-wider text-accent uppercase">Future endeavors</p>
+          <h2
+            id="whats-next-title"
+            class="mt-2 max-w-xl text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          >
+            What's next
+          </h2>
+          <div class="mt-4 max-w-2xl space-y-4 text-base leading-relaxed text-muted sm:text-lg">
+            <p>
+              Looking ahead, I'm dedicated to exploring new horizons in Machine Learning and
+              Software Engineering. I'm eager to keep contributing to impactful projects that push
+              the boundaries of innovation and make a positive difference in the world.
+            </p>
+            <p>
+              Feel free to reach out by email for collaboration, discussions or any inquiries, and
+              connect with me on LinkedIn to stay updated with my latest endeavors. You can also
+              browse my work on the{' '}
+              <a href="/projects/" class="link-underline font-medium text-accent">
+                Projects
+              </a>{' '}
+              page.
+            </p>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="/contact/"
+              class="press inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-soft transition-shadow duration-300 hover:shadow-lift"
+            >
+              Contact me
+              <Icon name="arrow-right" size={16} />
+            </a>
+            <a
+              href={`mailto:${AUTHOR.email}`}
+              class="press inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-accent hover:text-accent"
+            >
+              <Icon name="mail" size={16} />
+              Email
+            </a>
+            {linkedin && (
+              <a
+                href={linkedin.href}
+                target="_blank"
+                rel="me noopener"
+                class="press inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-accent hover:text-accent"
+              >
+                <Icon name="linkedin" size={16} />
+                LinkedIn
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

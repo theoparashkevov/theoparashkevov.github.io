@@ -1,0 +1,30 @@
+---
+import AboutIcon from './AboutIcon.astro';
+import type { Skill } from './data';
+
+export interface Props {
+  skill: Skill;
+  tone?: 'accent' | 'muted';
+}
+
+const { skill, tone = 'accent' } = Astro.props;
+---
+
+<div class="hover-lift h-full">
+  <article class="group relative h-full overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-soft transition-[border-color,box-shadow] duration-300 hover:border-accent/50 hover:shadow-lift">
+    <div
+      class="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full bg-accent/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+      aria-hidden="true"
+    ></div>
+    <span
+      class:list={[
+        'inline-flex size-11 items-center justify-center rounded-xl transition-transform duration-500 ease-spring motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6',
+        tone === 'accent' ? 'bg-accent-soft text-accent' : 'bg-surface-2 text-accent-2',
+      ]}
+    >
+      <AboutIcon name={skill.icon} size={22} />
+    </span>
+    <h3 class="mt-4 text-lg font-semibold tracking-tight">{skill.title}</h3>
+    <p class="mt-2 text-sm leading-relaxed text-muted">{skill.description}</p>
+  </article>
+</div>

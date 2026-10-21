@@ -1,0 +1,24 @@
+---
+export interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  intro?: string;
+}
+
+const { id, eyebrow, title, intro } = Astro.props;
+---
+
+<section id={id} aria-labelledby={`${id}-title`} class="scroll-mt-32 lg:scroll-mt-24">
+  <header class="max-w-2xl" data-reveal>
+    <p class="text-sm font-semibold tracking-wider text-accent uppercase">{eyebrow}</p>
+    <h2 id={`${id}-title`} class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+      {title}
+    </h2>
+    {intro && <p class="mt-4 text-base leading-relaxed text-muted sm:text-lg">{intro}</p>}
+    <slot name="intro" />
+  </header>
+  <div class="mt-10">
+    <slot />
+  </div>
+</section>

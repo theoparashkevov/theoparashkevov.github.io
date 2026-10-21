@@ -1,0 +1,60 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogHeader from '../../../components/blog/BlogHeader.astro';
+import CategoryFilter from '../../../components/blog/CategoryFilter.astro';
+import PostArchive from '../../../components/blog/PostArchive.astro';
+import EmptyState from '../../../components/blog/EmptyState.astro';
+import { getCategoryList, postsInCategory } from '../../../components/blog/categories';
+import { getPublishedPosts } from '../../../lib/posts';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  const categories = getCategoryList(posts);
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: {
+      category,
+      categories,
+      total: posts.length,
+      posts: postsInCategory(posts, category.slug),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { category, categories, total, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`${category.name} posts`}
+  description={`All ${category.count} ${category.count === 1 ? 'article' : 'articles'} by Teo Parashkevov in the ${category.name} category.`}
+>
+  <div class="container-page py-14 sm:py-20">
+    <BlogHeader
+      eyebrow="Category"
+      title={category.name}
+      count={posts.length}
+      backHref="/blog/"
+      backLabel="All posts"
+    >
+      {`Everything I have written about ${category.name}, newest first.`}
+    </BlogHeader>
+
+    <div class="mt-10">
+      <CategoryFilter categories={categories} total={total} current={category.slug} />
+    </div>
+
+    <div class="mt-14">
+      {posts.length > 0 ? (
+        <PostArchive posts={posts} />
+      ) : (
+        <EmptyState
+          title={`No ${category.name} posts yet`}
+          message="There is nothing in this category right now. Browse the full archive instead."
+          href="/blog/"
+          linkLabel="See all posts"
+        />
+      )}
+    </div>
+  </div>
+</BaseLayout>

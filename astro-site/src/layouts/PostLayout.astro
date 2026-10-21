@@ -1,8 +1,16 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import type { Post } from '../lib/posts';
 import type { MarkdownHeading } from 'astro';
-import { formatDate, transitionName } from '../lib/posts';
+import BaseLayout from './BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PostHeader from '../components/post/PostHeader.astro';
+import PostNav from '../components/post/PostNav.astro';
+import ShareLinks from '../components/post/ShareLinks.astro';
+import TableOfContents from '../components/post/TableOfContents.astro';
+import ReadingProgress from '../components/post/ReadingProgress.astro';
+import CodeBlocks from '../components/post/CodeBlocks.astro';
+import { AUTHOR, SITE_TITLE, SITE_URL } from '../consts';
+import type { Post } from '../lib/posts';
+import { postUrl } from '../lib/posts';
 
 export interface Props {
   post: Post;
@@ -12,34 +20,110 @@ export interface Props {
   next?: Post;
 }
 
-const { post } = Astro.props;
-const { title, description, pubDate, updatedDate, heroImage, heroAlt, tags, categories } = post.data;
+const { post, headings, minutes, prev, next } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, heroAlt, tags, categories, author } =
+  post.data;
+
+const site = Astro.site ?? new URL(SITE_URL);
+const url = new URL(postUrl(post), site).href;
+const hasToc = headings.some((heading) => heading.depth >= 2 && heading.depth <= 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  url,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  image: new URL(heroImage ?? AUTHOR.avatar, site).href,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': 'Person', name: author, url: new URL('/about/', site).href },
+  publisher: {
+    '@type': 'Person',
+    name: AUTHOR.name,
+    url: site.href,
+    image: new URL(AUTHOR.avatar, site).href,
+  },
+  isPartOf: { '@type': 'Blog', name: SITE_TITLE, url: new URL('/blog/', site).href },
+  articleSection: categories[0],
+  keywords: [...categories, ...tags].join(', ') || undefined,
+  wordCount: post.body?.split(/\s+/).filter(Boolean).length,
+  inLanguage: 'en',
+};
+const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
 ---
 
 <BaseLayout
   title={title}
   description={description}
   image={heroImage}
+  imageAlt={heroAlt}
   type="article"
   publishedTime={pubDate}
   modifiedTime={updatedDate}
   tags={[...categories, ...tags]}
 >
-  <article class="container-prose py-12">
-    <h1 class="text-4xl font-bold tracking-tight" transition:name={transitionName('title', post.id)}>{title}</h1>
-    <time class="mt-3 block text-sm text-muted" datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
-    {
-      heroImage && (
-        <img
-          src={heroImage}
-          alt={heroAlt ?? ''}
-          class="mt-8 aspect-[16/9] w-full rounded-2xl object-cover"
-          transition:name={transitionName('hero', post.id)}
-        />
-      )
-    }
-    <div class="prose-article mt-10">
-      <slot />
+  <script type="application/ld+json" slot="head" set:html={jsonLdString} />
+  <ReadingProgress />
+  <CodeBlocks />
+
+  <article class="container-page pt-10 pb-20 sm:pt-14 lg:pb-28">
+    <PostHeader post={post} minutes={minutes} />
+
+    <div
+      class:list={[
+        'mt-12 grid gap-y-10 lg:mt-16',
+        hasToc ? 'lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-x-12 xl:gap-x-16' : 'mx-auto max-w-3xl',
+      ]}
+    >
+      {hasToc && (
+        <aside class="min-w-0 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
+          <TableOfContents headings={headings} />
+        </aside>
+      )}
+
+      <div class="prose-article min-w-0 lg:col-start-1 lg:row-start-1">
+        <slot />
+      </div>
+
+      <footer class="min-w-0 space-y-10 border-t border-border pt-10 lg:col-start-1 lg:row-start-2">
+        {tags.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2" data-reveal>
+            <span class="mr-1 inline-flex items-center gap-1.5 text-sm font-semibold text-fg">
+              <Icon name="tag" size={16} class="text-subtle" />
+              Tags
+            </span>
+            <ul class="flex flex-wrap gap-2" aria-label="Tags">
+              {tags.map((tag) => (
+                <li class="rounded-full bg-surface-2 px-3 py-1 font-mono text-xs text-muted">
+                  #{tag}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div data-reveal>
+          <ShareLinks url={url} title={title} />
+        </div>
+
+        <PostNav prev={prev} next={next} />
+
+        <div data-reveal="fade">
+          <a
+            href="/blog/"
+            class="group link-underline inline-flex items-center gap-2 text-sm font-semibold text-accent"
+          >
+            <Icon
+              name="arrow-left"
+              size={16}
+              class="transition-transform duration-300 ease-out-expo group-hover:-translate-x-1"
+            />
+            Back to all posts
+          </a>
+        </div>
+      </footer>
     </div>
   </article>
 </BaseLayout>

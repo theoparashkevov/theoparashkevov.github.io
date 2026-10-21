@@ -1,0 +1,42 @@
+---
+import Icon from '../Icon.astro';
+
+export interface Props {
+  title?: string;
+  message?: string;
+  href?: string;
+  linkLabel?: string;
+}
+
+const {
+  title = 'No posts yet',
+  message = 'Nothing has been published here so far. Check back soon, or subscribe to the RSS feed to hear about new articles.',
+  href = '/rss.xml',
+  linkLabel = 'Subscribe via RSS',
+} = Astro.props;
+---
+
+<div
+  class="mx-auto flex max-w-lg flex-col items-center rounded-3xl border border-dashed border-border bg-surface px-6 py-16 text-center"
+  data-reveal="scale"
+>
+  <span
+    class="grid h-14 w-14 place-items-center rounded-2xl bg-accent-soft text-accent"
+    aria-hidden="true"
+  >
+    <Icon name="book" size={26} />
+  </span>
+  <h2 class="mt-5 text-xl font-semibold">{title}</h2>
+  <p class="mt-2 text-muted">{message}</p>
+  <a
+    href={href}
+    class="press group mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-contrast shadow-soft transition-shadow hover:shadow-lift"
+  >
+    {linkLabel}
+    <Icon
+      name="arrow-right"
+      size={16}
+      class="transition-transform duration-300 ease-spring group-hover:translate-x-1"
+    />
+  </a>
+</div>

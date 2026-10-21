@@ -1,0 +1,74 @@
+---
+import Icon from '../Icon.astro';
+import { AUTHOR } from '../../consts';
+---
+
+<section class="container-page py-20 sm:py-24" aria-labelledby="contact-cta-title">
+  <div
+    class="cta relative isolate overflow-hidden rounded-3xl border border-border bg-surface px-6 py-14 text-center shadow-lift sm:px-12 sm:py-20"
+    data-reveal="scale"
+  >
+    <div class="cta-glow" aria-hidden="true"></div>
+    <p class="text-xs font-semibold tracking-[0.18em] text-accent uppercase">Let's talk</p>
+    <h2
+      id="contact-cta-title"
+      class="mx-auto mt-4 max-w-2xl text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+    >
+      Have a project, an idea or a question? <span class="text-gradient">Let's connect.</span>
+    </h2>
+    <p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-pretty text-muted">
+      Whether it's machine learning, Python engineering or an invitation to speak, I'm always happy
+      to hear from you.
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-3">
+      <a
+        href="/contact/"
+        class="press group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast shadow-soft transition duration-300 ease-out-expo hover:-translate-y-0.5 hover:shadow-lift"
+      >
+        Get in touch
+        <Icon
+          name="arrow-right"
+          size={18}
+          class="transition-transform duration-300 ease-out-expo group-hover:translate-x-1"
+        />
+      </a>
+      <a
+        href={`mailto:${AUTHOR.email}`}
+        class="press inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-fg transition duration-300 ease-out-expo hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
+      >
+        <Icon name="mail" size={18} />
+        Email me
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-glow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(
+        50% 70% at 0% 0%,
+        color-mix(in oklab, var(--accent) 18%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 70% at 100% 100%,
+        color-mix(in oklab, var(--accent-2) 16%, transparent),
+        transparent 70%
+      );
+  }
+
+  .cta-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(color-mix(in oklab, var(--fg) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--fg) 6%, transparent) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, #000, transparent 80%);
+  }
+</style>

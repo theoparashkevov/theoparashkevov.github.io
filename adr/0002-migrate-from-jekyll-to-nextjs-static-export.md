@@ -1,6 +1,6 @@
 # ADR-0002: Migrate from Jekyll to a Next.js static export
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-0009
 - **Date:** 2026-06-04 (commit `495260e`)
 - **Deciders:** Teo Parashkevov
 

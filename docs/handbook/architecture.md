@@ -4,79 +4,110 @@
 
 ```
 .
-├── adr/                    Architecture Decision Records
-├── docs/                   CONTENT SOURCE (legacy Jekyll site, no longer deployed)
-│   ├── _posts/             Blog posts: YYYY-MM-DD-slug.md        → migrated
-│   ├── _drafts/            Unpublished drafts                    → not migrated
-│   ├── *.md                Top-level pages (about, contact, ...) → migrated as pages
-│   ├── assets/             Images, PDFs, legacy CSS/JS           → copied to nextjs-site/public/assets
-│   ├── _layouts/ _includes/ _sass/ _config.yml Gemfile ...   Jekyll-only; unused by the live site
-│   └── handbook/           This documentation (ignored by the migration)
-├── nextjs-site/            THE SITE (Next.js app)
-│   ├── app/                Routes (App Router)
-│   ├── components/         React components
-│   ├── lib/                content loaders, markdown processor, SEO, sanitizer
-│   ├── scripts/            migrate-content, generate-seo-files, validate-content
-│   ├── content/            GENERATED JSON from docs/ (committed)
-│   ├── public/             Static files; public/assets is GENERATED from docs/assets (committed)
-│   └── __tests__/          Jest tests, mirroring the source tree
-├── .github/workflows/      nextjs-deploy.yml (active), jekyll.yml.disabled
-├── .devcontainer/          Ruby/Jekyll devcontainer (outdated, see known-issues)
-├── templates/              Jekyll sample posts, kept for reference only
-├── IMPROVEMENTS.md         Change log of the June 2026 hardening work
-└── CODE_PANEL_FEATURE.md   Notes for the (Jekyll-only) code side panel
+├── adr/                       Architecture Decision Records
+├── astro-site/                THE SITE (Astro 7, static output)
+│   ├── astro.config.mjs       site URL, Markdown processor (math, Shiki), Tailwind, sitemap
+│   ├── public/                Copied verbatim to the build output
+│   │   └── assets/img/        Site images; posts/<folder>/ holds each post's images and files
+│   ├── src/                   Source (see below)
+│   ├── tests/                 Vitest tests
+│   └── dist/                  Build output (git-ignored)
+├── docs/
+│   └── handbook/              This documentation (not built or published)
+├── .github/workflows/         deploy.yml: build and deploy to GitHub Pages
+├── .forgejo/workflows/        ci.yml: checks and build on Forgejo
+├── .devcontainer/             Node 24 devcontainer
+└── .nvmrc                     Node version (24)
+```
+
+### `astro-site/src`
+
+```
+src/
+├── pages/                     One file per route (file-based routing)
+│   ├── index.astro            /
+│   ├── blog/index.astro       /blog/
+│   ├── blog/[...slug].astro   /blog/<slug>/ (one page per published post)
+│   ├── blog/category/[category].astro   /blog/category/<slug>/ (one page per category)
+│   ├── 404.astro              Not-found page (noindex)
+│   ├── robots.txt.ts          /robots.txt
+│   ├── about.astro            /about/
+│   ├── projects.astro         /projects/
+│   ├── contact.astro          /contact/
+│   └── rss.xml.ts             /rss.xml
+├── layouts/
+│   ├── BaseLayout.astro       <html> shell: theme bootstrap, header, footer, <main>
+│   └── PostLayout.astro       Post page: header, table of contents, body, code panel, share links, prev/next
+├── components/                Shared components (BaseHead, Header, Footer, Icon, PostCard)
+│   └── <area>/                Components used by one page or area (post/, blog/, about/, projects/, contact/)
+├── assets/                    Images optimized at build time via astro:assets (portrait crops)
+├── content/
+│   └── blog/*.md              Blog posts; the file name is the slug
+├── content.config.ts          The `blog` collection: glob loader + zod front-matter schema
+├── lib/posts.ts               Post helpers: published posts, URLs, dates (UTC), reading time, categories, transition names
+├── styles/
+│   ├── global.css             Tailwind entry point; design tokens for the light and dark themes; fonts
+│   ├── animations.css         Scroll-reveal and micro-interaction styles, with reduced-motion fallbacks
+│   └── prose.css              Typography for rendered Markdown (headings, code, tables, KaTeX)
+├── scripts/                   Client-side TypeScript, bundled by Astro (e.g. reveal.ts for scroll-reveal)
+└── consts.ts                  Site title, description, author, navigation, social links
 ```
 
 ## Tech stack
 
 | Concern | Choice | Where |
 | --- | --- | --- |
-| Framework | Next.js 16 App Router, `output: 'export'` | `nextjs-site/next.config.ts` |
-| UI | React 19, Tailwind CSS 4 + `@tailwindcss/typography`, `react-icons`, Inter via `next/font` | `app/`, `components/`, `tailwind.config.ts` |
-| Markdown | unified → remark-parse → remark-rehype → (remark-math + rehype-katex) → rehype-raw → rehype-stringify | `lib/markdown/processor.ts` |
-| Front matter | `gray-matter` | `lib/content/jekyll-loader.ts` |
-| HTML safety | `isomorphic-dompurify` with an allowlist | `lib/utils/sanitize-html.ts` |
-| SEO | Next `Metadata` API, Open Graph/Twitter cards, JSON-LD (Person, BlogPosting), sitemap/robots/RSS | `lib/seo/metadata.ts`, `scripts/generate-seo-files.ts` |
-| Tooling | TypeScript strict, ESLint 9 flat config, Prettier, Jest 30 + Testing Library | config files in `nextjs-site/` |
+| Framework | Astro 7, static output, `build.format: 'directory'` (each route is `route/index.html`) | `astro.config.mjs` |
+| Styling | Tailwind CSS 4 via `@tailwindcss/vite`, `@tailwindcss/typography`; Inter and JetBrains Mono variable fonts from Fontsource | `src/styles/` |
+| Theming | Design tokens as CSS variables exposed as Tailwind utilities (`bg-surface`, `text-muted`, `text-accent`, ...); dark mode via a `.dark` class on `<html>` | `src/styles/global.css`, `src/layouts/BaseLayout.astro` |
+| Content | Content collection with the glob loader; front matter validated by zod | `src/content.config.ts` |
+| Markdown | `unified()` from `@astrojs/markdown-remark` with `remark-math` + `rehype-katex`; Shiki with `github-light` / `github-dark-dimmed` themes | `astro.config.mjs` |
+| Motion | `<ClientRouter />` view transitions, shared-element card → post morphs, `data-reveal` scroll-reveal; all disabled under `prefers-reduced-motion` | `src/components/BaseHead.astro`, `src/styles/animations.css`, `src/scripts/` |
+| SEO | Canonical URLs, Open Graph/Twitter tags, `@astrojs/sitemap`, `@astrojs/rss` | `src/components/BaseHead.astro`, `src/pages/rss.xml.ts` |
+| Tooling | TypeScript strict, `astro check`, ESLint 10 flat config (`eslint.config.js`), Prettier with `prettier-plugin-astro` (`.prettierrc`), Vitest | config files in `astro-site/` |
 
 ## Routes
 
 | URL | File | Data source |
 | --- | --- | --- |
-| `/` | `app/page.tsx` | `content/posts/index.json` |
-| `/blog/` | `app/blog/page.tsx` | all posts |
-| `/blog/<slug>/` | `app/blog/[slug]/page.tsx` | `content/posts/<slug>.json` (pre-rendered via `generateStaticParams`) |
-| `/about/`, `/contact/`, `/projects/` | `app/<name>/page.tsx` | `content/pages/<name>.json`, rendered from markdown at build time |
+| `/` | `src/pages/index.astro` | latest posts from `getPublishedPosts()` |
+| `/blog/` | `src/pages/blog/index.astro` | all published posts, with category filters |
+| `/blog/<slug>/` | `src/pages/blog/[...slug].astro` | one entry of the `blog` collection, pre-rendered via `getStaticPaths()` and rendered with `render()` |
+| `/about/`, `/projects/`, `/contact/` | `src/pages/<name>.astro` | content written in the page and its components |
+| `/rss.xml` | `src/pages/rss.xml.ts` | all published posts |
+| `/sitemap-index.xml` | generated by `@astrojs/sitemap` | every page |
 
-Every route is rendered to static HTML when `next build` runs. Nothing runs on a server at request time.
+Every route is rendered to static HTML by `astro build`. Nothing runs on a server at request time. The only client-side JavaScript is the view-transition router, the theme toggle, scroll-reveal, and small per-page scripts such as the post code panel.
 
 ## Build-time data flow
 
 ```
-docs/_posts/*.md ─┐                         ┌─ content/posts/*.json (HTML pre-rendered)
-docs/*.md ────────┼─ npm run migrate ──────▶├─ content/pages/*.json (raw markdown)
-docs/assets/** ───┘   (scripts/migrate-     └─ public/assets/**
-                       content.ts)
-                                │
-                     npm run seo (sitemap.xml, robots.txt, rss.xml → public/)
-                     npm run validate (sanity checks on the JSON)
-                                │
-                     next build ── lib/content/loader.ts reads JSON
-                                │   pages: markdownToHtml → sanitizeHTML
-                                │   posts: htmlContent → sanitizeHTML
-                                ▼
-                       nextjs-site/out/  ──▶ GitHub Pages
+src/content/blog/*.md ── glob loader ── zod schema (invalid front matter fails the build)
+                                   │
+                         getPublishedPosts()  (drafts removed, newest first)
+                                   │
+         ┌─────────────────────────┼──────────────────────────┐
+         ▼                         ▼                          ▼
+  index / blog pages      blog/[...slug].astro           rss.xml.ts
+  (PostCard per post)     render(): Markdown → HTML
+                          (remark-math, rehype-katex, Shiki)
+                                   │
+                    public/** copied as-is (images, files)
+                                   ▼
+                         astro-site/dist/ ──▶ GitHub Pages
 ```
 
-`npm run build` runs all of the above automatically through the `prebuild` npm hook.
+There is no migration or code-generation step, and no generated file is committed.
 
 ## Hosting topology
 
+Unchanged by the rewrite:
+
 ```
-developer ──push/PR──▶ Forgejo (origin, source of truth)
+developer ──push/PR──▶ Forgejo (origin, source of truth) ── ci.yml checks
                            │ push mirror (all branches)
                            ▼
-                        GitHub repo ──push to master──▶ GitHub Actions ──▶ GitHub Pages
+                        GitHub repo ──push to master──▶ GitHub Actions (deploy.yml) ──▶ GitHub Pages
 ```
 
 See [deployment.md](deployment.md) and [ADR-0007](../../adr/0007-forgejo-primary-github-push-mirror.md).
