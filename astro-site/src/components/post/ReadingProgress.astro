@@ -1,0 +1,151 @@
+---
+export interface Props {
+  /** Element whose reading progress is tracked; the closest ancestor match wins, then the first match in the document. */
+  target?: string;
+}
+
+const { target = 'article' } = Astro.props;
+---
+
+<div
+  data-reading-progress
+  data-target={target}
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-x-0 top-0 z-60 h-[3px] opacity-0 transition-opacity duration-300 data-[scrollable=true]:opacity-100 print:hidden"
+>
+  <div
+    data-reading-progress-bar
+    class="reading-progress-bar h-full w-full bg-linear-to-r from-accent to-accent-2 shadow-[0_0_10px_var(--ring)]"
+  ></div>
+</div>
+
+<style>
+  .reading-progress-bar {
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    will-change: transform;
+  }
+
+  @keyframes reading-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @supports (animation-timeline: view()) and (timeline-scope: none) {
+    :global(html) {
+      timeline-scope: --reading-progress;
+    }
+
+    :global([data-reading-progress-target]) {
+      view-timeline-name: --reading-progress;
+      view-timeline-axis: block;
+    }
+
+    [data-reading-progress][data-mode='css'] .reading-progress-bar {
+      animation-name: reading-progress;
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --reading-progress;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+</style>
+
+<script>
+  const SUPPORTS_SCROLL_TIMELINE =
+    CSS.supports('animation-timeline: view()') && CSS.supports('timeline-scope: none');
+
+  let teardown: (() => void) | undefined;
+
+  function hasScrollContainerAncestor(el: HTMLElement) {
+    for (let node = el.parentElement; node && node !== document.body; node = node.parentElement) {
+      const { overflowX, overflowY } = getComputedStyle(node);
+      if (/auto|scroll|hidden/.test(`${overflowX} ${overflowY}`)) return true;
+    }
+    return false;
+  }
+
+  function progressOf(target: HTMLElement) {
+    const viewport = window.innerHeight;
+    const rect = target.getBoundingClientRect();
+    const start = Math.max(0, viewport - rect.height);
+    const end = Math.min(0, viewport - rect.height);
+    const distance = start - end;
+    if (distance <= 0) return rect.top <= start ? 1 : 0;
+    return Math.min(1, Math.max(0, (start - rect.top) / distance));
+  }
+
+  function init() {
+    teardown?.();
+    teardown = undefined;
+
+    const root = document.querySelector<HTMLElement>('[data-reading-progress]');
+    const bar = root?.querySelector<HTMLElement>('[data-reading-progress-bar]');
+    if (!root || !bar) return;
+
+    const selector = root.dataset.target || 'article';
+    const target =
+      root.closest<HTMLElement>(selector) ?? document.querySelector<HTMLElement>(selector);
+    if (!target) {
+      root.dataset.scrollable = 'false';
+      return;
+    }
+
+    const controller = new AbortController();
+    const { signal } = controller;
+    const useCss = SUPPORTS_SCROLL_TIMELINE && !hasScrollContainerAncestor(target);
+    let frame = 0;
+
+    const updateVisibility = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight > 1;
+      root.dataset.scrollable = String(scrollable && target.offsetHeight > 0);
+    };
+
+    const update = () => {
+      frame = 0;
+      bar.style.transform = `scaleX(${progressOf(target)})`;
+    };
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    if (useCss) {
+      root.dataset.mode = 'css';
+      target.setAttribute('data-reading-progress-target', '');
+    } else {
+      root.dataset.mode = 'js';
+      window.addEventListener('scroll', schedule, { passive: true, signal });
+      update();
+    }
+
+    const onResize = () => {
+      updateVisibility();
+      if (!useCss) schedule();
+    };
+    window.addEventListener('resize', onResize, { signal });
+    const resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(target);
+    resizeObserver.observe(document.body);
+    updateVisibility();
+
+    teardown = () => {
+      controller.abort();
+      resizeObserver.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+      target.removeAttribute('data-reading-progress-target');
+      bar.style.removeProperty('transform');
+    };
+  }
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', () => {
+    teardown?.();
+    teardown = undefined;
+  });
+</script>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import FocusAreas from '../components/home/FocusAreas.astro';
+import LatestPosts from '../components/home/LatestPosts.astro';
+import TopicsStrip from '../components/home/TopicsStrip.astro';
+import ContactCta from '../components/home/ContactCta.astro';
+import { getCategories, getPublishedPosts } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const categories = getCategories(posts);
+---
+
+<BaseLayout description="Teo Parashkevov is a Machine Learning Engineer and Senior Python Developer. Read articles on machine learning, Python, data analysis and building scalable software systems.">
+  <Hero />
+  <FocusAreas />
+  <LatestPosts posts={posts.slice(0, 4)} />
+  <TopicsStrip categories={categories} />
+  <ContactCta />
+</BaseLayout>

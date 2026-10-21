@@ -1,0 +1,203 @@
+---
+import Icon from './Icon.astro';
+import { NAV_LINKS, SOCIAL_LINKS } from '../consts';
+
+export interface Props {
+  isActive: (href: string) => boolean;
+}
+
+const { isActive } = Astro.props;
+const socials = SOCIAL_LINKS.filter((link) => link.icon !== 'rss');
+---
+
+<div class="md:hidden" data-mobile-nav>
+  <button
+    type="button"
+    class="mobile-toggle press relative inline-flex size-10 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-surface-2 hover:text-fg"
+    aria-expanded="false"
+    aria-controls="mobile-nav-panel"
+    aria-label="Open menu"
+    data-mobile-toggle
+  >
+    <Icon name="menu" size={22} class="mobile-icon mobile-icon-menu" />
+    <Icon name="x" size={22} class="mobile-icon mobile-icon-close" />
+  </button>
+
+  <div
+    class="mobile-backdrop absolute inset-x-0 top-full h-[calc(100dvh-4rem)] bg-bg/60"
+    data-mobile-backdrop
+    aria-hidden="true"
+  ></div>
+
+  <nav
+    id="mobile-nav-panel"
+    class="mobile-panel absolute inset-x-0 top-full border-y border-border bg-bg/95 shadow-lift"
+    aria-label="Mobile"
+    inert
+    data-mobile-panel
+  >
+    <ul class="container-page flex flex-col gap-1 py-4">
+      {NAV_LINKS.map((link, index) => (
+        <li class="mobile-item" style={`--item-index: ${index}`}>
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+            class:list={[
+              'flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium transition-colors duration-200',
+              isActive(link.href)
+                ? 'bg-accent-soft text-accent'
+                : 'text-fg hover:bg-surface-2 hover:text-accent',
+            ]}
+          >
+            {link.label}
+            <Icon name="arrow-right" size={18} class="opacity-60" />
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="container-page flex items-center gap-2 border-t border-border py-4">
+      {socials.map((social) => {
+        const external = social.href.startsWith('http');
+        return (
+          <a
+            href={social.href}
+            class="inline-flex size-10 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-surface-2 hover:text-accent"
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noopener noreferrer' : undefined}
+          >
+            <Icon name={social.icon} size={20} label={social.label} />
+          </a>
+        );
+      })}
+    </div>
+  </nav>
+</div>
+
+<style>
+  .mobile-toggle :global(.mobile-icon) {
+    position: absolute;
+    transition:
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 200ms ease;
+  }
+
+  .mobile-toggle :global(.mobile-icon-close) {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+
+  .mobile-toggle[aria-expanded='true'] :global(.mobile-icon-menu) {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+
+  .mobile-toggle[aria-expanded='true'] :global(.mobile-icon-close) {
+    opacity: 1;
+    transform: none;
+  }
+
+  .mobile-panel,
+  .mobile-backdrop {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 250ms ease,
+      transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 400ms;
+  }
+
+  .mobile-panel {
+    transform: translateY(-0.75rem);
+    transform-origin: top;
+  }
+
+  .mobile-item {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity 300ms ease,
+      transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-mobile-nav][data-open] .mobile-panel,
+  [data-mobile-nav][data-open] .mobile-backdrop {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  [data-mobile-nav][data-open] .mobile-item {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(60ms + var(--item-index) * 35ms);
+  }
+</style>
+
+<script>
+  const mobileQuery = window.matchMedia('(min-width: 48rem)');
+
+  function getParts() {
+    const root = document.querySelector<HTMLElement>('[data-mobile-nav]');
+    if (!root) return null;
+    const toggle = root.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
+    const panel = root.querySelector<HTMLElement>('[data-mobile-panel]');
+    if (!toggle || !panel) return null;
+    return { root, toggle, panel };
+  }
+
+  function isOpen() {
+    return getParts()?.root.hasAttribute('data-open') ?? false;
+  }
+
+  function setOpen(open: boolean, { restoreFocus = false } = {}) {
+    const parts = getParts();
+    if (!parts) return;
+    const { root, toggle, panel } = parts;
+    root.toggleAttribute('data-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    panel.inert = !open;
+    if (open) {
+      panel.querySelector<HTMLElement>('a[aria-current="page"], a')?.focus({ preventScroll: true });
+    } else if (restoreFocus) {
+      toggle.focus();
+    }
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    if (!target) return;
+    if (target.closest('[data-mobile-toggle]')) {
+      setOpen(!isOpen());
+      return;
+    }
+    if (!isOpen()) return;
+    if (target.closest('[data-mobile-backdrop]')) {
+      setOpen(false, { restoreFocus: true });
+    } else if (target.closest('[data-mobile-panel] a')) {
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isOpen()) {
+      event.preventDefault();
+      setOpen(false, { restoreFocus: true });
+    }
+  });
+
+  document.addEventListener('focusin', (event) => {
+    if (!isOpen()) return;
+    const header = getParts()?.root.closest('header');
+    if (header && !header.contains(event.target as Node)) setOpen(false);
+  });
+
+  mobileQuery.addEventListener('change', (event) => {
+    if (event.matches && isOpen()) setOpen(false);
+  });
+
+  document.addEventListener('astro:before-preparation', () => {
+    if (isOpen()) setOpen(false);
+  });
+</script>

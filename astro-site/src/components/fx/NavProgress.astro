@@ -1,0 +1,100 @@
+---
+/*
+ * Thin top progress bar shown while a client-side navigation is loading.
+ * It only appears when loading takes longer than SHOW_DELAY, so prefetched
+ * navigations stay silent. Persisted across swaps so the exit fade is not cut.
+ */
+---
+
+<div
+  class="nav-progress"
+  data-nav-progress
+  aria-hidden="true"
+  transition:persist="nav-progress"
+></div>
+
+<script>
+  import type { TransitionBeforePreparationEvent } from 'astro:transitions/client';
+
+  const SHOW_DELAY = 120;
+  const RESET_AFTER = 700;
+
+  let showTimer = 0;
+  let resetTimer = 0;
+  let pending = false;
+
+  const getBar = () => document.querySelector<HTMLElement>('[data-nav-progress]');
+
+  function show() {
+    const bar = getBar();
+    if (!bar || !pending || bar.dataset.state === 'loading') return;
+    bar.removeAttribute('data-state');
+    void bar.offsetWidth;
+    bar.dataset.state = 'loading';
+  }
+
+  function start(event: Event) {
+    window.clearTimeout(showTimer);
+    window.clearTimeout(resetTimer);
+    pending = true;
+    showTimer = window.setTimeout(show, SHOW_DELAY);
+    (event as TransitionBeforePreparationEvent).signal?.addEventListener('abort', finish, {
+      once: true,
+    });
+  }
+
+  function finish() {
+    if (!pending) return;
+    pending = false;
+    window.clearTimeout(showTimer);
+    const bar = getBar();
+    if (!bar || bar.dataset.state !== 'loading') return;
+    bar.dataset.state = 'done';
+    resetTimer = window.setTimeout(() => {
+      if (bar.dataset.state === 'done') bar.removeAttribute('data-state');
+    }, RESET_AFTER);
+  }
+
+  document.addEventListener('astro:before-preparation', start);
+  document.addEventListener('astro:after-preparation', finish);
+  document.addEventListener('astro:after-swap', finish);
+  document.addEventListener('astro:page-load', finish);
+</script>
+
+<style>
+  .nav-progress {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 70;
+    height: 3px;
+    pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    opacity: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 12px var(--ring);
+  }
+
+  .nav-progress[data-state='loading'] {
+    opacity: 1;
+    transform: scaleX(0.9);
+    transition:
+      transform 8s cubic-bezier(0.08, 0.82, 0.17, 1),
+      opacity 150ms ease-out;
+  }
+
+  .nav-progress[data-state='done'] {
+    opacity: 0;
+    transform: scaleX(1);
+    transition:
+      transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 300ms ease 180ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-progress,
+    .nav-progress[data-state] {
+      transform: none;
+    }
+  }
+</style>

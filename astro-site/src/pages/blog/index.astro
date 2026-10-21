@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import BlogHeader from '../../components/blog/BlogHeader.astro';
+import CategoryFilter from '../../components/blog/CategoryFilter.astro';
+import PostArchive from '../../components/blog/PostArchive.astro';
+import EmptyState from '../../components/blog/EmptyState.astro';
+import { getCategoryList } from '../../components/blog/categories';
+import { getPublishedPosts } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+const categories = getCategoryList(posts);
+const [latest, ...rest] = posts;
+---
+
+<BaseLayout
+  title="Blog"
+  description="Articles by Teo Parashkevov on machine learning, Python, distributed systems, and software engineering."
+>
+  <div class="container-page py-14 sm:py-20">
+    <BlogHeader eyebrow="Writing" title="Blog" count={posts.length}>
+      Notes, tutorials, and talks on machine learning, Python, data structures, and building
+      reliable software.
+    </BlogHeader>
+
+    {categories.length > 0 && (
+      <div class="mt-10">
+        <CategoryFilter categories={categories} total={posts.length} />
+      </div>
+    )}
+
+    {latest ? (
+      <>
+        <div class="mt-12" data-reveal="scale">
+          <PostCard post={latest} featured />
+        </div>
+        {rest.length > 0 && (
+          <div class="mt-16 border-t border-border pt-14">
+            <PostArchive posts={rest} />
+          </div>
+        )}
+      </>
+    ) : (
+      <div class="mt-14">
+        <EmptyState />
+      </div>
+    )}
+  </div>
+</BaseLayout>

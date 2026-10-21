@@ -1,0 +1,38 @@
+---
+/*
+ * Drives the `.spotlight` utility from animations.css: one delegated pointer
+ * listener feeds the pointer position into --spot-x / --spot-y of the hovered
+ * `.spotlight` element.
+ */
+---
+
+<script>
+  let frame = 0;
+  let target: HTMLElement | null = null;
+  let x = 0;
+  let y = 0;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function paint() {
+    frame = 0;
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    target.style.setProperty('--spot-x', `${x - rect.left}px`);
+    target.style.setProperty('--spot-y', `${y - rect.top}px`);
+  }
+
+  document.addEventListener(
+    'pointermove',
+    (event) => {
+      if (event.pointerType !== 'mouse' || reducedMotion.matches) return;
+      const el =
+        event.target instanceof Element ? event.target.closest<HTMLElement>('.spotlight') : null;
+      if (!el) return;
+      target = el;
+      x = event.clientX;
+      y = event.clientY;
+      frame ||= requestAnimationFrame(paint);
+    },
+    { passive: true }
+  );
+</script>

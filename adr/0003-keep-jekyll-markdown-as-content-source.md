@@ -1,6 +1,6 @@
 # ADR-0003: Keep the Jekyll markdown in `docs/` as the content source
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-0009
 - **Date:** 2026-06-04 (commit `495260e`, refined in `bfa77b1` and `547ad51`)
 - **Deciders:** Teo Parashkevov
 

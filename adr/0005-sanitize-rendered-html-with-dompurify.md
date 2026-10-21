@@ -1,6 +1,6 @@
 # ADR-0005: Sanitize rendered HTML with DOMPurify
 
-- **Status:** Accepted
+- **Status:** Superseded by ADR-0009
 - **Date:** 2026-06-05 (commit `63ad35c`)
 - **Deciders:** Teo Parashkevov
 

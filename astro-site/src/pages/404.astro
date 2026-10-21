@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { getPublishedPosts, postUrl, formatDate } from '../lib/posts';
+
+const recent = (await getPublishedPosts()).slice(0, 3);
+---
+
+<BaseLayout
+  title="Page not found"
+  description="The page you were looking for doesn't exist or has moved."
+  noindex
+>
+  <section class="relative isolate overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div class="blob blob-a bg-accent/20 dark:bg-accent/25"></div>
+      <div class="blob blob-b bg-accent-2/15 dark:bg-accent-2/20"></div>
+    </div>
+
+    <div class="container-page flex flex-col items-center py-20 text-center sm:py-28">
+      <div class="digits relative select-none" aria-hidden="true">
+        <svg class="orbit text-accent/30" viewBox="0 0 200 200" fill="none">
+          <circle
+            cx="100"
+            cy="100"
+            r="96"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-dasharray="4 10"
+          ></circle>
+          <circle class="text-accent" cx="100" cy="4" r="5" fill="currentColor"></circle>
+        </svg>
+        <span class="digit text-gradient" style="--i: 0">
+          4
+        </span>
+        <span class="digit text-gradient" style="--i: 1">
+          0
+        </span>
+        <span class="digit text-gradient" style="--i: 2">
+          4
+        </span>
+      </div>
+
+      <p
+        class="enter mt-10 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium tracking-wide text-muted uppercase shadow-soft"
+        style="--enter-delay: 80ms"
+      >
+        <span class="size-1.5 rounded-full bg-accent"></span>
+        Error 404
+      </p>
+
+      <h1
+        class="enter mt-5 text-3xl font-bold tracking-tight text-balance text-fg sm:text-5xl"
+        style="--enter-delay: 160ms"
+      >
+        This page wandered off
+      </h1>
+
+      <p class="enter mt-4 max-w-xl text-pretty text-muted sm:text-lg" style="--enter-delay: 240ms">
+        The page{' '}
+        <code
+          class="rounded-md bg-surface-2 px-1.5 py-0.5 font-mono text-sm break-all text-fg"
+          data-missing-path
+        >
+          you requested
+        </code>{' '}
+        doesn't exist or has moved. Let's get you back on track.
+      </p>
+
+      <div
+        class="enter mt-9 flex flex-wrap items-center justify-center gap-3"
+        style="--enter-delay: 320ms"
+      >
+        <a
+          href="/"
+          class="hover-lift press inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-soft transition hover:shadow-lift focus-visible:ring-4 focus-visible:ring-ring"
+        >
+          <Icon name="arrow-left" size={16} />
+          Back home
+        </a>
+        <a
+          href="/blog/"
+          class="hover-lift press inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-fg shadow-soft transition hover:border-accent/40 hover:text-accent focus-visible:ring-4 focus-visible:ring-ring"
+        >
+          <Icon name="book" size={16} />
+          Read the blog
+        </a>
+      </div>
+
+      {recent.length > 0 && (
+        <nav
+          class="enter mt-16 w-full max-w-xl text-left"
+          style="--enter-delay: 400ms"
+          aria-labelledby="recent-heading"
+        >
+          <h2
+            id="recent-heading"
+            class="text-xs font-semibold tracking-widest text-subtle uppercase"
+          >
+            Or try a recent post
+          </h2>
+          <ul class="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface shadow-soft">
+            {recent.map((post) => (
+              <li>
+                <a
+                  href={postUrl(post)}
+                  class="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-surface-2 focus-visible:bg-surface-2"
+                >
+                  <span class="min-w-0">
+                    <span class="block truncate font-medium text-fg group-hover:text-accent">
+                      {post.data.title}
+                    </span>
+                    <time
+                      class="mt-0.5 block text-xs text-subtle"
+                      datetime={post.data.pubDate.toISOString()}
+                    >
+                      {formatDate(post.data.pubDate)}
+                    </time>
+                  </span>
+                  <Icon
+                    name="arrow-right"
+                    size={16}
+                    class="shrink-0 text-subtle transition-transform duration-300 ease-out-expo group-hover:translate-x-1 group-hover:text-accent"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const target = document.querySelector<HTMLElement>('[data-missing-path]');
+    if (target) target.textContent = window.location.pathname;
+  });
+</script>
+
+<style>
+  .digits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.04em;
+    font-size: clamp(6rem, 22vw, 12rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    isolation: isolate;
+  }
+
+  .digit {
+    display: inline-block;
+    padding-inline: 0.02em;
+    animation:
+      rise-in 900ms var(--ease-out-expo) both,
+      float 6s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 90ms), calc(900ms + var(--i) * 400ms);
+  }
+
+  .orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1.35em;
+    height: 1.35em;
+    translate: -50% -50%;
+    z-index: -1;
+    opacity: 0.9;
+    animation: spin 24s linear infinite;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+
+  .blob-a {
+    top: -6rem;
+    left: 50%;
+    width: 28rem;
+    height: 28rem;
+    translate: -80% 0;
+  }
+
+  .blob-b {
+    top: 4rem;
+    left: 50%;
+    width: 22rem;
+    height: 22rem;
+    translate: 10% 0;
+    animation-delay: -9s;
+  }
+
+  .enter {
+    animation: rise-in 800ms var(--ease-out-expo) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-0.06em);
+    }
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  @keyframes drift {
+    to {
+      transform: translate3d(3rem, 2rem, 0) scale(1.1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .digit,
+    .orbit,
+    .blob,
+    .enter {
+      animation: none;
+    }
+  }
+</style>

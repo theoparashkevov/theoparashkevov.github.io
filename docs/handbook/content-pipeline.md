@@ -1,6 +1,6 @@
-# Content pipeline: writing posts and pages
+# Writing posts
 
-All content is authored as markdown in the **Jekyll tree under `docs/`**. The Next.js app never reads markdown files directly. It reads JSON produced by `npm run migrate`. Background: [ADR-0003](../../adr/0003-keep-jekyll-markdown-as-content-source.md).
+Posts are plain Markdown files in `astro-site/src/content/blog/`. Astro loads them through the `blog` content collection (`astro-site/src/content.config.ts`), validates the front matter against a zod schema, and renders the body at build time. There is no migration step and nothing generated to commit. Background: [ADR-0009](../../adr/0009-rewrite-site-with-astro.md).
 
 ## Add a blog post
 
@@ -9,44 +9,90 @@ All content is authored as markdown in the **Jekyll tree under `docs/`**. The Ne
    git switch development && git pull
    git switch -c feature/post-<slug>
    ```
-2. Create `docs/_posts/YYYY-MM-DD-<slug>.md`. The filename determines both:
-   - the **URL**: `/blog/<slug>/`
-   - the **publication date**: parsed from the prefix as noon UTC (`extractDateFromFilename` in `lib/content/jekyll-loader.ts`).
-3. Add the front matter:
+2. Create `astro-site/src/content/blog/<slug>.md`. The file name, without `.md`, is the **slug**, and the post is published at `/blog/<slug>/`. Use lowercase kebab-case. The date does **not** go in the file name.
+3. Add the front matter (see [the schema](#front-matter-schema) below):
    ```yaml
    ---
-   layout: post
    title: My post title
-   modified_date: 2026-10-21        # optional; shown as "Updated" and used in the sitemap
+   description: One or two sentences for the post card, the meta description, and RSS.
+   pubDate: 2026-10-21
+   updatedDate: 2026-11-02            # optional; shown as "Updated"
    categories:
-     - ai                           # the first category is shown as the badge on the card
-   author:
-     - Teo Parashkevov
-   meta: [keyword1, keyword2]
-   thumbnail_location: <slug>       # → /assets/img/posts/<slug>/thumbnail.png
-   usemathjax: true                 # enables remark-math + KaTeX for $...$ / $$...$$
-   description: >
-     One or two sentences for the card, the meta description, and RSS.
+     - ai                             # the first category is the badge on the card
+   tags: [keyword1, keyword2]
+   heroImage: /assets/img/posts/<slug>/thumbnail.png
+   heroAlt: What the hero image shows
+   math: true                         # only if the post contains math
+   draft: true                        # remove (or set false) to publish
    ---
    ```
-4. Put images in `docs/assets/img/posts/<slug>/`, including `thumbnail.png` if you set `thumbnail_location`. Reference them as `/assets/img/posts/<slug>/1.png`, or with the Liquid form `{{ "/assets/img/posts/<slug>/1.png" | relative_url }}`. Both work.
-5. Regenerate and preview:
+4. Put images and other files in `astro-site/public/assets/img/posts/<folder>/`. Usually `<folder>` is the slug, but it doesn't have to be. See [Images and files](#images-and-files).
+5. Write the body, starting at `##`. The layout renders the title as the page's `<h1>` and builds the table of contents from the `##`/`###` headings, so don't add an H1 or a manual table of contents.
+6. Preview it:
    ```bash
-   cd nextjs-site
-   npm run migrate && npm run validate
-   npm run dev          # http://localhost:3000/blog/<slug>/
+   cd astro-site
+   npm run dev          # http://localhost:4321/blog/<slug>/
    ```
-6. Commit **both** the source (`docs/_posts/...`, `docs/assets/...`) and the generated output (`nextjs-site/content/...`, `nextjs-site/public/assets/...`), then open a PR into `development`.
+   Drafts are hidden everywhere, including in the dev server, so set `draft: false` (or remove the key) while you preview.
+7. Run the checks from [development.md](development.md#before-opening-a-pr), then open a PR into `development`.
 
-## Edit a page (About, Contact, Projects)
+## Front-matter schema
 
-Edit `docs/<page>.md`, then run `npm run migrate`. The page JSON stores raw markdown, which is converted to sanitized HTML when the page is built.
+Defined in `astro-site/src/content.config.ts`. A missing required field or a value of the wrong type fails `npm run dev` and `npm run build` with an error that names the file and the field.
 
-## Rules and gotchas
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | string | yes | Post title. Also used for the `<title>` tag and RSS. |
+| `description` | string | yes | Clean 1–2 sentence summary. Used on post cards, in meta tags, and in RSS. |
+| `pubDate` | date | yes | `YYYY-MM-DD`. Posts are sorted newest first by this date. Dates are displayed in UTC, so they don't shift with the reader's timezone. |
+| `updatedDate` | date | no | Last significant update. |
+| `categories` | string[] | no (default `[]`) | Broad topics. The first one is shown as the card badge. They also drive the category filters on `/blog/`. |
+| `tags` | string[] | no (default `[]`) | Keywords, shown on the post and used as article tags in the meta data. |
+| `author` | string | no (default `Teo Parashkevov`) | |
+| `heroImage` | string | no | Absolute public path, e.g. `/assets/img/posts/<folder>/thumbnail.png`. Used for the card, the post header, and social previews. Without it, a default thumbnail is used. |
+| `heroAlt` | string | no | Alt text for `heroImage`. Always set it when `heroImage` is set. |
+| `math` | boolean | no (default `false`) | Set to `true` when the post contains math. |
+| `draft` | boolean | no (default `false`) | `true` keeps the post out of every listing, RSS, and the build. |
 
-- **Never hand-edit `nextjs-site/content/**` or `nextjs-site/public/assets/**`.** Both are overwritten by the next migration, including the one CI runs before every deploy.
-- **Never add a non-page `.md` file at the top level of `docs/`.** It would be migrated as a page. Put docs in `docs/handbook/`.
-- **Raw HTML is allowed but filtered.** Anything outside the allowlist in `lib/utils/sanitize-html.ts` is silently stripped. That includes `<iframe>`, `<script>`, `<video>`, and event-handler attributes. Extend the allowlist deliberately if you need one of them.
-- **Liquid support is limited** to what `processLiquidSyntax()` in `lib/markdown/processor.ts` handles: `site.url`, `site.baseurl`, `page.*`, and asset paths piped through `relative_url`, `asset_path`, or `img_url`. Any other Liquid tag ends up as literal text on the page.
-- **Drafts** in `docs/_drafts/` are never published. To publish one, move it into `_posts/` with a date prefix.
-- Posts are sorted newest first by filename date.
+## Images and files
+
+- Everything under `astro-site/public/` is copied to the site root unchanged. A file at `astro-site/public/assets/img/posts/<folder>/1.png` is served at `/assets/img/posts/<folder>/1.png`.
+- Reference images by that **absolute** path. Relative paths and Liquid tags such as `{{ ... | relative_url }}` are not supported.
+- Give every image meaningful alt text: `![Architecture of the system](/assets/img/posts/<folder>/1.png)`.
+- Use raw HTML only when Markdown can't express it, for example a sized image or two images side by side. Keep it valid and well nested, because Astro's compiler rejects unclosed tags and invalid nesting. Raw HTML is rendered as written, with no sanitizer.
+- Non-image files such as PDFs go in the same folder and are linked the same way: `[slides (PDF)](/assets/img/posts/<folder>/slides.pdf)`.
+
+## Math
+
+Math is rendered at build time with KaTeX (`remark-math` + `rehype-katex`). No client-side JavaScript is involved.
+
+- Inline: `$e^{i\pi} + 1 = 0$`
+- Display: put `$$` on its own line before and after the expression:
+  ```markdown
+  $$
+  y(t) = g(t) + s(t) + h(t) + \epsilon_t
+  $$
+  ```
+- `\(...\)` and `\[...\]` delimiters are **not** recognised. Use `$` and `$$`.
+- A literal dollar sign in prose must be escaped as `\$`.
+
+## Code blocks
+
+Code is highlighted at build time by Shiki, with a light (`github-light`) and a dark (`github-dark-dimmed`) theme that follow the site theme. Always fence code with a language, otherwise it is shown unhighlighted:
+
+````markdown
+```python
+def push(stack, item):
+    stack.append(item)
+```
+````
+
+Use `text` for output or plain text and `bash`/`shell` for commands. On the post page, code blocks get a copy button and can be opened in the code side panel.
+
+## Drafts
+
+Set `draft: true` in the front matter. The post stays in the repository but is excluded from `getPublishedPosts()`, so it gets no page, does not appear on `/` or `/blog/`, and is left out of RSS and the sitemap. To publish, remove the key or set it to `false`, and update `pubDate` to the publication day.
+
+## Edit a page (About, Projects, Contact)
+
+These pages are Astro components, not Markdown. Edit `astro-site/src/pages/<name>.astro` and the components it uses under `astro-site/src/components/<name>/`. For example, the project list is data in `astro-site/src/components/projects/projects.ts`. Site-wide values (title, tagline, navigation, social links, email) are in `astro-site/src/consts.ts`.

@@ -1,0 +1,330 @@
+---
+import type { MarkdownHeading } from 'astro';
+import Icon from '../Icon.astro';
+
+export interface Props {
+  headings: MarkdownHeading[];
+  /** `both` renders the inline disclosure below lg and the sticky sidebar from lg up. */
+  variant?: 'both' | 'inline' | 'sidebar';
+  class?: string;
+}
+
+type TocItem = MarkdownHeading & { children: MarkdownHeading[] };
+
+const { headings, variant = 'both', class: className } = Astro.props;
+
+const items = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+const tree: TocItem[] = [];
+for (const heading of items) {
+  const parent = tree.at(-1);
+  if (heading.depth === 3 && parent) parent.children.push(heading);
+  else tree.push({ ...heading, children: [] });
+}
+
+const show = items.length >= 2;
+const showInline = show && variant !== 'sidebar';
+const showSidebar = show && variant !== 'inline';
+const responsive = variant === 'both';
+
+const linkClass =
+  'block py-1.5 pr-2 leading-snug text-muted transition-[color,translate] duration-200 hover:translate-x-0.5 hover:text-fg motion-reduce:hover:translate-x-0 aria-[current=location]:font-medium aria-[current=location]:text-accent';
+const indicatorClass =
+  'pointer-events-none absolute top-0 left-[-0.5px] h-0 w-0.5 rounded-full bg-linear-to-b from-accent to-accent-2 opacity-0 data-ready:transition-[transform,height,opacity] data-ready:duration-300 data-ready:ease-out-expo motion-reduce:transition-none';
+---
+
+{showInline && (
+  <details
+    data-toc
+    data-toc-variant="inline"
+    class:list={[
+      'toc-disclosure group/toc rounded-2xl border border-border bg-surface shadow-soft',
+      responsive && 'lg:hidden',
+      className,
+    ]}
+  >
+    <summary class="flex cursor-pointer list-none items-center gap-3 rounded-2xl px-4 py-3 text-sm select-none [&::-webkit-details-marker]:hidden">
+      <Icon name="list" size={16} class="shrink-0 text-accent" />
+      <span class="shrink-0 font-semibold text-fg">On this page</span>
+      <span data-toc-current class="min-w-0 flex-1 truncate text-muted" aria-hidden="true"></span>
+      <Icon
+        name="chevron-down"
+        size={16}
+        class="ml-auto shrink-0 text-subtle transition-transform duration-300 ease-out-expo group-open/toc:rotate-180"
+      />
+    </summary>
+    <nav aria-label="Table of contents" class="px-4 pb-4">
+      <div data-toc-rail class="relative">
+        <span data-toc-indicator aria-hidden="true" class={indicatorClass}></span>
+        <ul class="border-l border-border text-sm">
+          {tree.map((item) => (
+            <li>
+              <a href={`#${item.slug}`} data-toc-link={item.slug} class:list={[linkClass, 'pl-4']}>
+                {item.text}
+              </a>
+              {item.children.length > 0 && (
+                <ul>
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={`#${child.slug}`}
+                        data-toc-link={child.slug}
+                        class:list={[linkClass, 'pl-8 text-[0.8125rem]']}
+                      >
+                        {child.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  </details>
+)}
+
+{showSidebar && (
+  <nav
+    data-toc
+    data-toc-variant="sidebar"
+    aria-label="Table of contents"
+    class:list={[
+      'toc-sidebar overscroll-contain py-1 pr-1 pl-1 lg:sticky lg:top-24 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto',
+      responsive && 'hidden lg:block',
+      className,
+    ]}
+  >
+    <p class="mb-3 flex items-center gap-2 text-xs font-semibold tracking-wider text-subtle uppercase">
+      <Icon name="list" size={14} />
+      On this page
+    </p>
+    <div data-toc-rail class="relative">
+      <span data-toc-indicator aria-hidden="true" class={indicatorClass}></span>
+      <ul class="border-l border-border text-sm">
+        {tree.map((item) => (
+          <li>
+            <a href={`#${item.slug}`} data-toc-link={item.slug} class:list={[linkClass, 'pl-4']}>
+              {item.text}
+            </a>
+            {item.children.length > 0 && (
+              <ul>
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={`#${child.slug}`}
+                      data-toc-link={child.slug}
+                      class:list={[linkClass, 'pl-8 text-[0.8125rem]']}
+                    >
+                      {child.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+)}
+
+<style>
+  @supports selector(::details-content) {
+    @media (prefers-reduced-motion: no-preference) {
+      .toc-disclosure {
+        interpolate-size: allow-keywords;
+      }
+
+      .toc-disclosure::details-content {
+        block-size: 0;
+        overflow-y: clip;
+        transition:
+          block-size 350ms var(--ease-out-expo),
+          content-visibility 350ms allow-discrete;
+      }
+
+      .toc-disclosure[open]::details-content {
+        block-size: auto;
+      }
+    }
+  }
+</style>
+
+<script>
+  const ACTIVE_LINE = 0.33;
+  const PIN_TIMEOUT = 1500;
+
+  let teardown: (() => void) | undefined;
+
+  type Rail = {
+    root: HTMLElement;
+    rail: HTMLElement;
+    indicator: HTMLElement;
+    current: HTMLElement | null;
+  };
+
+  function linkFor(container: ParentNode, id: string | undefined) {
+    if (!id) return null;
+    return container.querySelector<HTMLAnchorElement>(`a[data-toc-link="${CSS.escape(id)}"]`);
+  }
+
+  function placeIndicator({ rail, indicator }: Rail, activeId: string | undefined) {
+    const link = linkFor(rail, activeId);
+    if (!link || link.offsetParent === null) {
+      indicator.style.opacity = '0';
+      return;
+    }
+    indicator.style.transform = `translateY(${link.offsetTop}px)`;
+    indicator.style.height = `${link.offsetHeight}px`;
+    indicator.style.opacity = '1';
+    if (!indicator.hasAttribute('data-ready')) {
+      requestAnimationFrame(() => indicator.setAttribute('data-ready', ''));
+    }
+  }
+
+  function keepInView(container: HTMLElement, link: HTMLElement) {
+    if (container.scrollHeight <= container.clientHeight) return;
+    const margin = 24;
+    const box = container.getBoundingClientRect();
+    const item = link.getBoundingClientRect();
+    if (item.top < box.top + margin) container.scrollTop -= box.top + margin - item.top;
+    else if (item.bottom > box.bottom - margin)
+      container.scrollTop += item.bottom - (box.bottom - margin);
+  }
+
+  function init() {
+    teardown?.();
+    teardown = undefined;
+
+    const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-toc]'));
+    if (roots.length === 0) return;
+
+    const links = roots.flatMap((root) =>
+      Array.from(root.querySelectorAll<HTMLAnchorElement>('a[data-toc-link]'))
+    );
+    const headings = Array.from(new Set(links.map((link) => link.dataset.tocLink ?? '')))
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+      .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+
+    const rails: Rail[] = roots.flatMap((root) => {
+      const rail = root.querySelector<HTMLElement>('[data-toc-rail]');
+      const indicator = root.querySelector<HTMLElement>('[data-toc-indicator]');
+      if (!rail || !indicator) return [];
+      return [
+        { root, rail, indicator, current: root.querySelector<HTMLElement>('[data-toc-current]') },
+      ];
+    });
+
+    const html = document.documentElement;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const controller = new AbortController();
+    const { signal } = controller;
+
+    let activeId: string | undefined;
+    let pinned = false;
+    let atEnd = false;
+    let pinTimer: number | undefined;
+
+    function setActive(id: string | undefined) {
+      if (id === activeId) return;
+      activeId = id;
+      for (const link of links) {
+        if (id && link.dataset.tocLink === id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+      for (const rail of rails) {
+        placeIndicator(rail, id);
+        const link = linkFor(rail.rail, id);
+        if (rail.current) rail.current.textContent = link?.textContent?.trim() ?? '';
+        if (link && rail.root.dataset.tocVariant === 'sidebar') keepInView(rail.root, link);
+      }
+    }
+
+    function compute() {
+      if (pinned) return;
+      const viewport = window.innerHeight;
+      const line = viewport * ACTIVE_LINE;
+      let current: HTMLElement | undefined;
+      for (const heading of headings) {
+        const top = heading.getBoundingClientRect().top;
+        if (top <= line || (atEnd && top < viewport)) current = heading;
+        else break;
+      }
+      setActive(current?.id);
+    }
+
+    function release() {
+      pinned = false;
+      window.clearTimeout(pinTimer);
+      html.style.removeProperty('scroll-behavior');
+    }
+
+    for (const root of roots) {
+      root.addEventListener(
+        'click',
+        (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+          const link = target.closest<HTMLAnchorElement>('a[data-toc-link]');
+          if (!link || event.defaultPrevented || event.button !== 0) return;
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          if (root instanceof HTMLDetailsElement) root.open = false;
+          setActive(link.dataset.tocLink);
+          pinned = true;
+          window.clearTimeout(pinTimer);
+          pinTimer = window.setTimeout(release, PIN_TIMEOUT);
+          if (!reducedMotion.matches) html.style.scrollBehavior = 'smooth';
+        },
+        { signal }
+      );
+    }
+
+    window.addEventListener('scrollend', () => pinned && release(), { signal });
+
+    const resizeObserver = new ResizeObserver(() => {
+      for (const rail of rails) placeIndicator(rail, activeId);
+    });
+    for (const rail of rails) resizeObserver.observe(rail.rail);
+
+    let spy: IntersectionObserver | undefined;
+    let endObserver: IntersectionObserver | undefined;
+    let sentinel: HTMLElement | undefined;
+
+    if (headings.length > 0 && 'IntersectionObserver' in window) {
+      spy = new IntersectionObserver(compute, {
+        rootMargin: `0px 0px -${Math.round((1 - ACTIVE_LINE) * 100)}% 0px`,
+      });
+      headings.forEach((heading) => spy?.observe(heading));
+
+      sentinel = document.createElement('div');
+      sentinel.setAttribute('aria-hidden', 'true');
+      sentinel.style.cssText = 'height:1px;margin-top:-1px;pointer-events:none;visibility:hidden';
+      document.body.append(sentinel);
+      endObserver = new IntersectionObserver((entries) => {
+        atEnd = entries.at(-1)?.isIntersecting ?? false;
+        compute();
+      });
+      endObserver.observe(sentinel);
+
+      compute();
+    }
+
+    teardown = () => {
+      controller.abort();
+      spy?.disconnect();
+      endObserver?.disconnect();
+      resizeObserver.disconnect();
+      sentinel?.remove();
+      release();
+    };
+  }
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', () => {
+    teardown?.();
+    teardown = undefined;
+  });
+</script>
