@@ -1,0 +1,50 @@
+---
+import Icon from '../Icon.astro';
+import { SOCIAL_LINKS } from '../../consts';
+
+const DESCRIPTIONS: Record<string, string> = {
+  GitHub: 'Code and open-source work',
+  LinkedIn: 'Connect professionally',
+  YouTube: 'Talks and tutorials',
+  Email: 'The direct line',
+  RSS: 'Follow new posts',
+};
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+---
+
+<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5" data-reveal-stagger>
+  {SOCIAL_LINKS.map((link) => {
+    const external = isExternal(link.href);
+    return (
+      <li data-reveal>
+        <a
+          href={link.href}
+          class="group hover-lift press flex h-full items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3 transition-[border-color,background-color,box-shadow] duration-300 ease-out-expo hover:border-accent/40 hover:bg-surface-2 hover:shadow-soft"
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener noreferrer' : undefined}
+        >
+          <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent-soft text-accent transition-transform duration-300 ease-spring group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
+            <Icon name={link.icon} size={20} />
+          </span>
+          <span class="min-w-0">
+            <span class="flex items-center gap-1 font-medium text-fg">
+              {link.label}
+              {external && (
+                <Icon
+                  name="external"
+                  size={14}
+                  class="text-subtle transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 motion-reduce:transition-none"
+                />
+              )}
+              {external && <span class="sr-only">(opens in a new tab)</span>}
+            </span>
+            {DESCRIPTIONS[link.label] && (
+              <span class="block truncate text-xs text-muted">{DESCRIPTIONS[link.label]}</span>
+            )}
+          </span>
+        </a>
+      </li>
+    );
+  })}
+</ul>

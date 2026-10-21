@@ -1,0 +1,7 @@
+dist/
+.astro/
+node_modules/
+coverage/
+public/
+package-lock.json
+src/content/**/*.md

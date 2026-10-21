@@ -1,0 +1,43 @@
+---
+import PostCard from '../PostCard.astro';
+import type { Post } from '../../lib/posts';
+import { groupByYear } from './categories';
+
+export interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+const years = groupByYear(posts);
+---
+
+<div class="space-y-14">
+  {years.map(({ year, posts: yearPosts }) => (
+    <section class="grid gap-6 md:grid-cols-[7rem_1fr] md:gap-10" aria-labelledby={`year-${year}`}>
+      <div>
+        <div
+          class="flex items-center gap-3 md:sticky md:top-24 md:flex-col md:items-start md:gap-1"
+          data-reveal="left"
+        >
+          <h2
+            id={`year-${year}`}
+            class="text-3xl font-bold tracking-tight text-fg tabular-nums md:text-4xl"
+          >
+            {year}
+          </h2>
+          <p class="text-sm font-medium text-subtle">
+            {`${yearPosts.length} ${yearPosts.length === 1 ? 'post' : 'posts'}`}
+          </p>
+          <span class="h-px flex-1 bg-border md:hidden" aria-hidden="true" />
+        </div>
+      </div>
+      <ul class="grid gap-6 sm:grid-cols-2" data-reveal-stagger="90" role="list">
+        {yearPosts.map((post) => (
+          <li data-reveal>
+            <PostCard post={post} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>

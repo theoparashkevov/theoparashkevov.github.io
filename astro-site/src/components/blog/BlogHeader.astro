@@ -1,0 +1,65 @@
+---
+import Icon from '../Icon.astro';
+
+export interface Props {
+  eyebrow: string;
+  title: string;
+  count: number;
+  backHref?: string;
+  backLabel?: string;
+}
+
+const { eyebrow, title, count, backHref, backLabel = 'Back' } = Astro.props;
+---
+
+<header class="relative">
+  <div
+    class="pointer-events-none absolute -top-24 -left-24 -z-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl dark:bg-accent/15"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute -top-10 right-0 -z-10 h-56 w-56 rounded-full bg-accent-2/10 blur-3xl"
+    aria-hidden="true"
+  ></div>
+
+  {backHref && (
+    <a
+      href={backHref}
+      class="group mb-8 inline-flex items-center gap-1.5 rounded-full text-sm font-medium text-muted transition-colors hover:text-accent"
+      data-reveal="fade"
+    >
+      <Icon
+        name="arrow-left"
+        size={16}
+        class="transition-transform duration-300 ease-spring group-hover:-translate-x-1"
+      />
+      {backLabel}
+    </a>
+  )}
+
+  <p
+    class="inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-accent uppercase"
+    data-reveal="fade"
+  >
+    <span class="h-px w-6 bg-accent" aria-hidden="true"></span>
+    {eyebrow}
+  </p>
+  <h1 class="mt-3 text-4xl font-bold tracking-tight text-balance sm:text-5xl" data-reveal>
+    <span class="text-gradient">{title}</span>
+  </h1>
+  <div
+    class="mt-4 max-w-2xl text-lg leading-relaxed text-muted"
+    data-reveal
+    style="--reveal-delay: 80ms"
+  >
+    <slot />
+  </div>
+  <p
+    class="mt-4 inline-flex items-center gap-2 text-sm text-subtle"
+    data-reveal
+    style="--reveal-delay: 140ms"
+  >
+    <Icon name="book" size={16} />
+    {`${count} ${count === 1 ? 'post' : 'posts'}`}
+  </p>
+</header>

@@ -1,0 +1,54 @@
+---
+import { categoryUrl, type Category } from './categories';
+
+export interface Props {
+  categories: Category[];
+  total: number;
+  current?: string;
+}
+
+const { categories, total, current } = Astro.props;
+
+const items = [
+  { label: 'All posts', href: '/blog/', count: total, active: !current },
+  ...categories.map((category) => ({
+    label: category.name,
+    href: categoryUrl(category.slug),
+    count: category.count,
+    active: category.slug === current,
+  })),
+];
+---
+
+<nav aria-label="Filter posts by category">
+  <ul class="flex flex-wrap gap-2" data-reveal-stagger="40">
+    {items.map((item) => (
+      <li data-reveal="fade">
+        <a
+          href={item.href}
+          aria-current={item.active ? 'page' : undefined}
+          class:list={[
+            'press group inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors duration-200',
+            item.active
+              ? 'border-accent bg-accent text-accent-contrast shadow-soft'
+              : 'border-border bg-surface text-muted hover:border-accent/50 hover:text-fg',
+          ]}
+        >
+          {item.label}
+          <span
+            aria-hidden="true"
+            class:list={[
+              'rounded-full px-1.5 text-xs tabular-nums',
+              item.active
+                ? 'bg-accent-contrast/20 text-accent-contrast'
+                : 'bg-surface-2 text-subtle group-hover:text-muted',
+            ]}
+          >
+            {item.count}
+          </span>
+          <span class="sr-only">{`, ${item.count} ${item.count === 1 ? 'post' : 'posts'}`}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

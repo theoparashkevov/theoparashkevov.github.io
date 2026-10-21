@@ -1,0 +1,383 @@
+---
+import Icon from '../Icon.astro';
+---
+
+<div class="cb-assets" hidden>
+  <template data-cb-icon="copy">
+    <Icon name="copy" size={15} />
+  </template>
+  <template data-cb-icon="check">
+    <Icon name="check" size={15} strokeWidth={2.25} />
+  </template>
+  <template data-cb-icon="maximize">
+    <Icon name="maximize" size={15} />
+  </template>
+</div>
+
+<p id="cb-live" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+
+<dialog id="cb-panel" class="cb-panel not-prose" aria-labelledby="cb-panel-title">
+  <div class="cb-panel-inner">
+    <div class="cb-panel-header">
+      <div class="cb-panel-heading">
+        <span class="cb-panel-lang">Code</span>
+        <h2 id="cb-panel-title" class="cb-panel-title">
+          Code
+        </h2>
+      </div>
+      <div class="cb-panel-actions">
+        <button type="button" class="cb-btn cb-btn-copy press" aria-label="Copy code">
+          <Icon name="copy" size={15} />
+          <span class="cb-btn-text">Copy</span>
+        </button>
+        <button
+          type="button"
+          class="cb-btn cb-btn-icon cb-panel-close press"
+          aria-label="Close code panel"
+        >
+          <Icon name="x" size={18} />
+        </button>
+      </div>
+    </div>
+    <div class="cb-panel-body"></div>
+  </div>
+</dialog>
+
+<script>
+  import { initCodeBlocks, teardownCodeBlocks } from '../../scripts/code-blocks';
+
+  document.addEventListener('astro:page-load', initCodeBlocks);
+  document.addEventListener('astro:before-swap', teardownCodeBlocks);
+</script>
+
+<style is:global>
+  .cb {
+    --cb-radius: 0.875rem;
+    position: relative;
+    margin-block: 1.75em;
+    border: 1px solid var(--border);
+    border-radius: var(--cb-radius);
+    background: var(--surface);
+    box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.06);
+  }
+
+  .cb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 2.5rem;
+    padding: 0.3125rem 0.375rem 0.3125rem 1rem;
+    border-bottom: 1px solid var(--border);
+    border-radius: calc(var(--cb-radius) - 1px) calc(var(--cb-radius) - 1px) 0 0;
+    background: var(--surface-2);
+    line-height: 1;
+  }
+
+  .cb-lang,
+  .cb-panel-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--fg-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cb-lang::before,
+  .cb-panel-lang::before {
+    content: '';
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+
+  .cb-actions,
+  .cb-panel-actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .cb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    height: 1.875rem;
+    padding: 0 0.625rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--fg-muted);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .cb-btn:hover {
+    border-color: var(--border);
+    background: var(--surface);
+    color: var(--fg);
+  }
+
+  .cb-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .cb-btn svg {
+    flex: none;
+  }
+
+  .cb-btn.is-copied,
+  .cb-btn.is-copied:hover {
+    color: var(--accent);
+  }
+
+  .cb-btn.is-copied svg {
+    animation: cb-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .cb-btn-icon {
+    justify-content: center;
+    width: 2.25rem;
+    padding: 0;
+  }
+
+  @keyframes cb-pop {
+    from {
+      transform: scale(0.4);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .cb pre.astro-code,
+  .cb-panel pre.astro-code {
+    margin: 0;
+    font-family: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    tab-size: 4;
+    font-variant-ligatures: none;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .cb pre.astro-code {
+    max-width: 100%;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0 calc(var(--cb-radius) - 1px) calc(var(--cb-radius) - 1px);
+  }
+
+  .cb pre.astro-code code,
+  .cb-panel pre.astro-code code {
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    padding: 0;
+    background: none;
+    font: inherit;
+  }
+
+  .cb pre.astro-code:focus-visible,
+  .cb-panel pre.astro-code:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  @media (max-width: 30rem) {
+    .cb .cb-btn {
+      padding: 0;
+      width: 1.875rem;
+      justify-content: center;
+    }
+
+    .cb .cb-btn-text {
+      display: none;
+    }
+  }
+
+  html:has(dialog.cb-panel[open]) {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+
+  dialog.cb-panel {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(46rem, 92vw);
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-left: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--fg);
+    box-shadow:
+      0 0 0 1px hsl(var(--shadow-color) / 0.04),
+      -24px 0 60px hsl(var(--shadow-color) / 0.22);
+    transform: translateX(100%);
+    transition:
+      transform 440ms cubic-bezier(0.16, 1, 0.3, 1),
+      overlay 440ms allow-discrete,
+      display 440ms allow-discrete;
+  }
+
+  dialog.cb-panel[open] {
+    transform: translateX(0);
+  }
+
+  @starting-style {
+    dialog.cb-panel[open] {
+      transform: translateX(100%);
+    }
+  }
+
+  dialog.cb-panel::backdrop {
+    background-color: rgb(6 8 15 / 0);
+    backdrop-filter: blur(0);
+    transition:
+      background-color 300ms ease,
+      backdrop-filter 300ms ease,
+      overlay 440ms allow-discrete,
+      display 440ms allow-discrete;
+  }
+
+  dialog.cb-panel[open]::backdrop {
+    background-color: rgb(6 8 15 / 0.55);
+    backdrop-filter: blur(3px);
+  }
+
+  @starting-style {
+    dialog.cb-panel[open]::backdrop {
+      background-color: rgb(6 8 15 / 0);
+      backdrop-filter: blur(0);
+    }
+  }
+
+  .cb-panel-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .cb-panel-header {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 1rem 0.875rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+
+  .cb-panel-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    min-width: 0;
+  }
+
+  .cb-panel-title {
+    margin: 0;
+    overflow: hidden;
+    color: var(--fg);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cb-panel-actions .cb-btn {
+    height: 2.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .cb-panel-actions .cb-btn:not(.cb-btn-icon) {
+    padding: 0 0.875rem;
+  }
+
+  .cb-panel-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .cb-panel-body pre.astro-code {
+    flex: 1;
+    min-width: 0;
+    padding: 1.25rem 1.5rem 2rem;
+    border-radius: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  @media (max-width: 40rem) {
+    dialog.cb-panel {
+      width: 100vw;
+      border-left: 0;
+    }
+
+    .cb-panel-header {
+      padding-left: 1rem;
+    }
+
+    .cb-panel-body pre.astro-code {
+      padding: 1rem;
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    dialog.cb-panel {
+      transform: none;
+      opacity: 0;
+      transition:
+        opacity 120ms linear,
+        overlay 120ms allow-discrete,
+        display 120ms allow-discrete;
+    }
+
+    dialog.cb-panel[open] {
+      transform: none;
+      opacity: 1;
+    }
+
+    @starting-style {
+      dialog.cb-panel[open] {
+        transform: none;
+        opacity: 0;
+      }
+    }
+
+    dialog.cb-panel::backdrop {
+      backdrop-filter: none;
+      transition:
+        background-color 120ms linear,
+        overlay 120ms allow-discrete,
+        display 120ms allow-discrete;
+    }
+
+    .cb-btn.is-copied svg {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: development
+
+resources:
+  - ../../base
+
+images:
+  # `newTag: IMAGE_TAG` is replaced with the commit sha by the deploy job
+  # (sed in .forgejo/workflows/build-deploy.yml). Keep the literal string.
+  - name: theoparashkevov-blog
+    newName: harbor.internal.binary-rise/library/theoparashkevov-blog
+    newTag: IMAGE_TAG
+
+patches:
+  - target:
+      kind: Ingress
+      name: theoparashkevov-blog
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: theoparashkevov-blog.development.binary-rise

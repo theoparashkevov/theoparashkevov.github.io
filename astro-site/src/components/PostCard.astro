@@ -1,0 +1,135 @@
+---
+import Icon from './Icon.astro';
+import type { Post } from '../lib/posts';
+import { formatDate, postUrl, readingTime, transitionName } from '../lib/posts';
+import { categoryLabel } from './blog/categories';
+
+export interface Props {
+  post: Post;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const { title, description, pubDate, heroImage, heroAlt, categories } = post.data;
+const href = postUrl(post);
+const minutes = readingTime(post.body);
+const category = categories[0] ? categoryLabel(categories[0]) : undefined;
+const TitleTag = featured ? 'h2' : 'h3';
+---
+
+<article
+  class:list={[
+    'group relative isolate flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-soft',
+    'hover-lift transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-lift',
+    'focus-within:border-accent/60 focus-within:ring-4 focus-within:ring-ring',
+    featured && 'md:col-span-2 md:grid md:grid-cols-[1.15fr_1fr] md:items-stretch',
+  ]}
+>
+  <div
+    class:list={[
+      'relative overflow-hidden bg-surface-2',
+      featured ? 'aspect-[16/9] md:aspect-auto md:min-h-80' : 'aspect-[16/9]',
+    ]}
+  >
+    {heroImage ? (
+      <img
+        src={heroImage}
+        alt={heroAlt ?? ''}
+        loading={featured ? 'eager' : 'lazy'}
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+        transition:name={transitionName('hero', post.id)}
+      />
+    ) : (
+      <img
+        src="/assets/img/posts/default-thumbnail.png"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+      />
+    )}
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <div
+    class:list={[
+      'flex flex-1 flex-col',
+      featured ? 'p-6 sm:p-8 md:justify-center md:p-10' : 'p-5 sm:p-6',
+    ]}
+  >
+    <div class="flex flex-wrap items-center gap-2 text-xs font-medium">
+      {featured && (
+        <span class="inline-flex items-center gap-1 rounded-full bg-accent px-2.5 py-1 text-accent-contrast">
+          <Icon name="sparkles" size={12} />
+          Latest
+        </span>
+      )}
+      {category && (
+        <span class="rounded-full bg-accent-soft px-2.5 py-1 text-accent ring-1 ring-accent/15 ring-inset">
+          {category}
+        </span>
+      )}
+    </div>
+
+    <TitleTag
+      class:list={[
+        'mt-3 font-semibold tracking-tight text-balance text-fg transition-colors duration-300 group-hover:text-accent',
+        featured ? 'text-2xl leading-tight sm:text-3xl' : 'text-lg leading-snug',
+      ]}
+      transition:name={transitionName('title', post.id)}
+    >
+      <a
+        href={href}
+        class="rounded-sm after:absolute after:inset-0 after:z-10 after:content-[''] focus-visible:outline-none"
+      >
+        {title}
+      </a>
+    </TitleTag>
+
+    <p
+      class:list={[
+        'mt-2 text-muted',
+        featured
+          ? 'line-clamp-3 text-base leading-relaxed sm:mt-3'
+          : 'line-clamp-2 text-sm leading-relaxed',
+      ]}
+    >
+      {description}
+    </p>
+
+    <div
+      class:list={[
+        'flex flex-wrap items-center gap-x-4 gap-y-1 pt-5 text-xs text-subtle',
+        featured ? 'mt-auto sm:text-sm md:mt-6' : 'mt-auto',
+      ]}
+    >
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="calendar" size={14} />
+        <time datetime={pubDate.toISOString()}>
+          {formatDate(pubDate, featured ? 'long' : 'short')}
+        </time>
+      </span>
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="clock" size={14} />
+        {minutes} min read
+      </span>
+      {featured && (
+        <span
+          class="ml-auto hidden items-center gap-1 font-medium text-accent sm:inline-flex"
+          aria-hidden="true"
+        >
+          Read article
+          <Icon
+            name="arrow-right"
+            size={16}
+            class="transition-transform duration-300 ease-spring group-hover:translate-x-1"
+          />
+        </span>
+      )}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,114 @@
+# Architecture
+
+## Repository layout
+
+```
+.
+├── adr/                       Architecture Decision Records
+├── astro-site/                THE SITE (Astro 7, static output)
+│   ├── astro.config.mjs       site URL, Markdown processor (math, Shiki), Tailwind, sitemap
+│   ├── public/                Copied verbatim to the build output
+│   │   └── assets/img/        Site images; posts/<folder>/ holds each post's images and files
+│   ├── src/                   Source (see below)
+│   ├── tests/                 Vitest tests
+│   └── dist/                  Build output (git-ignored)
+├── docs/
+│   └── handbook/              This documentation (not built or published)
+├── .github/workflows/         deploy.yml: build and deploy to GitHub Pages
+├── .forgejo/workflows/        build-deploy.yml: test, image build, deploy to the dev cluster
+├── k8s/                       Kustomize base + development overlay for the dev cluster
+├── .devcontainer/             Node 24 devcontainer
+└── .nvmrc                     Node version (24)
+```
+
+### `astro-site/src`
+
+```
+src/
+├── pages/                     One file per route (file-based routing)
+│   ├── index.astro            /
+│   ├── blog/index.astro       /blog/
+│   ├── blog/[...slug].astro   /blog/<slug>/ (one page per published post)
+│   ├── blog/category/[category].astro   /blog/category/<slug>/ (one page per category)
+│   ├── 404.astro              Not-found page (noindex)
+│   ├── robots.txt.ts          /robots.txt
+│   ├── about.astro            /about/
+│   ├── projects.astro         /projects/
+│   ├── contact.astro          /contact/
+│   └── rss.xml.ts             /rss.xml
+├── layouts/
+│   ├── BaseLayout.astro       <html> shell: theme bootstrap, header, footer, <main>
+│   └── PostLayout.astro       Post page: header, table of contents, body, code panel, share links, prev/next
+├── components/                Shared components (BaseHead, Header, Footer, Icon, PostCard)
+│   └── <area>/                Components used by one page or area (post/, blog/, about/, projects/, contact/)
+├── assets/                    Images optimized at build time via astro:assets (portrait crops)
+├── content/
+│   └── blog/*.md              Blog posts; the file name is the slug
+├── content.config.ts          The `blog` collection: glob loader + zod front-matter schema
+├── lib/posts.ts               Post helpers: published posts, URLs, dates (UTC), reading time, categories, transition names
+├── styles/
+│   ├── global.css             Tailwind entry point; design tokens for the light and dark themes; fonts
+│   ├── animations.css         Scroll-reveal and micro-interaction styles, with reduced-motion fallbacks
+│   └── prose.css              Typography for rendered Markdown (headings, code, tables, KaTeX)
+├── scripts/                   Client-side TypeScript, bundled by Astro (e.g. reveal.ts for scroll-reveal)
+└── consts.ts                  Site title, description, author, navigation, social links
+```
+
+## Tech stack
+
+| Concern | Choice | Where |
+| --- | --- | --- |
+| Framework | Astro 7, static output, `build.format: 'directory'` (each route is `route/index.html`) | `astro.config.mjs` |
+| Styling | Tailwind CSS 4 via `@tailwindcss/vite`, `@tailwindcss/typography`; Inter and JetBrains Mono variable fonts from Fontsource | `src/styles/` |
+| Theming | Design tokens as CSS variables exposed as Tailwind utilities (`bg-surface`, `text-muted`, `text-accent`, ...); dark mode via a `.dark` class on `<html>` | `src/styles/global.css`, `src/layouts/BaseLayout.astro` |
+| Content | Content collection with the glob loader; front matter validated by zod | `src/content.config.ts` |
+| Markdown | `unified()` from `@astrojs/markdown-remark` with `remark-math` + `rehype-katex`; Shiki with `github-light` / `github-dark-dimmed` themes | `astro.config.mjs` |
+| Motion | `<ClientRouter />` view transitions, shared-element card → post morphs, `data-reveal` scroll-reveal; all disabled under `prefers-reduced-motion` | `src/components/BaseHead.astro`, `src/styles/animations.css`, `src/scripts/` |
+| SEO | Canonical URLs, Open Graph/Twitter tags, `@astrojs/sitemap`, `@astrojs/rss` | `src/components/BaseHead.astro`, `src/pages/rss.xml.ts` |
+| Tooling | TypeScript strict, `astro check`, ESLint 10 flat config (`eslint.config.js`), Prettier with `prettier-plugin-astro` (`.prettierrc`), Vitest | config files in `astro-site/` |
+
+## Routes
+
+| URL | File | Data source |
+| --- | --- | --- |
+| `/` | `src/pages/index.astro` | latest posts from `getPublishedPosts()` |
+| `/blog/` | `src/pages/blog/index.astro` | all published posts, with category filters |
+| `/blog/<slug>/` | `src/pages/blog/[...slug].astro` | one entry of the `blog` collection, pre-rendered via `getStaticPaths()` and rendered with `render()` |
+| `/about/`, `/projects/`, `/contact/` | `src/pages/<name>.astro` | content written in the page and its components |
+| `/rss.xml` | `src/pages/rss.xml.ts` | all published posts |
+| `/sitemap-index.xml` | generated by `@astrojs/sitemap` | every page |
+
+Every route is rendered to static HTML by `astro build`. Nothing runs on a server at request time. The only client-side JavaScript is the view-transition router, the theme toggle, scroll-reveal, and small per-page scripts such as the post code panel.
+
+## Build-time data flow
+
+```
+src/content/blog/*.md ── glob loader ── zod schema (invalid front matter fails the build)
+                                   │
+                         getPublishedPosts()  (drafts removed, newest first)
+                                   │
+         ┌─────────────────────────┼──────────────────────────┐
+         ▼                         ▼                          ▼
+  index / blog pages      blog/[...slug].astro           rss.xml.ts
+  (PostCard per post)     render(): Markdown → HTML
+                          (remark-math, rehype-katex, Shiki)
+                                   │
+                    public/** copied as-is (images, files)
+                                   ▼
+                         astro-site/dist/ ──▶ GitHub Pages
+```
+
+There is no migration or code-generation step, and no generated file is committed.
+
+## Hosting topology
+
+```
+developer ──push/PR──▶ Forgejo (origin, source of truth) ── build-deploy.yml: test + image build
+                           │                                   └─ push to development: image → Harbor →
+                           │                                      internal cluster (development namespace)
+                           │ push mirror (all branches)
+                           ▼
+                        GitHub repo ──push to master──▶ GitHub Actions (deploy.yml) ──▶ GitHub Pages
+```
+
+See [deployment.md](deployment.md) and [ADR-0007](../../adr/0007-forgejo-primary-github-push-mirror.md).

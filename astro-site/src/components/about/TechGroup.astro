@@ -1,0 +1,33 @@
+---
+import AboutIcon from './AboutIcon.astro';
+import TechBadge from './TechBadge.astro';
+import type { TechGroup } from './data';
+
+export interface Props {
+  group: TechGroup;
+}
+
+const { group } = Astro.props;
+---
+
+<article
+  class="grid gap-6 rounded-2xl border border-border bg-surface/60 p-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-8"
+  data-reveal
+>
+  <div>
+    <h3 class="flex items-center gap-2.5 text-base font-semibold tracking-tight">
+      <span class="inline-flex size-8 items-center justify-center rounded-lg bg-accent-soft text-accent">
+        <AboutIcon name={group.icon} size={17} />
+      </span>
+      {group.title}
+    </h3>
+    <p class="mt-3 text-sm leading-relaxed text-muted">{group.summary}</p>
+  </div>
+  <ul class="grid content-start gap-3 sm:grid-cols-2" role="list" data-reveal-stagger="60">
+    {group.items.map((tech) => (
+      <li data-reveal="scale">
+        <TechBadge tech={tech} />
+      </li>
+    ))}
+  </ul>
+</article>

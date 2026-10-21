@@ -1,0 +1,118 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { AUTHOR, SITE_TAGLINE, SOCIAL_LINKS } from '../../consts';
+import portrait from '../../assets/portrait.jpg';
+
+const facts = [
+  { label: 'Focus', value: 'Machine learning & scalable Python systems' },
+  {
+    label: 'Education',
+    value: "Bachelor's in Computer Science and Engineering, Southeast University",
+  },
+  { label: 'Languages', value: 'English C1 · German C1 · Chinese HSK 4' },
+];
+
+const socials = SOCIAL_LINKS.filter((link) => link.icon === 'github' || link.icon === 'linkedin');
+---
+
+<section class="relative isolate overflow-hidden" aria-labelledby="about-title">
+  <div
+    class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60rem_30rem_at_85%_-10%,var(--accent-soft),transparent_70%)]"
+    aria-hidden="true"
+  ></div>
+  <div class="container-page grid grid-cols-1 items-center gap-12 pt-14 pb-16 sm:pt-20 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:gap-16 md:pb-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+    <div data-reveal-stagger="90">
+      <p class="text-sm font-semibold tracking-wider text-accent uppercase" data-reveal>
+        About me
+      </p>
+      <h1
+        id="about-title"
+        class="mt-3 text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+        data-reveal
+      >
+        Hi, I'm <span class="text-gradient">{AUTHOR.name}</span>.
+      </h1>
+      <p class="mt-4 text-lg font-medium text-muted sm:text-xl" data-reveal>
+        {SITE_TAGLINE}
+      </p>
+      <div class="mt-6 space-y-4 text-base leading-relaxed text-muted sm:text-lg" data-reveal>
+        <p>
+          I'm a Machine Learning and Software Engineer with a solid foundation in both the theory
+          and the practice of the field, and I bring that depth to every project I take on.
+        </p>
+        <p>
+          With a deep understanding of Python and machine learning algorithms, I combine technical
+          expertise with a problem-solving mindset, and I have helped numerous organizations develop
+          and deploy solutions to complex problems.
+        </p>
+        <p>
+          Beyond the technical side, I communicate clearly, have a keen eye for detail and enjoy
+          collaborating with developers, data scientists and stakeholders to deliver high-quality
+          work that exceeds expectations.
+        </p>
+      </div>
+      <div class="mt-8 flex flex-wrap items-center gap-3" data-reveal>
+        <a
+          href="/contact/"
+          class="press inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-soft transition-shadow duration-300 hover:shadow-lift"
+        >
+          Get in touch
+          <Icon name="arrow-right" size={16} />
+        </a>
+        <a
+          href="/projects/"
+          class="press inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2.5 text-sm font-semibold transition-colors duration-300 hover:border-accent hover:text-accent"
+        >
+          View projects
+        </a>
+        <ul class="flex items-center gap-1" role="list">
+          {socials.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                rel="me noopener"
+                target="_blank"
+                class="press inline-flex size-10 items-center justify-center rounded-full text-muted transition-colors duration-300 hover:bg-accent-soft hover:text-accent"
+              >
+                <Icon name={link.icon} size={20} label={link.label} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mx-auto w-full max-w-xs md:max-w-none" data-reveal="scale">
+      <div class="relative">
+        <div
+          class="absolute -inset-3 -z-10 rotate-3 rounded-[2rem] bg-linear-to-br from-accent to-accent-2 opacity-25 blur-2xl dark:opacity-35"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="absolute -inset-px -z-10 -rotate-2 rounded-[1.75rem] bg-linear-to-br from-accent/40 to-accent-2/40"
+          aria-hidden="true"
+        ></div>
+        <Picture
+          src={portrait}
+          formats={['avif', 'webp']}
+          width={960}
+          widths={[320, 480, 640, 960]}
+          sizes="(min-width: 1024px) 26rem, (min-width: 768px) 22rem, 20rem"
+          alt={`Portrait of ${AUTHOR.name} in a dark blazer with arms crossed`}
+          loading="eager"
+          fetchpriority="high"
+          class="aspect-4/5 w-full rounded-3xl border border-border object-cover object-top shadow-lift"
+        />
+      </div>
+      <dl class="mt-6 grid gap-3 rounded-2xl border border-border bg-surface/80 p-4 text-sm shadow-soft backdrop-blur">
+        {facts.map((fact) => (
+          <div class="grid grid-cols-[5.5rem_minmax(0,1fr)] gap-3">
+            <dt class="font-medium text-subtle">{fact.label}</dt>
+            <dd class="text-fg">{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>

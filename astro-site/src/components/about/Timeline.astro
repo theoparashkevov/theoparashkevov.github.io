@@ -1,0 +1,82 @@
+---
+import AboutIcon from './AboutIcon.astro';
+import type { JourneyStep } from './data';
+
+export interface Props {
+  steps: JourneyStep[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="relative">
+  <div
+    class="absolute top-2 bottom-2 left-5 w-px bg-linear-to-b from-accent via-accent-2/60 to-border sm:left-6"
+    aria-hidden="true"
+  ></div>
+  <ol class="relative" role="list">
+    {steps.map((step) => (
+      <li class="relative pb-10 pl-14 last:pb-0 sm:pl-20" data-reveal="left">
+        <span
+          class:list={[
+            'absolute top-0 left-0 flex size-10 items-center justify-center rounded-full border-4 border-bg shadow-soft sm:size-12',
+            step.kind === 'experience'
+              ? 'bg-accent text-accent-contrast'
+              : 'bg-surface-2 text-accent ring-1 ring-border',
+          ]}
+          aria-hidden="true"
+        >
+          <AboutIcon name={step.icon} size={18} />
+        </span>
+        <article class="group rounded-2xl border border-border bg-surface p-5 shadow-soft transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-lift sm:p-6">
+          <div class="flex flex-wrap items-start gap-4">
+            {step.image && (
+              <img
+                src={step.image.src}
+                alt={step.image.alt}
+                width="64"
+                height="64"
+                loading="lazy"
+                decoding="async"
+                class="size-16 shrink-0 rounded-2xl border border-border bg-white object-contain p-1 transition-transform duration-500 ease-spring motion-safe:group-hover:scale-105"
+              />
+            )}
+            <div class="min-w-0 flex-1">
+              <p class="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide uppercase">
+                <span class:list={[step.kind === 'experience' ? 'text-accent-2' : 'text-accent']}>
+                  {step.kind === 'experience' ? 'Experience' : 'Education'}
+                </span>
+                <span class="text-subtle" aria-hidden="true">
+                  ·
+                </span>
+                <span class="text-subtle">{step.label}</span>
+              </p>
+              <h3 class="mt-1.5 text-lg font-semibold tracking-tight text-balance sm:text-xl">
+                {step.title}
+              </h3>
+              <p class="mt-0.5 text-sm text-muted">{step.place}</p>
+            </div>
+          </div>
+          <div class="mt-4 space-y-3 text-sm leading-relaxed text-muted sm:text-base">
+            {step.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+          {step.highlights && (
+            <ul
+              class="mt-4 flex flex-wrap gap-2"
+              role="list"
+              aria-label={`Highlights: ${step.title}`}
+            >
+              {step.highlights.map((highlight) => (
+                <li class="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent">
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+      </li>
+    ))}
+  </ol>
+</div>

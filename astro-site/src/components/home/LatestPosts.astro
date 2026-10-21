@@ -1,0 +1,50 @@
+---
+import PostCard from '../PostCard.astro';
+import Icon from '../Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import type { Post } from '../../lib/posts';
+
+export interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+const [featured, ...rest] = posts;
+---
+
+<section class="container-page py-20 sm:py-24" aria-labelledby="latest-title">
+  <SectionHeading
+    id="latest-title"
+    eyebrow="From the blog"
+    title="Latest posts"
+    description="Notes, tutorials and talks on machine learning, Python and building software that lasts."
+    href="/blog/"
+    linkLabel="All posts"
+  />
+
+  {featured ? (
+    <>
+      <div class="mt-12 *:h-full" data-reveal>
+        <PostCard post={featured} featured />
+      </div>
+      {rest.length > 0 && (
+        <div class="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3" data-reveal-stagger="100">
+          {rest.map((post) => (
+            <div class="h-full *:h-full" data-reveal>
+              <PostCard post={post} />
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  ) : (
+    <div
+      class="mt-12 flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-surface px-6 py-14 text-center"
+      data-reveal
+    >
+      <Icon name="book" size={28} class="text-accent" />
+      <p class="font-semibold">New posts are on the way</p>
+      <p class="text-sm text-muted">Check back soon, or subscribe to the RSS feed.</p>
+    </div>
+  )}
+</section>

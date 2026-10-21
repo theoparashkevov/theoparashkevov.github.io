@@ -1,0 +1,113 @@
+---
+import Icon from '../Icon.astro';
+import type { SectionLink } from './data';
+
+export interface Props {
+  sections: SectionLink[];
+}
+
+const { sections } = Astro.props;
+---
+
+<nav
+  aria-label="On this page"
+  class="sticky top-16 z-40 -mx-5 border-b border-border bg-bg/85 px-5 backdrop-blur sm:-mx-8 sm:px-8 lg:top-24 lg:mx-0 lg:self-start lg:border-0 lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
+  data-section-nav
+>
+  <p class="mb-3 hidden items-center gap-2 text-xs font-semibold tracking-wider text-subtle uppercase lg:flex">
+    <Icon name="list" size={14} />
+    On this page
+  </p>
+  <ul
+    class="no-scrollbar -mx-1 flex gap-1 overflow-x-auto py-2.5 lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:border-l lg:border-border lg:py-0"
+    role="list"
+    data-section-nav-list
+  >
+    {sections.map((section) => (
+      <li class="shrink-0">
+        <a
+          href={`#${section.id}`}
+          data-section-link={section.id}
+          class="relative block rounded-full px-3.5 py-1.5 text-sm whitespace-nowrap text-muted transition-colors duration-200 hover:text-fg aria-[current=true]:bg-accent-soft aria-[current=true]:font-medium aria-[current=true]:text-accent lg:-ml-px lg:rounded-none lg:border-l-2 lg:border-transparent lg:py-1.5 lg:pl-4 lg:aria-[current=true]:border-accent lg:aria-[current=true]:bg-transparent"
+        >
+          {section.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <a
+    href="#about-title"
+    class="mt-6 hidden items-center gap-1.5 text-xs font-medium text-subtle transition-colors hover:text-accent lg:inline-flex"
+  >
+    <Icon name="arrow-up" size={14} />
+    Back to top
+  </a>
+</nav>
+
+<style>
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  let observer: IntersectionObserver | undefined;
+
+  function setActive(nav: HTMLElement, id: string) {
+    const links = nav.querySelectorAll<HTMLAnchorElement>('[data-section-link]');
+    links.forEach((link) => {
+      const active = link.dataset.sectionLink === id;
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+      if (active) {
+        const list = nav.querySelector<HTMLElement>('[data-section-nav-list]');
+        if (list && list.scrollWidth > list.clientWidth) {
+          const target = link.offsetLeft - (list.clientWidth - link.offsetWidth) / 2;
+          const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            ? 'auto'
+            : 'smooth';
+          list.scrollTo({ left: target, behavior });
+        }
+      }
+    });
+  }
+
+  function initSectionNav() {
+    observer?.disconnect();
+    observer = undefined;
+    const nav = document.querySelector<HTMLElement>('[data-section-nav]');
+    if (!nav || !('IntersectionObserver' in window)) return;
+
+    const ids = Array.from(nav.querySelectorAll<HTMLAnchorElement>('[data-section-link]')).map(
+      (link) => link.dataset.sectionLink ?? ''
+    );
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    const visible = new Set<string>();
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        }
+        const current = ids.find((id) => visible.has(id));
+        if (current) setActive(nav, current);
+        else if (window.scrollY < (sections[0]?.offsetTop ?? 0) - window.innerHeight / 2)
+          setActive(nav, '');
+      },
+      { rootMargin: '-35% 0px -55% 0px' }
+    );
+    sections.forEach((section) => observer?.observe(section));
+  }
+
+  document.addEventListener('astro:page-load', initSectionNav);
+  document.addEventListener('astro:before-swap', () => {
+    observer?.disconnect();
+    observer = undefined;
+  });
+</script>
