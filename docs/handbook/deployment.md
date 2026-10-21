@@ -4,7 +4,7 @@
 
 | Environment | URL | Deployed by | When |
 | --- | --- | --- | --- |
-| Development | <https://theoparashkevov-blog.development.binary-rise> (internal) | `.forgejo/workflows/build-deploy.yml` on Forgejo, to the internal Kubernetes cluster | every push to `development` (i.e. every merged feature PR) |
+| Development | <http://theoparashkevov-blog.development.binary-rise> (internal) | `.forgejo/workflows/build-deploy.yml` on Forgejo, to the internal Kubernetes cluster | every push to `development` (i.e. every merged feature PR) |
 | Production | <https://theoparashkevov.github.io> | `.github/workflows/deploy.yml` on GitHub, to GitHub Pages | every push to `master`, which reaches GitHub through the push mirror |
 
 There is deliberately no production job on Forgejo. Production is whatever lands on GitHub `master`.

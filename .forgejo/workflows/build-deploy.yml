@@ -25,7 +25,7 @@ env:
   # SITE_URL is baked into canonical URLs, Open Graph tags, RSS and the sitemap at
   # BUILD time (astro.config.mjs), so each image is built for the environment it
   # is deployed to.
-  SITE_URL_DEVELOPMENT: https://theoparashkevov-blog.development.binary-rise
+  SITE_URL_DEVELOPMENT: http://theoparashkevov-blog.development.binary-rise
   NAMESPACE: development
   OVERLAY: k8s/overlays/development
   DEPLOYMENT: theoparashkevov-blog

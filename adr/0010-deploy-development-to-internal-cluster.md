@@ -30,7 +30,7 @@ We will deploy every push to `development` to the internal cluster, using the co
 
 ## Consequences
 
-- Each merge into `development` is visible at <https://theoparashkevov-blog.development.binary-rise> a few minutes later. Releases (`development` → `master`) can be checked there first.
+- Each merge into `development` is visible at <http://theoparashkevov-blog.development.binary-rise> a few minutes later. Releases (`development` → `master`) can be checked there first.
 - The repository depends on the shared platform prerequisites: a runner with the `docker` label and the kubeconfig mount, the `HARBOR_USERNAME`/`HARBOR_PASSWORD` repository secrets, the `forgejo-deployer` RBAC in `development`, and internal DNS. See the [deployment guide](../docs/handbook/deployment.md#prerequisites-one-time).
 - Images are built once per environment because `SITE_URL` is baked in. The Pages build and the dev image are separate builds of the same commit.
 - Rolling back development means pointing the Deployment at an older sha tag in Harbor, or pushing a revert to `development`.
