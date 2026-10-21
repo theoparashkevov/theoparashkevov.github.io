@@ -15,7 +15,8 @@
 ├── docs/
 │   └── handbook/              This documentation (not built or published)
 ├── .github/workflows/         deploy.yml: build and deploy to GitHub Pages
-├── .forgejo/workflows/        ci.yml: checks and build on Forgejo
+├── .forgejo/workflows/        build-deploy.yml: test, image build, deploy to the dev cluster
+├── k8s/                       Kustomize base + development overlay for the dev cluster
 ├── .devcontainer/             Node 24 devcontainer
 └── .nvmrc                     Node version (24)
 ```
@@ -101,10 +102,10 @@ There is no migration or code-generation step, and no generated file is committe
 
 ## Hosting topology
 
-Unchanged by the rewrite:
-
 ```
-developer ──push/PR──▶ Forgejo (origin, source of truth) ── ci.yml checks
+developer ──push/PR──▶ Forgejo (origin, source of truth) ── build-deploy.yml: test + image build
+                           │                                   └─ push to development: image → Harbor →
+                           │                                      internal cluster (development namespace)
                            │ push mirror (all branches)
                            ▼
                         GitHub repo ──push to master──▶ GitHub Actions (deploy.yml) ──▶ GitHub Pages

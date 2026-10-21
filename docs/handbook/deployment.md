@@ -1,46 +1,106 @@
 # Deployment
 
-## Pipelines
+## Environments
 
-Two workflows run the same checks in two places:
+| Environment | URL | Deployed by | When |
+| --- | --- | --- | --- |
+| Development | <http://theoparashkevov-blog.development.binary-rise> (internal) | `.forgejo/workflows/build-deploy.yml` on Forgejo, to the internal Kubernetes cluster | every push to `development` (i.e. every merged feature PR) |
+| Production | <https://theoparashkevov.github.io> | `.github/workflows/deploy.yml` on GitHub, to GitHub Pages | every push to `master`, which reaches GitHub through the push mirror |
+
+There is deliberately no production job on Forgejo. Production is whatever lands on GitHub `master`.
+
+## Pipelines
 
 | Workflow | Runs on | Triggers | Does |
 | --- | --- | --- | --- |
+| `.forgejo/workflows/build-deploy.yml` | Forgejo runners (`runs-on: docker`) | push to `development`; PRs into `development` or `master` | test → build image (→ push to Harbor → deploy to `development` on pushes only) |
 | `.github/workflows/deploy.yml` | GitHub (the mirror) | push to `master`, `workflow_dispatch` | checks → build → deploy to GitHub Pages |
-| `.forgejo/workflows/ci.yml` | Forgejo | push to `development`, PRs into `development` or `master` | checks → build (no deploy) |
+
+### Forgejo: `build-deploy.yml`
+
+This workflow is adapted from the company template `k8s-app-template`. It has three jobs, each depending on the previous one:
+
+1. **`test`** (`node:24-bookworm` container, working directory `astro-site/`): `npm ci` → `check` → `lint` → `format:check` → `test` → `build`. This is the gate for every PR. Require it in the Forgejo branch protection rules (see [branching-strategy.md](branching-strategy.md#branch-protection-on-forgejo)).
+2. **`build-and-push`:** `docker build -f astro-site/Dockerfile astro-site`, tagged `harbor.internal.binary-rise/library/theoparashkevov-blog:<commit sha>`.
+   - On PRs the image is only built, as a gate, with a dummy `SITE_URL`.
+   - On pushes to `development` it is built with the development URL and pushed to Harbor.
+3. **`deploy-development`** (pushes to `development` only), using the runner's mounted kubeconfig:
+   - checks every RBAC permission it needs up front;
+   - substitutes the commit sha for `IMAGE_TAG` in `k8s/overlays/development/kustomization.yaml`;
+   - creates or updates the `harbor-registry` pull secret;
+   - runs `kubectl apply -k k8s/overlays/development` and waits for the rollout.
+
+The app name is fixed as **`theoparashkevov-blog`** instead of the repository name (which the template uses). `theoparashkevov.github.io` contains dots, which Kubernetes Service names don't allow and which would break the single-level `*.development.binary-rise` hostname.
+
+### The image
+
+`astro-site/Dockerfile` is a two-stage build:
+
+1. `node:24-bookworm-slim` runs `npm ci && npm run build`.
+2. `nginxinc/nginx-unprivileged` serves `dist/` on port 8080 as a non-root user (config in `astro-site/nginx.conf`):
+   - extensionless and trailing-slash URLs are resolved;
+   - the site's `404.html` is served for missing paths;
+   - `/_astro/` assets are cached as immutable.
+
+**`SITE_URL` is a build argument.** Astro bakes it into canonical URLs, Open Graph tags, RSS, the sitemap and `robots.txt` (`astro.config.mjs` reads `process.env.SITE_URL`). So every image is built for one environment. Without it the build defaults to the production URL, which is what the GitHub Pages build uses.
+
+Try it locally:
+
+```bash
+docker build -f astro-site/Dockerfile --build-arg SITE_URL=http://localhost:8080 -t theoparashkevov-blog:local astro-site
+docker run --rm -p 8080:8080 theoparashkevov-blog:local
+```
+
+### Kubernetes manifests
+
+`k8s/base/` holds a Deployment, a Service (80 → 8080) and an Ingress (`ingressClassName: nginx`, no TLS in the cluster). `k8s/overlays/development/` sets the `development` namespace, the Harbor image with the `IMAGE_TAG` placeholder, and the hostname. There is no production overlay.
+
+### Prerequisites (one-time)
+
+These are shared with the other apps that deploy to the `development` namespace (for example `binary-rise-website`), so most are probably already in place:
+
+1. **Runner:** a Forgejo runner with the `docker` label, the Docker socket, and the development kubeconfig mounted at `/home/developer/forgejo-runners/kubeconfig`.
+2. **Repository secrets** (*repo → Settings → Actions → Secrets*): `HARBOR_USERNAME` and `HARBOR_PASSWORD`, used to push the image and for the cluster pull secret.
+3. **RBAC:** the `forgejo-deployer` Role and RoleBinding in the `development` namespace. The job needs create/get on deployments, services, secrets and ingresses, and list on pods. A cluster admin applies them once, using `k8s/bootstrap/deployer-role.yaml` from `binary-rise-website`.
+4. **DNS:** `*.development.binary-rise` resolves to the cluster ingress, and the nodes can resolve `harbor.internal.binary-rise` to pull images.
+
+### Rolling back development
+
+Every image stays in Harbor under its commit sha, so roll back by pointing the Deployment at an older tag:
+
+```bash
+kubectl -n development set image deployment/theoparashkevov-blog web=harbor.internal.binary-rise/library/theoparashkevov-blog:<older-sha>
+```
+
+The next push to `development` redeploys from git.
 
 ### GitHub: `deploy.yml`
 
-Three jobs, each depending on the previous one. All run Node 24 with `astro-site/` as the working directory.
+Three jobs, each depending on the previous one. All run Node 24 (from `.nvmrc`) with `astro-site/` as the working directory.
 
 1. **`quality`:** `npm ci` → `npm run check` → `npm run lint` → `npm run format:check` → `npm test`. All steps are blocking.
 2. **`build`:** `npm ci` → `npm run build` → `actions/configure-pages` → `actions/upload-pages-artifact` with **`astro-site/dist`**.
-3. **`deploy`:** `actions/deploy-pages` into the `github-pages` environment.
+3. **`deploy`:** `actions/deploy-pages` into the `github-pages` environment. It only runs for `refs/heads/master`, so a manual dispatch from another branch builds but never publishes.
 
 Deployments are serialized through the `pages` concurrency group, and an in-progress deploy is never cancelled. There is no `pull_request` trigger, because PRs live on Forgejo (ADR-0007).
 
-### Forgejo: `ci.yml`
-
-A single job runs inside a `node:24-bookworm` container: `npm ci` → `check` → `lint` → `format:check` → `test` → `build`. It gates changes before they reach `development` and `master`. Once it has run successfully, require it as a status check in the Forgejo branch protection rules (see [branching-strategy.md](branching-strategy.md#branch-protection-on-forgejo)).
-
-> **Runner label caveat:** the job uses `runs-on: docker`. That label must match a label registered by one of the Forgejo instance's runners, otherwise the job stays queued forever. If the runners use other labels (for example `ubuntu-latest`), change `runs-on` to match. The checkout step uses `https://code.forgejo.org/actions/checkout@v4`, so the runner needs network access to `code.forgejo.org`.
-
-Because `.forgejo/workflows/` exists, Forgejo no longer falls back to `.github/workflows/`, so it never tries to run the Pages deploy.
+Because `.forgejo/workflows/` exists, Forgejo never falls back to running `.github/workflows/`.
 
 ## How a change reaches production
 
 ```
-feature/x ──PR (Forgejo, ci.yml)──▶ development ──PR (Forgejo, ci.yml)──▶ master/main
-                                                                             │
-                                                    Forgejo push mirror ─────┘ (interval or on push)
-                                                                             ▼
-                                                  GitHub master/main updated → deploy.yml → Pages
+feature/x ──PR (Forgejo: test + image build)──▶ development ──PR (Forgejo: test + image build)──▶ master/main
+                                                     │                                                      │
+                                    build-deploy.yml: image → Harbor →               Forgejo push mirror ───┘
+                                    kubectl apply (development namespace)                                   ▼
+                                                                               GitHub master/main → deploy.yml → Pages
 ```
 
-1. Merge the `development` → `master` PR on Forgejo.
-2. The Forgejo push mirror pushes it to GitHub. To skip the wait for the interval, go to *Forgejo → repo Settings → Mirror settings → Synchronize now*.
-3. Watch the run on GitHub: *Actions → Deploy site to GitHub Pages*.
-4. Check <https://theoparashkevov.github.io>.
+1. Check the change on the development environment, which updates on every merge into `development`.
+2. Merge the `development` → `master` PR on Forgejo.
+3. The Forgejo push mirror pushes it to GitHub. To skip the wait for the interval, go to *Forgejo → repo Settings → Mirror settings → Synchronize now*.
+4. Watch the run on GitHub: *Actions → Deploy site to GitHub Pages*.
+5. Check <https://theoparashkevov.github.io>.
 
 ## Forgejo → GitHub mirror checklist
 
@@ -57,7 +117,7 @@ Configured in *Forgejo → repository → Settings → Repository → Mirror set
 - *Settings → Environments → `github-pages` → Deployment branches:* only the production branch. This is also what stops a manual `workflow_dispatch` run on another branch from publishing.
 - *Settings → General → Default branch:* the production branch. This must be updated when `master` is renamed to `main`.
 
-## Rollback
+## Rolling back production
 
 The site is a static artifact, so roll back with git:
 

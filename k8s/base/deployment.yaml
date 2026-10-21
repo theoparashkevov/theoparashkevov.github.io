@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: theoparashkevov-blog
+  labels:
+    app: theoparashkevov-blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: theoparashkevov-blog
+  template:
+    metadata:
+      labels:
+        app: theoparashkevov-blog
+    spec:
+      # Created by the deploy job from the HARBOR_* repo secrets.
+      imagePullSecrets:
+        - name: harbor-registry
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: web
+          # Placeholder: the overlay's `images:` entry sets the real repository and tag.
+          image: theoparashkevov-blog:IMAGE_TAG
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false

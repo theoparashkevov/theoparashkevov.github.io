@@ -17,6 +17,7 @@ An ADR is immutable once it is **Accepted**. To change a decision, write a new A
 | [0007](0007-forgejo-primary-github-push-mirror.md) | Forgejo as the primary remote, GitHub as a push mirror | Accepted |
 | [0008](0008-branching-strategy-feature-development-main.md) | Branching strategy: `feature/*` → `development` → `main` | Accepted |
 | [0009](0009-rewrite-site-with-astro.md) | Rewrite the site with Astro 7 | Accepted |
+| [0010](0010-deploy-development-to-internal-cluster.md) | Deploy the development branch to the internal Kubernetes cluster | Accepted |
 
 ## Writing a new ADR
 

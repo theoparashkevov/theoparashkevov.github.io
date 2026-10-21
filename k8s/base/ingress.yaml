@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: theoparashkevov-blog
+spec:
+  ingressClassName: nginx
+  # No spec.tls and no cert-manager annotations: the development environment is plain
+  # HTTP on the internal *.development.binary-rise zone.
+  rules:
+    # Placeholder: the overlay patches the real hostname.
+    - host: example.invalid
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: theoparashkevov-blog
+                port:
+                  number: 80

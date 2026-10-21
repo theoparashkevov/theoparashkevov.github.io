@@ -7,7 +7,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
-  site: 'https://theoparashkevov.github.io',
+  site: process.env.SITE_URL || 'https://theoparashkevov.github.io',
   trailingSlash: 'ignore',
   build: {
     format: 'directory',

@@ -76,7 +76,7 @@ git push origin development             # or via a PR, if development is protect
 - Disable push (pushes only through PR merges), or whitelist only the merge user.
 - Disable force push.
 - Require approvals: 0 or 1. On a single-author repo, an approval mostly serves as a pause for self-review.
-- Require status checks: require the `ci.yml` job once it runs on the instance's runners (see [deployment.md](deployment.md#forgejo-ciyml)).
+- Require status checks: require the `test` job of `build-deploy.yml` once it has run on the instance's runners (see [deployment.md](deployment.md#forgejo-build-deployyml)).
 - For `main`: under allowed merge styles, prefer "Create merge commit".
 
 Set *Settings → Repository → Default branch* to **`development`**. That way new PRs target it by default and clones check it out.
@@ -85,7 +85,7 @@ Set *Settings → Repository → Default branch* to **`development`**. That way 
 
 The order of these steps matters, because GitHub is fed by the mirror and refuses to delete its default branch.
 
-1. On a `feature/*` branch, change `.github/workflows/deploy.yml` to use `branches: ['main']` under `push`, and replace `master` with `main` in the `pull_request` branches of `.forgejo/workflows/ci.yml`. Merge it through `development`, but **do not release it yet**.
+1. On a `feature/*` branch, change `.github/workflows/deploy.yml` to use `branches: ['main']` under `push`, and replace `master` with `main` in the `pull_request` branches of `.forgejo/workflows/build-deploy.yml`. Merge it through `development`, but **do not release it yet**.
 2. Create and push `main`:
    ```bash
    git fetch origin
