@@ -89,6 +89,25 @@ def push(stack, item):
 
 Use `text` for output or plain text and `bash`/`shell` for commands. On the post page, code blocks get a copy button and can be opened in the code side panel.
 
+## Diagrams
+
+Fence a [Mermaid](https://mermaid.js.org/) diagram with the `mermaid` language and it is drawn as a diagram on the post page:
+
+````markdown
+```mermaid
+flowchart LR
+    accTitle: Request path
+    accDescr: The client sends a request to the gateway, which forwards it to the server.
+    C[Client] --> G[Gateway] --> S[Server]
+```
+````
+
+- `mermaid` is excluded from Shiki (`markdown.syntaxHighlight.excludeLangs` in `astro-site/astro.config.mjs`), so the block reaches the page as plain `<pre><code class="language-mermaid">`.
+- `astro-site/src/scripts/mermaid.ts` (loaded by `MermaidDiagrams.astro` in the post layout) renders it in the browser. The Mermaid library is loaded only on pages that contain a diagram.
+- Diagrams use the site's colours and are redrawn when the theme is toggled.
+- Add `accTitle:` and `accDescr:` lines so screen readers get a title and description for the diagram.
+- Without JavaScript, or if a diagram has a syntax error, the Mermaid source is shown instead. Check the browser console for the error.
+
 ## Drafts
 
 Set `draft: true` in the front matter. The post stays in the repository but is excluded from `getPublishedPosts()`, so it gets no page, does not appear on `/` or `/blog/`, and is left out of RSS and the sitemap. To publish, remove the key or set it to `false`, and update `pubDate` to the publication day.
