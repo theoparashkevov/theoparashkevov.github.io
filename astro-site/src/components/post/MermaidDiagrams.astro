@@ -1,0 +1,36 @@
+<script>
+  import { initMermaid, teardownMermaid } from '../../scripts/mermaid';
+
+  document.addEventListener('astro:page-load', initMermaid);
+  document.addEventListener('astro:before-swap', teardownMermaid);
+</script>
+
+<style is:global>
+  .mermaid-diagram {
+    margin-block: 1.75em;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    background: var(--surface);
+    box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.06);
+    overflow-x: auto;
+  }
+
+  .mermaid-canvas {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mermaid-canvas svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mermaid-diagram > pre {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    white-space: pre;
+    color: var(--fg-muted);
+  }
+</style>

@@ -8,6 +8,7 @@ import ShareLinks from '../components/post/ShareLinks.astro';
 import TableOfContents from '../components/post/TableOfContents.astro';
 import ReadingProgress from '../components/post/ReadingProgress.astro';
 import CodeBlocks from '../components/post/CodeBlocks.astro';
+import MermaidDiagrams from '../components/post/MermaidDiagrams.astro';
 import { AUTHOR, SITE_TITLE, SITE_URL } from '../consts';
 import type { Post } from '../lib/posts';
 import { postUrl } from '../lib/posts';
@@ -67,6 +68,7 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
   <script type="application/ld+json" slot="head" set:html={jsonLdString} />
   <ReadingProgress />
   <CodeBlocks />
+  <MermaidDiagrams />
 
   <article class="container-page pt-10 pb-20 sm:pt-14 lg:pb-28">
     <PostHeader post={post} minutes={minutes} />
