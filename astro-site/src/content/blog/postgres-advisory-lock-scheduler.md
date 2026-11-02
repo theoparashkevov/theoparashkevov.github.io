@@ -4,6 +4,8 @@ description: 'How to run a distributed scheduler on a single table: advisory-loc
 pubDate: 2023-10-03
 categories: [algorithms]
 tags: [postgres, distributed-systems, schedulers, advisory-locks, reliability]
+heroImage: /assets/img/posts/postgres-advisory-lock-scheduler/thumbnail.png
+heroAlt: 'Leader Election and Job Claiming with Postgres Advisory Locks'
 ---
 
 A background scheduler — cron jobs, one-shot tasks, recurring reports — has a deceptively simple requirement: *exactly one worker should execute each job, even when there are many workers, and even when workers die mid-job*. Redis and a dedicated queue broker are the usual answers, but a surprising amount of this can be built directly on Postgres with three primitives: advisory locks, `SELECT ... FOR UPDATE SKIP LOCKED`, and heartbeats. This post is a tour of that design.

@@ -4,6 +4,8 @@ description: 'iCalendar RRULE looks like a solved problem until INTERVAL=0 hangs
 pubDate: 2023-11-07
 categories: [algorithms]
 tags: [rrule, dates, timezones, validation, python]
+heroImage: /assets/img/posts/rrule-parsing-validation-pitfalls/thumbnail.png
+heroAlt: 'RRULE in Practice: Parsing, Validating, and Quarantining Recurrence Rules'
 ---
 
 `RRULE` — the iCalendar recurrence-rule string — is one of those formats that is 80% trivial and 20% landmine. Most rules are `FREQ=WEEKLY;BYDAY=MO`. But the edge cases are genuinely dangerous: a single malformed rule can hang a scheduling loop forever, a timezone mishandled shifts every occurrence by three hours, and a legacy data scheme can silently change what "daily" means. This post collects the failure modes I've hit and the defenses that work against each.

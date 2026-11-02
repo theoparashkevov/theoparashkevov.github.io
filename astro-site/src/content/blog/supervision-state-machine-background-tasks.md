@@ -4,6 +4,8 @@ description: 'Background jobs that run for minutes, pause for human answers, and
 pubDate: 2024-02-27
 categories: [algorithms]
 tags: [state-machines, background-jobs, postgres, reliability, design]
+heroImage: /assets/img/posts/supervision-state-machine-background-tasks/thumbnail.png
+heroAlt: 'A Supervision State Machine for Long-Running Background Tasks'
 ---
 
 Most background-job systems are designed around the assumption that a job is a function call: enqueue, run, finish, maybe retry. The moment a job can run for tens of minutes, needs to *ask a human a question mid-run*, must survive a deploy mid-execution, and has to be auditable afterward — you've left that territory. This post is a design for that harder problem: a supervision layer with an explicit state machine, a question channel, and a few load-bearing invariants.
