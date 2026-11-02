@@ -1,0 +1,168 @@
+---
+import Icon from '../Icon.astro';
+
+export interface Props {
+  markdown: string;
+  plain: string;
+  title: string;
+}
+
+const { markdown, plain, title } = Astro.props;
+---
+
+<div class="copy-post relative inline-block" data-reveal="fade">
+  <button
+    type="button"
+    class="copy-post-toggle press inline-flex h-10 items-center gap-2 rounded-full border border-border bg-surface px-4 text-sm font-medium text-muted transition-[color,background-color,border-color,scale] duration-200 hover:border-accent/40 hover:bg-accent-soft hover:text-accent active:scale-95"
+    aria-haspopup="menu"
+    aria-expanded="false"
+  >
+    <Icon name="copy" size={15} />
+    <span class="copy-post-label">Copy post</span>
+    <Icon
+      name="chevron-down"
+      size={14}
+      class="copy-post-chevron transition-transform duration-200"
+    />
+  </button>
+
+  <div
+    class="copy-post-menu invisible absolute top-full left-0 z-20 mt-2 min-w-44 rounded-xl border border-border bg-surface p-1.5 opacity-0 shadow-lift transition-[opacity,transform] duration-200 ease-out-expo -translate-y-1"
+    role="menu"
+    aria-label={`Copy options for ${title}`}
+  >
+    <button
+      type="button"
+      role="menuitem"
+      class="copy-post-option flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm text-fg transition-colors duration-150 hover:bg-accent-soft hover:text-accent"
+      data-copy-format="markdown"
+      data-copy-content={markdown}
+    >
+      <Icon name="code" size={15} class="text-subtle" />
+      <span>
+        <span class="block font-medium">Markdown</span>
+        <span class="block text-xs text-subtle">Formatted source (.md)</span>
+      </span>
+    </button>
+    <button
+      type="button"
+      role="menuitem"
+      class="copy-post-option flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm text-fg transition-colors duration-150 hover:bg-accent-soft hover:text-accent"
+      data-copy-format="text"
+      data-copy-content={plain}
+    >
+      <Icon name="list" size={15} class="text-subtle" />
+      <span>
+        <span class="block font-medium">Plain text</span>
+        <span class="block text-xs text-subtle">No formatting</span>
+      </span>
+    </button>
+  </div>
+
+  <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
+</div>
+
+<style>
+  .copy-post-menu[data-open] {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+
+  .copy-post-toggle[aria-expanded='true'] .copy-post-chevron {
+    transform: rotate(180deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .copy-post-menu,
+    .copy-post-chevron {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const timers = new WeakMap<HTMLElement, number>();
+
+  async function copyText(text: string): Promise<boolean> {
+    if (!navigator.clipboard) return false;
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function setOpen(root: HTMLElement, open: boolean) {
+    const toggle = root.querySelector<HTMLButtonElement>('.copy-post-toggle');
+    const menu = root.querySelector<HTMLElement>('.copy-post-menu');
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) {
+      menu.dataset.open = '';
+    } else {
+      delete menu.dataset.open;
+    }
+  }
+
+  function setLabel(root: HTMLElement, label: string, status: string) {
+    const labelEl = root.querySelector<HTMLElement>('.copy-post-label');
+    const statusEl = root.querySelector<HTMLElement>('[data-copy-status]');
+    if (labelEl) labelEl.textContent = label;
+    if (statusEl) statusEl.textContent = status;
+  }
+
+  function init() {
+    document.querySelectorAll<HTMLElement>('.copy-post:not([data-copy-bound])').forEach((root) => {
+      root.dataset.copyBound = '';
+      const toggle = root.querySelector<HTMLButtonElement>('.copy-post-toggle');
+      const menu = root.querySelector<HTMLElement>('.copy-post-menu');
+      if (!toggle || !menu) return;
+
+      const close = () => setOpen(root, false);
+
+      toggle.addEventListener('click', () => {
+        setOpen(root, toggle.getAttribute('aria-expanded') !== 'true');
+      });
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          close();
+          toggle.focus();
+        }
+      });
+
+      menu.querySelectorAll<HTMLButtonElement>('.copy-post-option').forEach((option) => {
+        option.addEventListener('click', async () => {
+          const format = option.dataset.copyFormat === 'markdown' ? 'Markdown' : 'Plain text';
+          const ok = await copyText(option.dataset.copyContent ?? '');
+          close();
+          setLabel(
+            root,
+            ok ? 'Copied!' : 'Copy failed',
+            ok ? `Post copied as ${format}` : 'Could not copy the post'
+          );
+          window.clearTimeout(timers.get(root));
+          timers.set(
+            root,
+            window.setTimeout(() => setLabel(root, 'Copy post', ''), 2000)
+          );
+        });
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      document.querySelectorAll<HTMLElement>('.copy-post').forEach((root) => {
+        if (!root.contains(event.target as Node)) setOpen(root, false);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('astro:before-swap', () => {
+    document.querySelectorAll<HTMLElement>('.copy-post').forEach((root) => {
+      window.clearTimeout(timers.get(root));
+    });
+  });
+</script>
