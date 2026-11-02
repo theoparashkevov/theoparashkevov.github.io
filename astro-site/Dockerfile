@@ -15,6 +15,11 @@ ENV SITE_URL=${SITE_URL}
 # GITHUB_TOKEN reaches the build only via a secret mount (BuildKit), so it is
 # neither baked into the image nor visible in build logs. It only fetches
 # public contribution data (see astro-site/AGENTS.md privacy rules).
+# BuildKit does NOT include secret mounts in the layer cache key, so without
+# the hash layer below a token change would silently reuse an old cached
+# (e.g. tokenless) build. The hash is not a recoverable secret.
+RUN --mount=type=secret,id=github_token \
+    sh -c 'sha256sum /run/secrets/github_token > /tmp/.github_token_hash'
 RUN --mount=type=secret,id=github_token,env=GITHUB_TOKEN \
     npm run build
 
