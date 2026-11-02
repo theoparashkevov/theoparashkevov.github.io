@@ -118,7 +118,10 @@ jobs:
       - name: Build image
         # DOCKER_BUILDKIT=1 is required for --secret (docker.io defaults to the
         # classic builder). The secret mount keeps the token out of image layers
-        # and build logs.
+        # and build logs. Secrets are NOT auto-exported as env vars, so the
+        # token must be mapped explicitly for --secret env=... to see it.
+        env:
+          PUBLIC_REPOS_TOKEN: ${{ secrets.PUBLIC_REPOS_TOKEN }}
         run: |
           DOCKER_BUILDKIT=1 docker build \
             -f astro-site/Dockerfile \
