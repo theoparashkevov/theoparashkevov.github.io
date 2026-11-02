@@ -63,7 +63,11 @@ jobs:
 
       - name: Build
         # The build fails on invalid post front matter (zod schema), so it is also
-        # a content test.
+        # a content test. The token is read-only public-repos only; it lets the
+        # Open Source page fetch the contribution calendar (see astro-site/AGENTS.md
+        # privacy rules). Without it the heatmap is omitted, never an error.
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUBLIC_REPOS_TOKEN }}
         run: npm run build
 
   build-and-push:
@@ -112,10 +116,14 @@ jobs:
               --password-stdin
 
       - name: Build image
+        # DOCKER_BUILDKIT=1 is required for --secret (docker.io defaults to the
+        # classic builder). The secret mount keeps the token out of image layers
+        # and build logs.
         run: |
-          docker build \
+          DOCKER_BUILDKIT=1 docker build \
             -f astro-site/Dockerfile \
             --build-arg SITE_URL="${SITE_URL}" \
+            --secret id=github_token,env=PUBLIC_REPOS_TOKEN \
             -t "${IMAGE}:${IMAGE_TAG}" \
             astro-site
 
