@@ -12,7 +12,11 @@ RUN npm ci
 COPY . .
 ARG SITE_URL=https://theoparashkevov.github.io
 ENV SITE_URL=${SITE_URL}
-RUN npm run build
+# GITHUB_TOKEN reaches the build only via a secret mount (BuildKit), so it is
+# neither baked into the image nor visible in build logs. It only fetches
+# public contribution data (see astro-site/AGENTS.md privacy rules).
+RUN --mount=type=secret,id=github_token,env=GITHUB_TOKEN \
+    npm run build
 
 FROM nginxinc/nginx-unprivileged:stable-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf

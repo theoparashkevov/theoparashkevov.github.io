@@ -17,10 +17,13 @@ by `src/lib/github.ts`:
   contribution calendar (heatmap, monthly chart, streak) plus the repo list.
   In GitHub Actions this is the auto-generated `secrets.GITHUB_TOKEN`, which is
   scoped to this repository only. Locally you can use `GITHUB_TOKEN=$(gh auth token)`.
-- Without a token (e.g. Forgejo CI), it falls back to unauthenticated REST:
+- Without a token, it falls back to unauthenticated REST:
   repos with per-repo commit sparklines still render; the calendar sections are
   omitted. A fetch failure degrades to an "activity unavailable" panel — it
-  never breaks the build.
+  never breaks the build. In Forgejo CI the token is the `PUBLIC_REPOS_TOKEN`
+  secret (read-only, public-repos-only PAT), passed to `npm run build` in the
+  test job and to the Docker image build via a BuildKit secret mount, so it is
+  never baked into the image or visible in logs.
 - Results are cached for 24h in `.cache/github-activity.json` (gitignored) to
   protect rate limits.
 
