@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import ContactCard from '../components/contact/ContactCard.astro';
+import ContactQr from '../components/contact/ContactQr.astro';
 import CopyEmail from '../components/contact/CopyEmail.astro';
 import SocialLinks from '../components/contact/SocialLinks.astro';
 import type { IconName } from '../components/Icon.astro';
@@ -85,6 +86,13 @@ const purposes: { icon: IconName; title: string; subject: string; text: string }
         </ContactCard>
       ))}
     </div>
+  </section>
+
+  <section class="container-page mt-16" aria-labelledby="contact-qr-heading">
+    <h2 id="contact-qr-heading" class="sr-only">
+      Save my contact details
+    </h2>
+    <ContactQr />
   </section>
 
   <section class="container-page mt-20" aria-labelledby="elsewhere-heading">
