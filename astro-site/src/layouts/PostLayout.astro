@@ -5,7 +5,9 @@ import Icon from '../components/Icon.astro';
 import PostHeader from '../components/post/PostHeader.astro';
 import PostNav from '../components/post/PostNav.astro';
 import ShareLinks from '../components/post/ShareLinks.astro';
+import CopyPost from '../components/post/CopyPost.astro';
 import TableOfContents from '../components/post/TableOfContents.astro';
+import { markdownToPlainText } from '../lib/markdownToText';
 import ReadingProgress from '../components/post/ReadingProgress.astro';
 import CodeBlocks from '../components/post/CodeBlocks.astro';
 import MermaidDiagrams from '../components/post/MermaidDiagrams.astro';
@@ -24,6 +26,8 @@ export interface Props {
 const { post, headings, minutes, prev, next } = Astro.props;
 const { title, description, pubDate, updatedDate, heroImage, heroAlt, tags, categories, author } =
   post.data;
+const postMarkdown = post.body ?? '';
+const postPlainText = markdownToPlainText(postMarkdown);
 
 const site = Astro.site ?? new URL(SITE_URL);
 const url = new URL(postUrl(post), site).href;
@@ -106,8 +110,9 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
           </div>
         )}
 
-        <div data-reveal>
+        <div class="flex flex-wrap items-center gap-4" data-reveal>
           <ShareLinks url={url} title={title} />
+          <CopyPost markdown={postMarkdown} plain={postPlainText} title={title} />
         </div>
 
         <PostNav prev={prev} next={next} />
