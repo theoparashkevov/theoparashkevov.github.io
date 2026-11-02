@@ -4,6 +4,8 @@ description: 'Dense embeddings find paraphrases; full-text finds exact terms. Ho
 pubDate: 2024-02-06
 categories: [ai, algorithms]
 tags: [search, rag, embeddings, postgres, ranking, information-retrieval]
+heroImage: /assets/img/posts/hybrid-search-rrf/thumbnail.png
+heroAlt: 'Hybrid Search with Reciprocal Rank Fusion: Combining Vector and Full-Text Retrieval'
 ---
 
 Ask a corpus two questions: "How do I reset my password?" and "What is the password reset policy for contractors?" Semantic (vector) search nails the first — it understands intent. Lexical (full-text) search nails the second — it matches the exact term "contractors". Any retrieval system that serves both kinds of queries needs both kinds of index, and a principled way to combine them.

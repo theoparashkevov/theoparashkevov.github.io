@@ -4,6 +4,8 @@ description: 'When a model answers over private knowledge, the answer must never
 pubDate: 2024-01-16
 categories: [ai, security]
 tags: [llm, security, streaming, sanitization, provenance, rag]
+heroImage: /assets/img/posts/llm-opaque-boundary-sanitization/thumbnail.png
+heroAlt: 'Building an Opaque Boundary Around an LLM: Stream Sanitization and Allowlist Provenance'
 ---
 
 A retrieval-augmented system answers questions over a private knowledge graph. The user asks "why did revenue dip in Q2?" and the model, faithfully, answers: "Per `SELECT ?s WHERE { GRAPH <http://internal.example/kg_7f3a...> ... }` the dip traces to..." — and now an internal graph IRI, a dataset UUID, and half a SPARQL query are sitting in the user-facing transcript. The retrieval layer did its job; the boundary layer failed.

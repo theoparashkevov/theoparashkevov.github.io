@@ -4,6 +4,8 @@ description: 'Two small algorithms that make a notification service boring in th
 pubDate: 2023-09-12
 categories: [algorithms]
 tags: [pagination, idempotency, postgres, notifications, system-design]
+heroImage: /assets/img/posts/keyset-pagination-idempotent-dispatch/thumbnail.png
+heroAlt: 'Keyset Pagination and Idempotent Event Dispatch'
 ---
 
 Every notification service has two failure modes that hurt more than all the others combined: **users seeing duplicates** and **users missing rows when they scroll**. Both are self-inflicted — they come from choosing the wrong primitive. This post walks through two algorithms I keep coming back to: keyset (cursor) pagination for feeds, and database-level idempotency keys for event dispatch.

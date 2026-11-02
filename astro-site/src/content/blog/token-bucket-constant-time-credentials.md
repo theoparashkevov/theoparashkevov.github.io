@@ -4,6 +4,8 @@ description: 'The small but sharp security machinery behind an API endpoint: in-
 pubDate: 2023-12-05
 categories: [algorithms, security]
 tags: [rate-limiting, token-bucket, hashing, hmac, security, python]
+heroImage: /assets/img/posts/token-bucket-constant-time-credentials/thumbnail.png
+heroAlt: 'Token Bucket Rate Limiting and Constant-Time Credential Verification'
 ---
 
 Every API endpoint that issues programmatic credentials eventually needs the same three pieces of security machinery: a rate limiter that fails gracefully, credential storage that survives a database dump, and session isolation that can't be crossed by accident. None of them require a security appliance — each is about forty lines of careful code. This post walks through implementations and the reasoning behind each choice.
