@@ -4,6 +4,8 @@ description: 'What if a language model compiles a procedure once and never runs 
 pubDate: 2024-03-19
 categories: [ai, algorithms]
 tags: [llm, interpreters, state-machines, trust, safety, agents]
+heroImage: /assets/img/posts/zero-llm-skill-interpreter/thumbnail.png
+heroAlt: 'Compile Once, Run Without a Model: A Zero-LLM Interpreter for Learned Skills'
 ---
 
 Large language models are expensive, slow, and non-deterministic — fine for the open-ended part of a task, terrible for its repetitive skeleton. A pattern worth knowing: **let the model compile a procedure once, then execute that procedure with zero model calls, forever.** This post walks through the design: a compiler with loud refusals, a strict graph language, a plain-code interpreter with cold resume, and a trust system that promotes procedures to autonomy only after they've proven themselves.

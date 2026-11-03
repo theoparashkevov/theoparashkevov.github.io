@@ -4,6 +4,8 @@ description: 'How do you compare LLMs on generating structured queries? Syntax s
 pubDate: 2024-04-23
 categories: [ai]
 tags: [evaluation, llm, sparql, benchmarking, metrics, rag]
+heroImage: /assets/img/posts/evaluating-text-to-sparql-agents/thumbnail.png
+heroAlt: 'Evaluating Text-to-SPARQL Agents: Execution Accuracy, Coverage, and the Noise Floor'
 ---
 
 "Which model is best at generating SPARQL from natural language?" — answering this well requires deciding what "best" means, and the obvious answer (does the generated query *look like* the gold query?) is worthless. A query can be syntactically near-identical and semantically wrong; it can look nothing alike and return the exact right rows. This post lays out an evaluation methodology built on execution rather than syntax, the metrics that survive contact with reality, and a statistical rule that most benchmark write-ups skip.

@@ -4,6 +4,8 @@ description: 'How does an assistant remember you across sessions? A speaker-attr
 pubDate: 2024-05-14
 categories: [ai]
 tags: [memory, rag, llm, embeddings, pgvector, retrieval, agents]
+heroImage: /assets/img/posts/conversational-memory-extraction-retrieval/thumbnail.png
+heroAlt: 'Long-Term Memory for Conversational Agents: Extraction, Guardrails, and Hierarchical Retrieval'
 ---
 
 "Remember that I'm a vegetarian and my daughter is named Maya." A conversational agent that retains facts across sessions feels qualitatively different from one that starts blank every time — but building that memory is a minefield of wrong attributions, duplicate facts, stale context, and privacy bleed. This post covers the three subsystems that make it work: an extraction pipeline that turns conversations into structured memory, guardrails that keep the pipeline honest, and a retrieval system that assembles the right context at session start.

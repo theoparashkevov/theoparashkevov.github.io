@@ -4,6 +4,8 @@ description: 'Third-party webhooks expire, get orphaned by restarts, and miss ev
 pubDate: 2024-05-07
 categories: [algorithms, system-design]
 tags: [webhooks, reconciliation, idempotency, distributed-systems, reliability]
+heroImage: /assets/img/posts/webhook-reconciliation-loops/thumbnail.png
+heroAlt: 'Webhook Reconciliation Loops: Keeping External Subscriptions Alive'
 ---
 
 Your service subscribes to a third-party calendar provider's webhooks: "tell me when meetings on this mailbox change." Subscriptions expire after ~3 days. Processes restart. Callback URLs change in development. Events fire twice. Meetings end and people leave, but the bot shouldn't wander back in. None of these problems is hard alone; together they describe a class of system — the **reconciliation loop** — worth studying as a pattern.
