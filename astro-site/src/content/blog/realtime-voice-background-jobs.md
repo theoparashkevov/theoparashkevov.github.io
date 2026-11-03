@@ -4,6 +4,8 @@ description: 'Voice agents feel synchronous but live on a mess of tool calls, re
 pubDate: 2024-05-30
 categories: [ai, system-design]
 tags: [voice, realtime, background-jobs, reliability, websocket, llm]
+heroImage: /assets/img/posts/realtime-voice-background-jobs/thumbnail.png
+heroAlt: 'Background Job Orchestration for Real-Time Voice Agents'
 ---
 
 A real-time voice agent is the hardest reliability surface in LLM systems: audio is unforgiving (a 200ms stall is audible), the model's tool calls arrive mid-sentence, long-running tools must not block the conversation, and the underlying API's wire format changes under you. This post covers four pieces of machinery that make it survivable: a background job manager, a sideband control channel, exponential-backoff reconnection, and an unusual pattern for managing unverifiable assumptions.

@@ -4,6 +4,8 @@ description: 'Should a survey be "completed" or "expired"? Store the flag and it
 pubDate: 2024-05-21
 categories: [algorithms]
 tags: [state-machines, scheduling, postgres, data-modeling]
+heroImage: /assets/img/posts/computed-lifecycle-status/thumbnail.png
+heroAlt: 'Computed Status, Not Stored: Deriving the Lifecycle of Scheduled Things'
 ---
 
 Every system with scheduled things — surveys, meetings, campaigns, assignments — eventually needs a lifecycle status: *scheduled, active, completed, incomplete, expired, archived*. The natural first implementation stores a status column and updates it from cron jobs and user actions. This post is an argument that the natural implementation is wrong, and that the fix — computing status on read from schedule + evidence — is simpler, always truthful, and cheaper than it looks.

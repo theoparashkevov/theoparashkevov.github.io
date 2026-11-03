@@ -4,6 +4,8 @@ description: 'How to make a language model reliably drive a structured UI: force
 pubDate: 2024-04-09
 categories: [ai]
 tags: [llm, function-calling, sse, structured-output, ux, agents]
+heroImage: /assets/img/posts/multi-turn-llm-tool-loop/thumbnail.png
+heroAlt: 'Designing a Multi-Turn LLM Loop with Forced Tool Calling'
 ---
 
 A common product shape: the user chats with an assistant that can *act* on an application — look things up, fill form fields, navigate to a step — and every reply must be structured enough to render as UI (a message plus a handful of clickable choices). Free-text prompting fails here unpredictably: the model rambles, invents ids, claims it changed things it didn't. What works is a tight loop that treats function calling as a state machine. This post is that loop.
