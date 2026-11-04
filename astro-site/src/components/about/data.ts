@@ -433,7 +433,7 @@ export const TECH_GROUPS: TechGroup[] = [
     title: 'Core Development & Tooling',
     icon: 'terminal',
     summary:
-      'Day-to-day languages and environments beyond the ML stack: systems and CLI work in Go and the fish shell, and a keyboard-driven workflow in VS Code, often over Remote-SSH on self-hosted machines.',
+      'Day-to-day languages, environments and tools beyond the ML stack: systems and CLI work in Go and the fish shell, terminal editors from VS Code over Remote-SSH to Neovim and Emacs, and Herdr for running coding agents that keep working in the background.',
     items: [
       {
         name: 'Go',
@@ -449,6 +449,21 @@ export const TECH_GROUPS: TechGroup[] = [
         name: 'VS Code',
         description: 'Editor · Remote-SSH',
         icon: `${DEVICON_CDN}/vscode/vscode-original.svg`,
+      },
+      {
+        name: 'Neovim',
+        description: 'Terminal editor',
+        icon: `${DEVICON_CDN}/neovim/neovim-original.svg`,
+      },
+      {
+        name: 'Emacs',
+        description: 'Terminal editor',
+        icon: `${DEVICON_CDN}/emacs/emacs-original.svg`,
+      },
+      {
+        name: 'Herdr',
+        description: 'Agent runtime',
+        icon: '/assets/img/tech/herdr.png',
       },
     ],
   },
