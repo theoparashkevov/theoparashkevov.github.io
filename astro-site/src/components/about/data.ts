@@ -215,6 +215,11 @@ export const TECH_GROUPS: TechGroup[] = [
         description: 'MLOps & experiment tracking',
         icon: 'https://cdn.simpleicons.org/mlflow',
       },
+      {
+        name: 'Whisper ASR',
+        description: 'faster-whisper · VAD · diarization',
+        icon: '/assets/img/tech/whisper.png',
+      },
     ],
   },
   {
@@ -271,6 +276,11 @@ export const TECH_GROUPS: TechGroup[] = [
         description: 'Typed JavaScript',
         icon: `${DEVICON_CDN}/typescript/typescript-original.svg`,
       },
+      {
+        name: 'Chromium',
+        description: 'Extensions · tabCapture · AudioWorklet',
+        icon: 'https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg',
+      },
     ],
   },
   {
@@ -325,6 +335,120 @@ export const TECH_GROUPS: TechGroup[] = [
         name: 'Nginx',
         description: 'Reverse proxy & ingress',
         icon: `${DEVICON_CDN}/nginx/nginx-original.svg`,
+      },
+      {
+        name: 'Forgejo',
+        description: 'Git hosting & CI',
+        icon: 'https://cdn.simpleicons.org/forgejo',
+      },
+    ],
+  },
+  {
+    title: 'Self-hosted Infrastructure & Platforms',
+    icon: 'box',
+    summary:
+      'The platforms I run and maintain myself: lightweight Kubernetes with k3s and containerd on Proxmox VE hypervisors, load balancing with MetalLB, service discovery with CoreDNS, secure remote access over OpenVPN, TLS via Let’s Encrypt and a private container registry with Harbor.',
+    items: [
+      {
+        name: 'k3s',
+        description: 'Lightweight Kubernetes',
+        icon: '/assets/img/tech/k3s.png',
+      },
+      {
+        name: 'containerd',
+        description: 'Container runtime',
+        icon: '/assets/img/tech/containerd.png',
+      },
+      {
+        name: 'Proxmox VE',
+        description: 'Virtualization platform',
+        icon: '/assets/img/tech/proxmox.png',
+      },
+      {
+        name: 'MetalLB',
+        description: 'Load balancer',
+        icon: '/assets/img/tech/metallb.png',
+      },
+      {
+        name: 'CoreDNS',
+        description: 'Service discovery & DNS',
+        icon: '/assets/img/tech/coredns.png',
+      },
+      {
+        name: 'OpenVPN',
+        description: 'VPN & remote access',
+        icon: 'https://cdn.simpleicons.org/openvpn',
+      },
+      {
+        name: 'Let’s Encrypt',
+        description: 'TLS certificates',
+        icon: 'https://cdn.simpleicons.org/letsencrypt',
+      },
+      {
+        name: 'Harbor',
+        description: 'Container registry',
+        icon: '/assets/img/tech/harbor.png',
+      },
+    ],
+  },
+  {
+    title: 'Enterprise & Manufacturing Integrations',
+    icon: 'briefcase',
+    summary:
+      'Integrating AI and data systems with enterprise environments: Microsoft 365 collaboration suites, identity and access management with Active Directory, and shop-floor connectivity through OPC UA, ERP and MES systems — down to production formats such as MPR, DXF and BHX.',
+    items: [
+      {
+        name: 'Microsoft 365',
+        description: 'SharePoint · Exchange · Teams',
+        icon: '/assets/img/tech/microsoft365.png',
+      },
+      {
+        name: 'Microsoft Teams',
+        description: 'Collaboration & comms',
+        icon: '/assets/img/tech/teams.png',
+      },
+      {
+        name: 'Active Directory',
+        description: 'Identity & access (Entra)',
+        icon: `${DEVICON_CDN}/azure/azure-original.svg`,
+      },
+      {
+        name: 'OPC UA',
+        description: 'Industrial interoperability',
+        icon: '/assets/img/tech/opc.png',
+      },
+      {
+        name: 'SAP',
+        description: 'ERP & MES integration',
+        icon: 'https://cdn.simpleicons.org/sap',
+      },
+      {
+        name: 'AutoCAD',
+        description: 'MPR / DXF / BHX formats',
+        icon: 'https://cdn.simpleicons.org/autocad',
+      },
+    ],
+  },
+  {
+    title: 'Core Development & Tooling',
+    icon: 'terminal',
+    summary:
+      'Day-to-day languages and environments beyond the ML stack: systems and CLI work in Go and the fish shell, and a keyboard-driven workflow in VS Code, often over Remote-SSH on self-hosted machines.',
+    items: [
+      {
+        name: 'Go',
+        description: 'Systems programming',
+        icon: `${DEVICON_CDN}/go/go-original.svg`,
+      },
+      {
+        name: 'fish',
+        description: 'Shell scripting',
+        icon: `${DEVICON_CDN}/fish/fish-original.svg`,
+      },
+      {
+        name: 'VS Code',
+        description: 'Editor · Remote-SSH',
+        icon: `${DEVICON_CDN}/vscode/vscode-original.svg`,
       },
     ],
   },
