@@ -651,6 +651,7 @@ export const JOURNEY: JourneyStep[] = [
     label: '2020 – 2022 · 2 years',
     title: 'Python & Embedded Systems Developer',
     place: 'ClusterDesktop · Sofia, Bulgaria',
+    image: { src: '/assets/img/companies/clusterdesktop.png', alt: 'ClusterDesktop logo' },
     icon: 'terminal',
     body: [
       'Server-side automation for data extraction and manipulation, embedded C development on Linux, and a facial recognition system for internal security applications. I optimized existing server applications to reduce memory and resource usage on Debian systems.',
@@ -662,6 +663,7 @@ export const JOURNEY: JourneyStep[] = [
     label: '2021 – 2022 · 1 year',
     title: '.NET & Python Developer · ML Engineer',
     place: 'Incess · Sofia, Bulgaria',
+    image: { src: '/assets/img/companies/incess.png', alt: 'Incess logo' },
     icon: 'code',
     body: [
       'Desktop application development in .NET with MySQL database design and integration, Python modules for web scraping, system administration automation and two-factor authentication — plus data analysis and image processing work.',
