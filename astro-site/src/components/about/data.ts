@@ -626,6 +626,7 @@ export const JOURNEY: JourneyStep[] = [
     label: '2019 – 2020 · Internship',
     title: 'Software Engineer Intern',
     place: 'Microsoft · Shanghai, China',
+    image: { src: '/assets/img/companies/microsoft.svg', alt: 'Microsoft logo' },
     icon: 'briefcase',
     body: [
       'I designed, built and tested real product features across Microsoft platforms and services, working in C#, Java, Python and TypeScript. I collaborated with cross-functional teams and gained hands-on experience with Azure and modern cloud engineering in a fast-paced, global environment.',
