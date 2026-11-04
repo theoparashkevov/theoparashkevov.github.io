@@ -452,7 +452,10 @@ export const JOURNEY: JourneyStep[] = [
     ],
     highlights: ['Python', 'gRPC', 'Qlik Sense', 'Optimization'],
     people: [
-      { name: 'Anique Tahir', href: 'https://www.linkedin.com/in/anique-tahir-cdmp-cscp-30160251/' },
+      {
+        name: 'Anique Tahir',
+        href: 'https://www.linkedin.com/in/anique-tahir-cdmp-cscp-30160251/',
+      },
       { name: 'Zuzana Sislerova', href: 'https://www.linkedin.com/in/zuzanasislerova/' },
       { name: 'Eric Park', href: 'https://www.linkedin.com/in/eric-park-mba-cpim-44974b70/' },
       { name: 'Nathan Yun', href: 'https://www.linkedin.com/in/nathan-yun-536482b/' },
@@ -505,7 +508,10 @@ export const JOURNEY: JourneyStep[] = [
     ],
     highlights: ['Text-to-SQL', 'Snowflake', 'LLMs', 'Knowledge management'],
     people: [
-      { name: 'Maximilian Schön', href: 'https://www.linkedin.com/in/maximilian-sch%C3%B6n-457a4885/' },
+      {
+        name: 'Maximilian Schön',
+        href: 'https://www.linkedin.com/in/maximilian-sch%C3%B6n-457a4885/',
+      },
       { name: 'Rolf Roth', href: 'https://www.linkedin.com/in/dr-rolf-roth-b7729763/' },
       { name: 'Andreas Lehmann', href: 'https://www.linkedin.com/in/andreas-lehmann-18a70aa6/' },
     ],
