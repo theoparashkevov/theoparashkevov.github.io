@@ -162,6 +162,85 @@ export const TECH_GROUPS: TechGroup[] = [
     ],
   },
   {
+    title: 'Generative AI & LLMs',
+    icon: 'sparkles',
+    summary:
+      'Large language model applications: LLM APIs, agent frameworks and local models for retrieval-augmented generation over vector databases such as pgvector, function calling and structured output.',
+    items: [
+      {
+        name: 'OpenAI',
+        description: 'LLM API',
+        icon: '/assets/img/tech/openai.png',
+      },
+      {
+        name: 'LangChain',
+        description: 'Agent & LLM framework',
+        icon: 'https://cdn.simpleicons.org/langchain',
+      },
+      {
+        name: 'Ollama',
+        description: 'Local LLM runtime',
+        icon: `${DEVICON_CDN}/ollama/ollama-original.svg`,
+      },
+      {
+        name: 'Hugging Face',
+        description: 'Transformers & models',
+        icon: 'https://cdn.simpleicons.org/huggingface',
+      },
+    ],
+  },
+  {
+    title: 'Machine Learning & Forecasting',
+    icon: 'chart',
+    summary:
+      'Deep learning and gradient-boosted models for prediction and forecasting, plus MLOps tooling to track experiments and serve models reliably in production.',
+    items: [
+      {
+        name: 'PyTorch',
+        description: 'Deep learning framework',
+        icon: `${DEVICON_CDN}/pytorch/pytorch-original.svg`,
+      },
+      {
+        name: 'TensorFlow',
+        description: 'Deep learning framework',
+        icon: `${DEVICON_CDN}/tensorflow/tensorflow-original.svg`,
+      },
+      {
+        name: 'XGBoost',
+        description: 'Gradient boosting',
+        icon: '/assets/img/tech/xgboost.png',
+      },
+      {
+        name: 'MLflow',
+        description: 'MLOps & experiment tracking',
+        icon: 'https://cdn.simpleicons.org/mlflow',
+      },
+    ],
+  },
+  {
+    title: 'APIs & Backend',
+    icon: 'layers',
+    summary:
+      'Service-to-service and user-facing APIs: REST and WebSocket/SSE endpoints, high-performance Python APIs and strongly typed RPC for integrating analytics platforms with backend services.',
+    items: [
+      {
+        name: 'FastAPI',
+        description: 'Python API framework',
+        icon: `${DEVICON_CDN}/fastapi/fastapi-original.svg`,
+      },
+      {
+        name: 'gRPC',
+        description: 'RPC framework',
+        icon: 'https://www.vectorlogo.zone/logos/grpcio/grpcio-icon.svg',
+      },
+      {
+        name: 'Socket.IO',
+        description: 'WebSockets & realtime',
+        icon: `${DEVICON_CDN}/socketio/socketio-original.svg`,
+      },
+    ],
+  },
+  {
     title: 'Web Development',
     icon: 'globe',
     summary:
@@ -186,6 +265,11 @@ export const TECH_GROUPS: TechGroup[] = [
         name: 'CSS3',
         description: 'Styling language',
         icon: `${DEVICON_CDN}/css3/css3-original-wordmark.svg`,
+      },
+      {
+        name: 'TypeScript',
+        description: 'Typed JavaScript',
+        icon: `${DEVICON_CDN}/typescript/typescript-original.svg`,
       },
     ],
   },
@@ -222,6 +306,29 @@ export const TECH_GROUPS: TechGroup[] = [
     ],
   },
   {
+    title: 'DevOps & CI/CD',
+    icon: 'git-branch',
+    summary:
+      'Automated pipelines and container orchestration for building, testing and deploying reliably: CI with GitHub Actions, Kubernetes for orchestration and Nginx as a reverse proxy and ingress.',
+    items: [
+      {
+        name: 'GitHub Actions',
+        description: 'CI/CD pipelines',
+        icon: `${DEVICON_CDN}/githubactions/githubactions-original.svg`,
+      },
+      {
+        name: 'Kubernetes',
+        description: 'Container orchestration',
+        icon: `${DEVICON_CDN}/kubernetes/kubernetes-original.svg`,
+      },
+      {
+        name: 'Nginx',
+        description: 'Reverse proxy & ingress',
+        icon: `${DEVICON_CDN}/nginx/nginx-original.svg`,
+      },
+    ],
+  },
+  {
     title: 'Database Design & Management',
     icon: 'database',
     summary:
@@ -236,6 +343,11 @@ export const TECH_GROUPS: TechGroup[] = [
         name: 'MySQL',
         description: 'Database management system',
         icon: `${DEVICON_RAW}/mysql/mysql-original-wordmark.svg`,
+      },
+      {
+        name: 'Snowflake',
+        description: 'Cloud data warehouse',
+        icon: 'https://cdn.simpleicons.org/snowflake/29B5E8',
       },
     ],
   },
