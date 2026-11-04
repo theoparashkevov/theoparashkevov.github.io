@@ -325,7 +325,7 @@ export interface JourneyStep {
 export const JOURNEY: JourneyStep[] = [
   {
     kind: 'education',
-    label: 'High school',
+    label: '2010 – 2015 · High school',
     title: 'German Language School',
     place: 'Ruse, Bulgaria',
     image: {
@@ -341,7 +341,7 @@ export const JOURNEY: JourneyStep[] = [
   },
   {
     kind: 'education',
-    label: 'University · 1 year',
+    label: '2015 – 2016 · University',
     title: 'Chinese Language Program',
     place: 'Southeast University · Nanjing, China',
     image: { src: '/assets/img/SEU.jpg', alt: 'Southeast University emblem' },
@@ -352,27 +352,95 @@ export const JOURNEY: JourneyStep[] = [
     highlights: ['Intensive one-year program'],
   },
   {
+    kind: 'experience',
+    label: '2019 – 2020 · Internship',
+    title: 'Python Developer Intern',
+    place: 'Southeast University · Nanjing, China',
+    image: { src: '/assets/img/SEU.jpg', alt: 'Southeast University emblem' },
+    icon: 'code',
+    body: [
+      'My first industry role: developing and testing Python code, troubleshooting technical issues and automating the testing of a new web application — from simulating user interactions to parsing data and generating detailed performance reports.',
+    ],
+    highlights: ['Python', 'Test automation', 'Data visualization'],
+  },
+  {
+    kind: 'experience',
+    label: '2019 – 2020 · Internship',
+    title: 'Software Engineer Intern',
+    place: 'Microsoft · Shanghai, China',
+    icon: 'briefcase',
+    body: [
+      'I designed, built and tested real product features across Microsoft platforms and services, working in C#, Java, Python and TypeScript. I collaborated with cross-functional teams and gained hands-on experience with Azure and modern cloud engineering in a fast-paced, global environment.',
+    ],
+    highlights: ['C# · Java · TypeScript', 'Azure'],
+  },
+  {
     kind: 'education',
-    label: 'University · 4 years',
+    label: '2016 – 2021 · University',
     title: "Bachelor's in Computer Science and Engineering",
     place: 'Southeast University · Nanjing, China',
     image: { src: '/assets/img/SEU.jpg', alt: 'Southeast University emblem' },
     icon: 'graduation-cap',
     body: [
       'A four-year degree conducted entirely in Chinese. It sharpened my ability to adapt quickly to unfamiliar environments, grasp complex concepts and navigate diverse academic settings.',
+      'Alongside my degree I worked as an NLP engineer and researcher, designing and training models on data extracted from Chinese travel websites — recommendation engines, sentiment analysis and predictive analytics — using NLTK, SpaCy and Gensim.',
     ],
-    highlights: ['Taught entirely in Chinese'],
+    highlights: ['Taught entirely in Chinese', 'NLP research'],
   },
   {
     kind: 'experience',
-    label: 'Industry',
-    title: 'Senior Python Developer & Machine Learning Engineer',
-    place: 'Software & machine learning engineering',
+    label: '2020 – 2022 · 2 years',
+    title: 'Python & Embedded Systems Developer',
+    place: 'ClusterDesktop · Sofia, Bulgaria',
+    icon: 'terminal',
+    body: [
+      'Server-side automation for data extraction and manipulation, embedded C development on Linux, and a facial recognition system for internal security applications. I optimized existing server applications to reduce memory and resource usage on Debian systems.',
+    ],
+    highlights: ['Python', 'Embedded C', 'Linux'],
+  },
+  {
+    kind: 'experience',
+    label: '2021 – 2022 · 1 year',
+    title: '.NET & Python Developer · ML Engineer',
+    place: 'Incess · Sofia, Bulgaria',
+    icon: 'code',
+    body: [
+      'Desktop application development in .NET with MySQL database design and integration, Python modules for web scraping, system administration automation and two-factor authentication — plus data analysis and image processing work.',
+    ],
+    highlights: ['.NET', 'MySQL', 'Automation'],
+  },
+  {
+    kind: 'experience',
+    label: '2022 – 2024 · 2 years',
+    title: 'Software Engineer → Senior Software Engineer (AI/ML)',
+    place: 'B EYE · Sofia, Bulgaria',
     icon: 'briefcase',
     body: [
-      'Building robust, scalable software systems that use machine learning to deliver performance and accuracy: data pipelines, training and evaluating models, and designing and implementing complex algorithms.',
+      'Platform engineering and AI/ML development: building Django backends that expose internal ML solutions and data analytics, machine learning for demand time-series prediction, and software that helps supply planners in manufacturing find optimal resource allocation during shortages and supply chain disruptions.',
     ],
-    highlights: ['Python', 'Machine learning', 'Scalable systems'],
+    highlights: ['Python', 'Django', 'ML in production'],
+  },
+  {
+    kind: 'experience',
+    label: '2024 – Present',
+    title: 'AI Solutions Manager & Software Product Development Team Lead',
+    place: 'B EYE · Sofia, Bulgaria',
+    icon: 'users',
+    body: [
+      'I lead teams of ML engineers, developers and DevOps specialists, architecting scalable AI solutions from data ingestion to deployment — traditional ML and Generative AI, LLMs, vector databases and RAG systems — while managing projects from requirements to delivery and mentoring developers through code reviews and workshops.',
+    ],
+    highlights: ['Team leadership', 'Generative AI', 'RAG', 'Architecture'],
+  },
+  {
+    kind: 'experience',
+    label: '2025 – Present',
+    title: 'Chief Technology Officer',
+    place: 'FluxAnalytics',
+    icon: 'cpu',
+    body: [
+      'Leading the technical design and architecture of Flux end to end — agent orchestration, real-time meeting intelligence and the knowledge layer — and solving the hardest engineering problems across the stack. Flux is an early-stage AI company working on context debt.',
+    ],
+    highlights: ['CTO', 'Agent orchestration', 'Early-stage'],
   },
 ];
 
