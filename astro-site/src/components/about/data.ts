@@ -248,7 +248,7 @@ export const TECH_GROUPS: TechGroup[] = [
       {
         name: 'AWS',
         description: 'Cloud platform',
-        icon: `${DEVICON_RAW}/amazonwebservices/amazonwebservices-original-wordmark.svg`,
+        icon: `${DEVICON_RAW}/amazonwebservices/amazonwebservices-original.svg`,
       },
     ],
   },
@@ -421,6 +421,8 @@ export const JOURNEY: JourneyStep[] = [
     label: '2022 – 2024 · 2 years',
     title: 'Software Engineer → Senior Software Engineer (AI/ML)',
     place: 'B EYE · Sofia, Bulgaria',
+    placeHref: 'https://b-eye.com/',
+    image: { src: '/assets/img/companies/b-eye.png', alt: 'B EYE logo' },
     icon: 'briefcase',
     body: [
       'Platform engineering and AI/ML development: building Django backends that expose internal ML solutions and data analytics, machine learning for demand time-series prediction, and software that helps supply planners in manufacturing find optimal resource allocation during shortages and supply chain disruptions.',
@@ -432,6 +434,8 @@ export const JOURNEY: JourneyStep[] = [
     label: '2024 – Present',
     title: 'AI Solutions Manager & Software Product Development Team Lead',
     place: 'B EYE · Sofia, Bulgaria',
+    placeHref: 'https://b-eye.com/',
+    image: { src: '/assets/img/companies/b-eye.png', alt: 'B EYE logo' },
     icon: 'users',
     body: [
       'I lead teams of ML engineers, developers and DevOps specialists, architecting scalable AI solutions from data ingestion to deployment — traditional ML and Generative AI, LLMs, vector databases and RAG systems — while managing projects from requirements to delivery and mentoring developers through code reviews and workshops.',
@@ -539,6 +543,8 @@ export const JOURNEY: JourneyStep[] = [
     label: '2025 – Present',
     title: 'Chief Technology Officer',
     place: 'FluxAnalytics',
+    placeHref: 'https://www.fluxanalytics.ai/',
+    image: { src: '/assets/img/companies/fluxanalytics.png', alt: 'FluxAnalytics logo' },
     icon: 'cpu',
     body: [
       'Leading the technical design and architecture of Flux end to end — agent orchestration, real-time meeting intelligence and the knowledge layer — and solving the hardest engineering problems across the stack. Flux is an early-stage AI company working on context debt.',
@@ -610,7 +616,7 @@ export const CERTIFICATION_GROUPS: CertificationGroup[] = [
   {
     title: 'Cloud',
     logo: {
-      src: `${DEVICON_CDN}/amazonwebservices/amazonwebservices-plain-wordmark.svg`,
+      src: `${DEVICON_CDN}/amazonwebservices/amazonwebservices-original.svg`,
       alt: 'Amazon Web Services logo',
     },
     icon: 'cloud',
