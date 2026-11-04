@@ -311,21 +311,28 @@ export const TECH_GROUPS: TechGroup[] = [
   },
 ];
 
+export interface JourneyPerson {
+  name: string;
+  href: string;
+}
+
 export interface JourneyStep {
   kind: 'education' | 'experience';
   label: string;
   title: string;
   place: string;
-  image?: { src: string; alt: string };
+  placeHref?: string;
+  image?: { src: string; alt: string } | { src: string; alt: string }[];
   icon: AboutIconName;
   body: string[];
   highlights?: string[];
+  people?: JourneyPerson[];
 }
 
 export const JOURNEY: JourneyStep[] = [
   {
     kind: 'education',
-    label: 'High school',
+    label: '2010 – 2015 · High school',
     title: 'German Language School',
     place: 'Ruse, Bulgaria',
     image: {
@@ -341,7 +348,7 @@ export const JOURNEY: JourneyStep[] = [
   },
   {
     kind: 'education',
-    label: 'University · 1 year',
+    label: '2015 – 2016 · University',
     title: 'Chinese Language Program',
     place: 'Southeast University · Nanjing, China',
     image: { src: '/assets/img/SEU.jpg', alt: 'Southeast University emblem' },
@@ -352,27 +359,185 @@ export const JOURNEY: JourneyStep[] = [
     highlights: ['Intensive one-year program'],
   },
   {
+    kind: 'experience',
+    label: '2019 – 2020 · Internship',
+    title: 'Python Developer Intern',
+    place: 'Southeast University · Nanjing, China',
+    image: { src: '/assets/img/SEU.jpg', alt: 'Southeast University emblem' },
+    icon: 'code',
+    body: [
+      'My first industry role: developing and testing Python code, troubleshooting technical issues and automating the testing of a new web application — from simulating user interactions to parsing data and generating detailed performance reports.',
+    ],
+    highlights: ['Python', 'Test automation', 'Data visualization'],
+  },
+  {
+    kind: 'experience',
+    label: '2019 – 2020 · Internship',
+    title: 'Software Engineer Intern',
+    place: 'Microsoft · Shanghai, China',
+    icon: 'briefcase',
+    body: [
+      'I designed, built and tested real product features across Microsoft platforms and services, working in C#, Java, Python and TypeScript. I collaborated with cross-functional teams and gained hands-on experience with Azure and modern cloud engineering in a fast-paced, global environment.',
+    ],
+    highlights: ['C# · Java · TypeScript', 'Azure'],
+  },
+  {
     kind: 'education',
-    label: 'University · 4 years',
+    label: '2016 – 2021 · University',
     title: "Bachelor's in Computer Science and Engineering",
     place: 'Southeast University · Nanjing, China',
     image: { src: '/assets/img/SEU.jpg', alt: 'Southeast University emblem' },
     icon: 'graduation-cap',
     body: [
       'A four-year degree conducted entirely in Chinese. It sharpened my ability to adapt quickly to unfamiliar environments, grasp complex concepts and navigate diverse academic settings.',
+      'Alongside my degree I worked as an NLP engineer and researcher, designing and training models on data extracted from Chinese travel websites — recommendation engines, sentiment analysis and predictive analytics — using NLTK, SpaCy and Gensim.',
     ],
-    highlights: ['Taught entirely in Chinese'],
+    highlights: ['Taught entirely in Chinese', 'NLP research'],
   },
   {
     kind: 'experience',
-    label: 'Industry',
-    title: 'Senior Python Developer & Machine Learning Engineer',
-    place: 'Software & machine learning engineering',
+    label: '2020 – 2022 · 2 years',
+    title: 'Python & Embedded Systems Developer',
+    place: 'ClusterDesktop · Sofia, Bulgaria',
+    icon: 'terminal',
+    body: [
+      'Server-side automation for data extraction and manipulation, embedded C development on Linux, and a facial recognition system for internal security applications. I optimized existing server applications to reduce memory and resource usage on Debian systems.',
+    ],
+    highlights: ['Python', 'Embedded C', 'Linux'],
+  },
+  {
+    kind: 'experience',
+    label: '2021 – 2022 · 1 year',
+    title: '.NET & Python Developer · ML Engineer',
+    place: 'Incess · Sofia, Bulgaria',
+    icon: 'code',
+    body: [
+      'Desktop application development in .NET with MySQL database design and integration, Python modules for web scraping, system administration automation and two-factor authentication — plus data analysis and image processing work.',
+    ],
+    highlights: ['.NET', 'MySQL', 'Automation'],
+  },
+  {
+    kind: 'experience',
+    label: '2022 – 2024 · 2 years',
+    title: 'Software Engineer → Senior Software Engineer (AI/ML)',
+    place: 'B EYE · Sofia, Bulgaria',
     icon: 'briefcase',
     body: [
-      'Building robust, scalable software systems that use machine learning to deliver performance and accuracy: data pipelines, training and evaluating models, and designing and implementing complex algorithms.',
+      'Platform engineering and AI/ML development: building Django backends that expose internal ML solutions and data analytics, machine learning for demand time-series prediction, and software that helps supply planners in manufacturing find optimal resource allocation during shortages and supply chain disruptions.',
     ],
-    highlights: ['Python', 'Machine learning', 'Scalable systems'],
+    highlights: ['Python', 'Django', 'ML in production'],
+  },
+  {
+    kind: 'experience',
+    label: '2024 – Present',
+    title: 'AI Solutions Manager & Software Product Development Team Lead',
+    place: 'B EYE · Sofia, Bulgaria',
+    icon: 'users',
+    body: [
+      'I lead teams of ML engineers, developers and DevOps specialists, architecting scalable AI solutions from data ingestion to deployment — traditional ML and Generative AI, LLMs, vector databases and RAG systems — while managing projects from requirements to delivery and mentoring developers through code reviews and workshops.',
+    ],
+    highlights: ['Team leadership', 'Generative AI', 'RAG', 'Architecture'],
+  },
+  {
+    kind: 'experience',
+    label: '2022 – 2023 · Consulting',
+    title: 'AI Consultant · Supply Chain Optimization',
+    place: 'Edwards Lifesciences',
+    placeHref: 'https://www.edwards.com/',
+    image: { src: '/assets/img/consulting/edwards.png', alt: 'Edwards Lifesciences logo' },
+    icon: 'briefcase',
+    body: [
+      'Designed and built a material shortage optimization platform for supply planners in manufacturing: a set of Python tools with machine learning libraries for production and supply chain optimization, integrating a local Qlik Sense server with a Python framework over gRPC.',
+      'The platform analyzes bill-of-materials structures under constraints such as budget, time and distance, and computes optimization strategies for chosen output variables — for example, optimizing delivery time given constraints on a specific material. Supply planners can simulate scenarios, compare allocation strategies and track KPIs such as inventory levels, supplier performance and lead times.',
+    ],
+    highlights: ['Python', 'gRPC', 'Qlik Sense', 'Optimization'],
+    people: [
+      { name: 'Anique Tahir', href: 'https://www.linkedin.com/in/anique-tahir-cdmp-cscp-30160251/' },
+      { name: 'Zuzana Sislerova', href: 'https://www.linkedin.com/in/zuzanasislerova/' },
+      { name: 'Eric Park', href: 'https://www.linkedin.com/in/eric-park-mba-cpim-44974b70/' },
+      { name: 'Nathan Yun', href: 'https://www.linkedin.com/in/nathan-yun-536482b/' },
+    ],
+  },
+  {
+    kind: 'experience',
+    label: '2022 – 2023 · Consulting',
+    title: 'AI Consultant · Healthcare Data Platform',
+    place: 'AstraZeneca · MSD',
+    image: [
+      { src: '/assets/img/consulting/astrazeneca.png', alt: 'AstraZeneca logo' },
+      { src: '/assets/img/consulting/msd.png', alt: 'MSD logo' },
+    ],
+    icon: 'briefcase',
+    body: [
+      'Led the development of a patient survey platform supporting breast cancer patients, in partnership with a Bulgarian non-profit organization. Patients in different focus groups, organized by disease stage, complete surveys on their physical and mental status; dependent questions are connected and machine learning models produce analyses and reports for each survey campaign.',
+      'The platform was built with industry-standard encryption and compliance measures to protect sensitive health information, and it was designed to integrate with existing healthcare systems and EHR databases.',
+    ],
+    highlights: ['Team leadership', 'ML pipelines', 'Healthcare', 'Privacy'],
+  },
+  {
+    kind: 'experience',
+    label: '2024 · Consulting',
+    title: 'AI Consultant · Production Optimization',
+    place: 'Valmet',
+    placeHref: 'https://www.valmet.com/',
+    image: { src: '/assets/img/consulting/valmet.png', alt: 'Valmet logo' },
+    icon: 'briefcase',
+    body: [
+      'Worked embedded with an internal development team to enhance their production optimization software. The team had built an internal classification system for rolls of production-line products and materials; I helped redesign and optimize it on a Python backend, modeling the different levels of the production life cycle with clean object-oriented abstractions.',
+    ],
+    highlights: ['Python', 'OOP design', 'Production systems'],
+    people: [
+      { name: 'Joonas Pulkkinen', href: 'https://www.linkedin.com/in/joonas-pulkkinen-991703140/' },
+      { name: 'Olli Luukkonen', href: 'https://www.linkedin.com/in/olli-luukkonen-2aa2442/' },
+    ],
+  },
+  {
+    kind: 'experience',
+    label: '2025 – 2026 · Consulting',
+    title: 'AI Consultant · Enterprise AI',
+    place: 'Merck Group',
+    placeHref: 'https://www.merckgroup.com/en',
+    image: { src: '/assets/img/consulting/merck.png', alt: 'Merck Group logo' },
+    icon: 'briefcase',
+    body: [
+      'Delivered two projects over the course of a year. The first was an internal Text-to-SQL solution backed by a Snowflake data warehouse: an easy-to-use visual interface where business users can ask questions in natural language and get real-time answers from live data, with a variety of AI providers integrated behind a common layer.',
+      'The second was an independent development project: a knowledge capture, consolidation and management system for internal pharmaceutical research data, designed and implemented end to end for the stakeholder.',
+    ],
+    highlights: ['Text-to-SQL', 'Snowflake', 'LLMs', 'Knowledge management'],
+    people: [
+      { name: 'Maximilian Schön', href: 'https://www.linkedin.com/in/maximilian-sch%C3%B6n-457a4885/' },
+      { name: 'Rolf Roth', href: 'https://www.linkedin.com/in/dr-rolf-roth-b7729763/' },
+      { name: 'Andreas Lehmann', href: 'https://www.linkedin.com/in/andreas-lehmann-18a70aa6/' },
+    ],
+  },
+  {
+    kind: 'experience',
+    label: '2026 · Consulting',
+    title: 'AI Consultant · Predictive Analytics',
+    place: 'Novocure',
+    placeHref: 'https://www.novocure.com/',
+    image: { src: '/assets/img/consulting/novocure.png', alt: 'Novocure logo' },
+    icon: 'briefcase',
+    body: [
+      'Led the AI team in developing a machine learning forecasting algorithm for prescription behavior. Based on the available data sources, we trained and compared models — XGBoost, random forest and polynomial regression — to forecast, within a three-to-six-month horizon, whether a given healthcare professional or organization would prescribe a given medical product.',
+    ],
+    highlights: ['XGBoost', 'Forecasting', 'Team leadership'],
+    people: [
+      { name: 'Saida Ibraeva', href: 'https://www.linkedin.com/in/saida-ibraeva/' },
+      { name: 'Simon Ball', href: 'https://www.linkedin.com/in/simon-ball-92a30961/' },
+      { name: 'Vilmos Szabó', href: 'https://www.linkedin.com/in/vilmos-szab%C3%B3-64929b224/' },
+    ],
+  },
+  {
+    kind: 'experience',
+    label: '2025 – Present',
+    title: 'Chief Technology Officer',
+    place: 'FluxAnalytics',
+    icon: 'cpu',
+    body: [
+      'Leading the technical design and architecture of Flux end to end — agent orchestration, real-time meeting intelligence and the knowledge layer — and solving the hardest engineering problems across the stack. Flux is an early-stage AI company working on context debt.',
+    ],
+    highlights: ['CTO', 'Agent orchestration', 'Early-stage'],
   },
 ];
 

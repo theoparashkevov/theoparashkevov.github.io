@@ -30,17 +30,18 @@ const { steps } = Astro.props;
         </span>
         <article class="group rounded-2xl border border-border bg-surface p-5 shadow-soft transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-lift sm:p-6">
           <div class="flex flex-wrap items-start gap-4">
-            {step.image && (
-              <img
-                src={step.image.src}
-                alt={step.image.alt}
-                width="64"
-                height="64"
-                loading="lazy"
-                decoding="async"
-                class="size-16 shrink-0 rounded-2xl border border-border bg-white object-contain p-1 transition-transform duration-500 ease-spring motion-safe:group-hover:scale-105"
-              />
-            )}
+            {step.image &&
+              (Array.isArray(step.image) ? step.image : [step.image]).map((img) => (
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  decoding="async"
+                  class="size-16 shrink-0 rounded-2xl border border-border bg-white object-contain p-1 transition-transform duration-500 ease-spring motion-safe:group-hover:scale-105"
+                />
+              ))}
             <div class="min-w-0 flex-1">
               <p class="flex flex-wrap items-center gap-2 text-xs font-semibold tracking-wide uppercase">
                 <span class:list={[step.kind === 'experience' ? 'text-accent-2' : 'text-accent']}>
@@ -54,7 +55,15 @@ const { steps } = Astro.props;
               <h3 class="mt-1.5 text-lg font-semibold tracking-tight text-balance sm:text-xl">
                 {step.title}
               </h3>
-              <p class="mt-0.5 text-sm text-muted">{step.place}</p>
+              <p class="mt-0.5 text-sm text-muted">
+                {step.placeHref ? (
+                  <a href={step.placeHref} target="_blank" rel="noopener" class="link-underline">
+                    {step.place}
+                  </a>
+                ) : (
+                  step.place
+                )}
+              </p>
             </div>
           </div>
           <div class="mt-4 space-y-3 text-sm leading-relaxed text-muted sm:text-base">
@@ -74,6 +83,24 @@ const { steps } = Astro.props;
                 </li>
               ))}
             </ul>
+          )}
+          {step.people && (
+            <p class="mt-4 text-sm text-muted">
+              <span class="font-medium text-fg">Close professional relations:</span>{' '}
+              {step.people.map((person, index) => (
+                <>
+                  <a
+                    href={person.href}
+                    target="_blank"
+                    rel="noopener"
+                    class="link-underline font-medium"
+                  >
+                    {person.name}
+                  </a>
+                  {index < step.people!.length - 1 && <span aria-hidden="true"> · </span>}
+                </>
+              ))}
+            </p>
           )}
         </article>
       </li>
