@@ -2,6 +2,8 @@
 title: Owning the Edge - Rebuilding an OpenVPN PKI with easy-rsa
 description: Building a new certificate authority for my OpenVPN fallback with easy-rsa, choosing validity periods, staging the files with strict permissions, and replacing 150 lines of inlined certificates with five directives.
 pubDate: 2026-08-11
+series: 'Owning the Edge'
+seriesOrder: 4
 updatedDate: 2026-08-11
 categories:
   - security

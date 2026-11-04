@@ -2,6 +2,8 @@
 title: Owning the Edge - When the CA Private Key Is Gone
 description: Adding one phone to my OpenVPN fallback revealed that the private key of the old certificate authority no longer existed anywhere. How I searched for it, and the 30-second check that proves whether a certificate and a key belong together.
 pubDate: 2026-07-28
+series: 'Owning the Edge'
+seriesOrder: 3
 updatedDate: 2026-07-28
 categories:
   - security

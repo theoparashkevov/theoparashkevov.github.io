@@ -2,6 +2,8 @@
 title: 'Hybrid Search with Reciprocal Rank Fusion: Combining Vector and Full-Text Retrieval'
 description: 'Dense embeddings find paraphrases; full-text finds exact terms. How to run both legs concurrently and fuse their rankings with RRF — a simple formula that consistently beats either leg alone.'
 pubDate: 2024-02-06
+series: 'Algorithm Implementations'
+seriesOrder: 6
 categories: [ai, algorithms]
 tags: [search, rag, embeddings, postgres, ranking, information-retrieval]
 heroImage: /assets/img/posts/hybrid-search-rrf/thumbnail.png

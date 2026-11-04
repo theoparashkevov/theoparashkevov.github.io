@@ -2,6 +2,8 @@
 title: 'Leader Election and Job Claiming with Postgres Advisory Locks'
 description: 'How to run a distributed scheduler on a single table: advisory-lock leader election, SKIP LOCKED work claiming, semaphore-style concurrency caps, and heartbeat reaping.'
 pubDate: 2023-10-03
+series: 'Algorithm Implementations'
+seriesOrder: 2
 categories: [algorithms]
 tags: [postgres, distributed-systems, schedulers, advisory-locks, reliability]
 heroImage: /assets/img/posts/postgres-advisory-lock-scheduler/thumbnail.png

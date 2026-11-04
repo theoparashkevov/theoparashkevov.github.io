@@ -2,6 +2,8 @@
 title: Owning the Edge - OpenVPN on TCP 443 as a Quiet Fallback
 description: How my OpenVPN fallback on TCP 443 is configured, why tls-crypt made it stop answering scanners, how I build client profiles, and the steps for adding and revoking a client.
 pubDate: 2026-09-01
+series: 'Owning the Edge'
+seriesOrder: 5
 updatedDate: 2026-09-01
 categories:
   - networking

@@ -2,6 +2,8 @@
 title: 'Long-Term Memory for Conversational Agents: Extraction, Guardrails, and Hierarchical Retrieval'
 description: 'How does an assistant remember you across sessions? A speaker-attributed extraction pipeline with dedup and rate limits, three isolation scopes, and a retrieval hierarchy that ranks topics, decays by recency, and never truncates silently.'
 pubDate: 2024-05-14
+series: 'Algorithm Implementations'
+seriesOrder: 12
 categories: [ai]
 tags: [memory, rag, llm, embeddings, pgvector, retrieval, agents]
 heroImage: /assets/img/posts/conversational-memory-extraction-retrieval/thumbnail.png

@@ -2,6 +2,8 @@
 title: 'Building an Opaque Boundary Around an LLM: Stream Sanitization and Allowlist Provenance'
 description: 'When a model answers over private knowledge, the answer must never leak what it used. How to scrub IRIs, UUIDs, and query fragments across streaming chunk boundaries, and how to project provenance as an allowlist.'
 pubDate: 2024-01-16
+series: 'Algorithm Implementations'
+seriesOrder: 5
 categories: [ai, security]
 tags: [llm, security, streaming, sanitization, provenance, rag]
 heroImage: /assets/img/posts/llm-opaque-boundary-sanitization/thumbnail.png

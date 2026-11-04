@@ -2,6 +2,8 @@
 title: 'Keyset Pagination and Idempotent Event Dispatch'
 description: 'Two small algorithms that make a notification service boring in the best way: cursor pagination that cannot skip rows, and exactly-once-flavored dispatch built on a single SQL statement.'
 pubDate: 2023-09-12
+series: 'Algorithm Implementations'
+seriesOrder: 1
 categories: [algorithms]
 tags: [pagination, idempotency, postgres, notifications, system-design]
 heroImage: /assets/img/posts/keyset-pagination-idempotent-dispatch/thumbnail.png

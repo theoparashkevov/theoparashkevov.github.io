@@ -2,6 +2,8 @@
 title: 'Computed Status, Not Stored: Deriving the Lifecycle of Scheduled Things'
 description: 'Should a survey be "completed" or "expired"? Store the flag and it lies between updates; compute it on read and it is always true. A design for lifecycle derivation, assignee coverage, and the short-circuits that keep it fast.'
 pubDate: 2024-05-21
+series: 'Algorithm Implementations'
+seriesOrder: 13
 categories: [algorithms]
 tags: [state-machines, scheduling, postgres, data-modeling]
 heroImage: /assets/img/posts/computed-lifecycle-status/thumbnail.png

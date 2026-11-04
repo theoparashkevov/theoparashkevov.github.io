@@ -11,6 +11,8 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     categories: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
+    series: z.string().optional(),
+    seriesOrder: z.number().int().positive().optional(),
     author: z.string().default('Teo Parashkevov'),
     heroImage: z.string().optional(),
     heroAlt: z.string().optional(),
