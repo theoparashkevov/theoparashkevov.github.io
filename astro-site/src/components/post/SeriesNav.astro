@@ -1,0 +1,68 @@
+---
+import Icon from '../Icon.astro';
+import type { Post } from '../../lib/posts';
+import { formatDate, postUrl, slugify } from '../../lib/posts';
+import { seriesUrl } from '../blog/series';
+
+export interface Props {
+  post: Post;
+  parts: Post[];
+}
+
+const { post, parts } = Astro.props;
+const seriesName = post.data.series!;
+const index = parts.findIndex((part) => part.id === post.id);
+const current = index + 1;
+---
+
+<nav
+  aria-label={`${seriesName} series`}
+  class="rounded-2xl border border-accent/20 bg-accent-soft p-5 shadow-soft"
+  data-reveal
+>
+  <p class="text-xs font-semibold tracking-wide text-subtle uppercase">
+    Part {current} of {parts.length}
+  </p>
+  <a
+    href={seriesUrl(slugify(seriesName))}
+    class="link-underline mt-1 inline-flex items-center gap-2 text-lg font-bold text-accent"
+  >
+    <Icon name="layers" size={18} />
+    {seriesName}
+  </a>
+
+  <ol class="mt-4 space-y-1.5">
+    {parts.map((part, i) => {
+      const isCurrent = part.id === post.id;
+      return (
+        <li>
+          {isCurrent ? (
+            <span
+              aria-current="page"
+              class="flex items-baseline gap-2.5 rounded-lg bg-surface px-3 py-1.5 text-sm font-semibold text-fg"
+            >
+              <span class="shrink-0 font-mono text-xs text-accent">{i + 1}.</span>
+              <span class="min-w-0">{part.data.title}</span>
+            </span>
+          ) : (
+            <a
+              href={postUrl(part)}
+              class="group flex items-baseline gap-2.5 rounded-lg px-3 py-1.5 text-sm text-muted transition-colors duration-200 hover:bg-surface hover:text-fg"
+            >
+              <span class="shrink-0 font-mono text-xs text-subtle group-hover:text-accent">
+                {i + 1}.
+              </span>
+              <span class="min-w-0">{part.data.title}</span>
+              <time
+                class="ml-auto shrink-0 text-xs text-subtle"
+                datetime={part.data.pubDate.toISOString()}
+              >
+                {formatDate(part.data.pubDate, 'short')}
+              </time>
+            </a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

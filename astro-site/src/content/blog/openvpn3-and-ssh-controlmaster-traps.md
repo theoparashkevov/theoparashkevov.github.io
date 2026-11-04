@@ -2,6 +2,8 @@
 title: Owning the Edge - Two Small Traps with openvpn3 and SSH ControlMaster
 description: Two small problems that cost me more time than they should have, an openvpn3 error about an invalid D-Bus path and an SSH connection that hung because of a stale ControlMaster socket, plus a recap of the whole series.
 pubDate: 2026-10-13
+series: 'Owning the Edge'
+seriesOrder: 6
 updatedDate: 2026-10-13
 categories:
   - linux

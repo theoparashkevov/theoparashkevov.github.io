@@ -2,6 +2,8 @@
 title: Owning the Edge - Locking Down a VPN Gateway
 description: How I set up a minimal VPN gateway with two open ports, SSH only on the internal network, a login account without sudo and a default-deny nftables firewall that fits on one screen.
 pubDate: 2026-06-02
+series: 'Owning the Edge'
+seriesOrder: 2
 updatedDate: 2026-06-02
 categories:
   - security

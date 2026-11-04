@@ -2,6 +2,8 @@
 title: 'Compile Once, Run Without a Model: A Zero-LLM Interpreter for Learned Skills'
 description: 'What if a language model compiles a procedure once and never runs again? A skill compiler with hard structural gates, a zero-model interpreter that walks the graph in plain code, and a trust ladder that must be earned run by run.'
 pubDate: 2024-03-19
+series: 'Algorithm Implementations'
+seriesOrder: 8
 categories: [ai, algorithms]
 tags: [llm, interpreters, state-machines, trust, safety, agents]
 heroImage: /assets/img/posts/zero-llm-skill-interpreter/thumbnail.png

@@ -2,6 +2,8 @@
 title: 'Webhook Reconciliation Loops: Keeping External Subscriptions Alive'
 description: 'Third-party webhooks expire, get orphaned by restarts, and miss events. A reconcile-loop design that converges desired vs. live state, plus deduplication by join URL and latches that remember deliberate exits.'
 pubDate: 2024-05-07
+series: 'Algorithm Implementations'
+seriesOrder: 11
 categories: [algorithms, system-design]
 tags: [webhooks, reconciliation, idempotency, distributed-systems, reliability]
 heroImage: /assets/img/posts/webhook-reconciliation-loops/thumbnail.png

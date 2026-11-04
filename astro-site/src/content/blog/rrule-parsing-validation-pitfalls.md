@@ -2,6 +2,8 @@
 title: 'RRULE in Practice: Parsing, Validating, and Quarantining Recurrence Rules'
 description: 'iCalendar RRULE looks like a solved problem until INTERVAL=0 hangs your sweep, BYHOUR means the wrong hour across timezones, and legacy rows encode their whole schedule in one string. A field guide to doing it safely.'
 pubDate: 2023-11-07
+series: 'Algorithm Implementations'
+seriesOrder: 3
 categories: [algorithms]
 tags: [rrule, dates, timezones, validation, python]
 heroImage: /assets/img/posts/rrule-parsing-validation-pitfalls/thumbnail.png

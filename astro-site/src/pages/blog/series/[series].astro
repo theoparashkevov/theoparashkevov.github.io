@@ -1,0 +1,43 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogHeader from '../../../components/blog/BlogHeader.astro';
+import PostArchive from '../../../components/blog/PostArchive.astro';
+import { getSeriesList, postsInSeries } from '../../../components/blog/series';
+import { getPublishedPosts } from '../../../lib/posts';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  const series = getSeriesList(posts);
+  return series.map((item) => ({
+    params: { series: item.slug },
+    props: {
+      series: item,
+      posts: postsInSeries(posts, item.slug),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { series, posts } = Astro.props;
+---
+
+<BaseLayout
+  title={`${series.name} series`}
+  description={`${series.count}-part series by Teo Parashkevov: ${series.name}.`}
+>
+  <div class="container-page py-14 sm:py-20">
+    <BlogHeader
+      eyebrow="Series"
+      title={series.name}
+      count={posts.length}
+      backHref="/blog/"
+      backLabel="All posts"
+    >
+      {`A multi-part story, in order. ${posts.length} parts, newest last.`}
+    </BlogHeader>
+
+    <div class="mt-14">
+      <PostArchive posts={posts} />
+    </div>
+  </div>
+</BaseLayout>

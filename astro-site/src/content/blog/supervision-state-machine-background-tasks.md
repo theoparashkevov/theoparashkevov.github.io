@@ -2,6 +2,8 @@
 title: 'A Supervision State Machine for Long-Running Background Tasks'
 description: 'Background jobs that run for minutes, pause for human answers, and survive restarts need more than a status column. A design for pausable, resumable, auditable background work: explicit states, a question channel, generation gates, and append-only logs.'
 pubDate: 2024-02-27
+series: 'Algorithm Implementations'
+seriesOrder: 7
 categories: [algorithms]
 tags: [state-machines, background-jobs, postgres, reliability, design]
 heroImage: /assets/img/posts/supervision-state-machine-background-tasks/thumbnail.png

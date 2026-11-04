@@ -2,6 +2,8 @@
 title: 'Background Job Orchestration for Real-Time Voice Agents'
 description: 'Voice agents feel synchronous but live on a mess of tool calls, reconnects, and long-running jobs. A background job manager with dedup, bounded retries, a dead-letter queue, and a sideband control channel — plus a discovery system for assumptions you cannot verify.'
 pubDate: 2024-05-30
+series: 'Algorithm Implementations'
+seriesOrder: 14
 categories: [ai, system-design]
 tags: [voice, realtime, background-jobs, reliability, websocket, llm]
 heroImage: /assets/img/posts/realtime-voice-background-jobs/thumbnail.png

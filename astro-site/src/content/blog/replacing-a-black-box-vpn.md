@@ -2,6 +2,8 @@
 title: Owning the Edge - Replacing a Black-Box VPN Instead of Fixing It
 description: The first post in my Owning the Edge series. The VPN into my servers broke in three ways at once, so instead of repairing a box I did not control, I built my own gateway, internal network and DNS from scratch.
 pubDate: 2026-04-28
+series: 'Owning the Edge'
+seriesOrder: 1
 updatedDate: 2026-04-28
 categories:
   - networking

@@ -2,6 +2,8 @@
 title: 'Designing a Multi-Turn LLM Loop with Forced Tool Calling'
 description: 'How to make a language model reliably drive a structured UI: force a tool call every turn, treat the final answer as a schema, feed validation errors back for self-correction, and bound the whole thing by construction.'
 pubDate: 2024-04-09
+series: 'Algorithm Implementations'
+seriesOrder: 9
 categories: [ai]
 tags: [llm, function-calling, sse, structured-output, ux, agents]
 heroImage: /assets/img/posts/multi-turn-llm-tool-loop/thumbnail.png

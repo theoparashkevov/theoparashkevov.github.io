@@ -2,6 +2,8 @@
 title: 'Token Bucket Rate Limiting and Constant-Time Credential Verification'
 description: 'The small but sharp security machinery behind an API endpoint: in-memory token buckets, peppered SHA-256 with constant-time comparison, and deterministic session namespacing.'
 pubDate: 2023-12-05
+series: 'Algorithm Implementations'
+seriesOrder: 4
 categories: [algorithms, security]
 tags: [rate-limiting, token-bucket, hashing, hmac, security, python]
 heroImage: /assets/img/posts/token-bucket-constant-time-credentials/thumbnail.png

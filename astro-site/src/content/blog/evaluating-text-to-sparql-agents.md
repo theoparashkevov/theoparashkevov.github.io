@@ -2,6 +2,8 @@
 title: 'Evaluating Text-to-SPARQL Agents: Execution Accuracy, Coverage, and the Noise Floor'
 description: 'How do you compare LLMs on generating structured queries? Syntax similarity is worthless. What works: executing generated queries against a live triplestore and comparing result sets — plus a spread rule most benchmarks ignore.'
 pubDate: 2024-04-23
+series: 'Algorithm Implementations'
+seriesOrder: 10
 categories: [ai]
 tags: [evaluation, llm, sparql, benchmarking, metrics, rag]
 heroImage: /assets/img/posts/evaluating-text-to-sparql-agents/thumbnail.png
