@@ -1,0 +1,31 @@
+# Teo Parashkevov
+
+> Personal blog and portfolio of Teo Parashkevov, Machine Learning Engineer and Senior Python Developer. He builds production AI/ML systems (LLM agents, RAG, NLP), scalable Python backends (Django, FastAPI), and data platforms, and writes in-depth engineering posts with original benchmarks and reproducible detail. Senior Software Engineer (AI/ML) at B EYE; former Software Engineer Intern at Microsoft (Shanghai). Based in Sofia, Bulgaria.
+
+## About
+
+- [About](https://theoparashkevov.github.io/about/): Career history, education, and tech stack.
+- [Projects](https://theoparashkevov.github.io/projects/): Selected engineering projects.
+- [Open Source](https://theoparashkevov.github.io/open-source/): GitHub contributions and public repositories.
+- [Publications](https://theoparashkevov.github.io/publications/): Talks and presentations.
+- [Blog](https://theoparashkevov.github.io/blog/): Full article archive, newest first.
+
+## Series
+
+Multi-part deep dives, in reading order:
+
+- [Owning the Edge](https://theoparashkevov.github.io/blog/series/owning-the-edge/): Replacing a black-box VPN and hardening the replacement — gateway lockdown, PKI rebuild with easy-rsa, OpenVPN on TCP 443 with tls-crypt, openvpn3 and SSH ControlMaster traps. (6 parts)
+- [Algorithm Implementations](https://theoparashkevov.github.io/blog/series/algorithm-implementations/): Research-oriented implementations with real benchmarks — keyset pagination and idempotent dispatch, Postgres advisory-lock scheduling, RRULE pitfalls, token-bucket rate limiting, LLM boundary sanitization, hybrid search with RRF, supervision state machines, zero-model skill interpreters, forced tool-calling loops, text-to-SPARQL evaluation, webhook reconciliation, computed lifecycle status, conversational memory. (14 parts)
+
+## Topics
+
+- AI/LLM systems: agents, function calling, structured output, RAG, evaluation, conversational memory
+- Backend engineering: Python, Django, FastAPI, SQL/PostgreSQL, .NET/C#
+- Infrastructure: Linux, OpenVPN/WireGuard, nftables, DNS, Proxmox, Docker, Kubernetes, CI/CD
+- Data science: NumPy, Pandas, scikit-learn
+
+## Contact
+
+- [Email](mailto:theo.parashkevov@gmail.com)
+- [GitHub](https://github.com/theoparashkevov)
+- [LinkedIn](https://www.linkedin.com/in/teo-parashkevov/)
