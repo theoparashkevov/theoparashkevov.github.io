@@ -55,6 +55,12 @@ const rssURL = new URL('/rss.xml', site).href;
 const personId = `${siteRoot}#person`;
 const websiteId = `${siteRoot}#website`;
 
+// Google Analytics is enabled only when the Measurement ID is provided at build
+// time (PUBLIC_GOOGLE_ANALYTICS_ID in CI) and only for production builds, so
+// local dev and PR builds never send events.
+const gaId = import.meta.env.PUBLIC_GOOGLE_ANALYTICS_ID;
+const enableGa = Boolean(gaId) && import.meta.env.PROD;
+
 const person = {
   '@type': 'Person',
   '@id': personId,
@@ -172,3 +178,23 @@ const structuredData = {
 <JsonLd data={structuredData} />
 
 <ClientRouter />
+
+{enableGa && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', gaId, { anonymize_ip: true, send_page_view: false });
+      document.addEventListener('astro:page-load', () => {
+        gtag('event', 'page_view', {
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+      });
+    </script>
+  </>
+)}

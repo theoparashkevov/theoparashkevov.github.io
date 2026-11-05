@@ -68,6 +68,9 @@ jobs:
         # privacy rules). Without it the heatmap is omitted, never an error.
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLIC_REPOS_TOKEN }}
+          # GA4 Measurement ID (G-XXXXXXXXXX); without it the build simply omits
+          # the analytics snippet.
+          PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS_ID }}
         run: npm run build
 
   build-and-push:
@@ -122,10 +125,12 @@ jobs:
         # token must be mapped explicitly for --secret env=... to see it.
         env:
           PUBLIC_REPOS_TOKEN: ${{ secrets.PUBLIC_REPOS_TOKEN }}
+          PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS_ID }}
         run: |
           DOCKER_BUILDKIT=1 docker build \
             -f astro-site/Dockerfile \
             --build-arg SITE_URL="${SITE_URL}" \
+            --build-arg PUBLIC_GOOGLE_ANALYTICS_ID="${PUBLIC_GOOGLE_ANALYTICS_ID}" \
             --secret id=github_token,env=PUBLIC_REPOS_TOKEN \
             -t "${IMAGE}:${IMAGE_TAG}" \
             astro-site
