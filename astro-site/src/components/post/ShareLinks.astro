@@ -82,13 +82,35 @@ const buttonClass =
 <script>
   const timers = new WeakMap<HTMLElement, number>();
 
-  async function copyText(text: string): Promise<boolean> {
+  function legacyCopy(text: string): boolean {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+    let ok: boolean;
     try {
-      await navigator.clipboard.writeText(text);
-      return true;
+      ok = document.execCommand('copy');
     } catch {
-      return false;
+      ok = false;
     }
+    textarea.remove();
+    return ok;
+  }
+
+  async function copyText(text: string): Promise<boolean> {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        // fall through to legacy path
+      }
+    }
+    return legacyCopy(text);
   }
 
   async function handleCopy(button: HTMLButtonElement) {
