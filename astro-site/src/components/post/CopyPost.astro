@@ -17,7 +17,10 @@ const { markdown, plain, title } = Astro.props;
     aria-haspopup="menu"
     aria-expanded="false"
   >
-    <Icon name="copy" size={15} />
+    <span class="copy-post-icons relative inline-grid size-[15px]" aria-hidden="true">
+      <Icon name="copy" size={15} class="copy-post-idle" />
+      <Icon name="check" size={15} class="copy-post-done" />
+    </span>
     <span class="copy-post-label">Copy post</span>
     <Icon
       name="chevron-down"
@@ -73,9 +76,38 @@ const { markdown, plain, title } = Astro.props;
     transform: rotate(180deg);
   }
 
+  .copy-post-icons > :global(svg) {
+    grid-area: 1 / 1;
+    transition:
+      opacity 200ms var(--ease-out-expo),
+      transform 300ms var(--ease-spring);
+  }
+
+  .copy-post-icons > :global(.copy-post-done) {
+    opacity: 0;
+    transform: scale(0.4) rotate(-20deg);
+  }
+
+  .copy-post-toggle.is-copied {
+    border-color: color-mix(in oklab, var(--color-green-500, #22c55e) 50%, transparent);
+    background-color: color-mix(in oklab, var(--color-green-500, #22c55e) 12%, transparent);
+    color: var(--color-green-500, #22c55e);
+  }
+
+  .copy-post-toggle.is-copied :global(.copy-post-idle) {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  .copy-post-toggle.is-copied :global(.copy-post-done) {
+    opacity: 1;
+    transform: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .copy-post-menu,
-    .copy-post-chevron {
+    .copy-post-chevron,
+    .copy-post-icons > :global(svg) {
       transition: none;
     }
   }
@@ -84,14 +116,37 @@ const { markdown, plain, title } = Astro.props;
 <script>
   const timers = new WeakMap<HTMLElement, number>();
 
-  async function copyText(text: string): Promise<boolean> {
-    if (!navigator.clipboard) return false;
+  // Fallback for non-secure contexts (e.g. LAN preview over http) where the
+  // async Clipboard API is unavailable and permission-gated.
+  function legacyCopy(text: string): boolean {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+    let ok: boolean;
     try {
-      await navigator.clipboard.writeText(text);
-      return true;
+      ok = document.execCommand('copy');
     } catch {
-      return false;
+      ok = false;
     }
+    textarea.remove();
+    return ok;
+  }
+
+  async function copyText(text: string): Promise<boolean> {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        // fall through to legacy path
+      }
+    }
+    return legacyCopy(text);
   }
 
   function setOpen(root: HTMLElement, open: boolean) {
@@ -138,6 +193,7 @@ const { markdown, plain, title } = Astro.props;
           const format = option.dataset.copyFormat === 'markdown' ? 'Markdown' : 'Plain text';
           const ok = await copyText(option.dataset.copyContent ?? '');
           close();
+          toggle.classList.toggle('is-copied', ok);
           setLabel(
             root,
             ok ? 'Copied!' : 'Copy failed',
@@ -146,7 +202,10 @@ const { markdown, plain, title } = Astro.props;
           window.clearTimeout(timers.get(root));
           timers.set(
             root,
-            window.setTimeout(() => setLabel(root, 'Copy post', ''), 2000)
+            window.setTimeout(() => {
+              toggle.classList.remove('is-copied');
+              setLabel(root, 'Copy post', '');
+            }, 2000)
           );
         });
       });
