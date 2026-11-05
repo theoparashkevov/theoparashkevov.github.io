@@ -12,6 +12,11 @@ RUN npm ci
 COPY . .
 ARG SITE_URL=https://theoparashkevov.github.io
 ENV SITE_URL=${SITE_URL}
+# GA4 Measurement ID baked into the analytics snippet at build time. Optional:
+# without it the site builds with no analytics. Not a secret (visible in page
+# source), but passed via CI rather than hardcoded so dev/PR builds omit it.
+ARG PUBLIC_GOOGLE_ANALYTICS_ID=""
+ENV PUBLIC_GOOGLE_ANALYTICS_ID=${PUBLIC_GOOGLE_ANALYTICS_ID}
 # GITHUB_TOKEN reaches the build only via a secret mount (BuildKit), so it is
 # neither baked into the image nor visible in build logs. It only fetches
 # public contribution data (see astro-site/AGENTS.md privacy rules).

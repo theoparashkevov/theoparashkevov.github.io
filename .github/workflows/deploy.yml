@@ -76,6 +76,9 @@ jobs:
         # succeeds, but the contribution calendar is omitted.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GA4 Measurement ID (G-XXXXXXXXXX); without it the build simply omits
+          # the analytics snippet.
+          PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.PUBLIC_GOOGLE_ANALYTICS_ID }}
         run: npm run build
 
       - name: Setup Pages
