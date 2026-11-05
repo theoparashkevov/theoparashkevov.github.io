@@ -184,8 +184,8 @@ const structuredData = {
     <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
     <script is:inline define:vars={{ gaId }}>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
+      function gtag(...args) {
+        window.dataLayer.push(args);
       }
       gtag('js', new Date());
       gtag('config', gaId, { anonymize_ip: true, send_page_view: false });
