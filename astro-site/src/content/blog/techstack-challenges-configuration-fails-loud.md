@@ -12,6 +12,8 @@ tags:
   - reliability
   - operations
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-configuration-fails-loud/thumbnail.png
+heroAlt: 'Title card reading "Configuration That Fails Loud" with the subtitle "Every fallback logs at ERROR, or it doesn''t exist" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 10

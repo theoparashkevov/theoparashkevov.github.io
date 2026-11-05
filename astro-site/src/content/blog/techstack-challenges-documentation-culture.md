@@ -11,6 +11,8 @@ tags:
   - diataxis
   - postgres
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-documentation-culture/thumbnail.png
+heroAlt: 'Title card reading "Documentation as Load-Bearing Infrastructure" with the subtitle "Regenerate it, or it rots" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 5

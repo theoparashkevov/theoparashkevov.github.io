@@ -13,6 +13,8 @@ tags:
   - isolation
   - observability
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-voice-agent-kubernetes/thumbnail.png
+heroAlt: 'Title card reading "Three Outages and a Missing Secret" with the subtitle "Blast radius is a packaging decision" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 12

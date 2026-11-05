@@ -13,6 +13,8 @@ tags:
   - kubernetes
   - incident-response
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-memory-leak/thumbnail.png
+heroAlt: 'Title card reading "The Meeting Bot That Ate Its Container" with the subtitle "Retention, not pressure: a memory-leak postmortem" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 13

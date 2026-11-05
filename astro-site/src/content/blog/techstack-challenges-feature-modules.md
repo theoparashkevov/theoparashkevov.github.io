@@ -12,6 +12,8 @@ tags:
   - real-time
   - design-system
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-feature-modules/thumbnail.png
+heroAlt: 'Title card reading "Three Feature Modules, One Shape" with the subtitle "The same skeleton, repeated thirty-seven times" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 3

@@ -13,6 +13,8 @@ tags:
   - faiss
   - fastapi
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-docs-service/thumbnail.png
+heroAlt: 'Title card reading "The Docs Service That Reads Its Own Source" with the subtitle "Parse, index, diagram, answer" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 4

@@ -13,6 +13,8 @@ tags:
   - code-review
   - automation
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-multi-agent-harness/thumbnail.png
+heroAlt: 'Title card reading "Nine Agents, One Harness, and a Skeptic" with the subtitle "Adversarial verification, hooks that can''t be talked past" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 14

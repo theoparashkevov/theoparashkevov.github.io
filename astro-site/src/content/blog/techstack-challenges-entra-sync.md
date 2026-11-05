@@ -13,6 +13,8 @@ tags:
   - nodejs
   - reconciliation
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-entra-sync/thumbnail.png
+heroAlt: 'Title card reading "Syncing Users from Entra Without Losing Anyone" with the subtitle "Destructive reconciliation ships with its undo" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 7

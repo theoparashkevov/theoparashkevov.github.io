@@ -13,6 +13,8 @@ tags:
   - telephony
   - python
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-voice-agent/thumbnail.png
+heroAlt: 'Title card reading "Answering the Phone with an LLM" with the subtitle "Persona, conscience, and a cryptographic superego" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 11

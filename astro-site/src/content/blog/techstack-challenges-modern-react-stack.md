@@ -13,6 +13,8 @@ tags:
   - tailwind
   - design-system
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-modern-react-stack/thumbnail.png
+heroAlt: 'Title card reading "A Modern React Stack" with the subtitle "Held together by conventions" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 2

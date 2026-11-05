@@ -12,6 +12,8 @@ tags:
   - engineering-standards
   - llm-agents
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-engineering-standards-as-code/thumbnail.png
+heroAlt: 'Title card reading "Engineering Standards You Can grep" with the subtitle "Rules as files, loaded before every change" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 1

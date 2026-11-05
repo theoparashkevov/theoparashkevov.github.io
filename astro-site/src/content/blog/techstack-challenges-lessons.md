@@ -11,6 +11,8 @@ tags:
   - architecture
   - series-finale
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-lessons/thumbnail.png
+heroAlt: 'Title card reading "Two Years, One Doctrine" with the subtitle "Failure surfaces small, failures loud" over a dark blue background'
 math: false
 draft: true
 series: Techstack Challenges

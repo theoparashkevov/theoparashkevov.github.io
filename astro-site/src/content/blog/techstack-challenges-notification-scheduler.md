@@ -12,6 +12,8 @@ tags:
   - rrule
   - reliability
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-notification-scheduler/thumbnail.png
+heroAlt: 'Title card reading "The Scheduler That Sends Emails Exactly Once" with the subtitle "Leases, retries, and a split-personality RRULE parser" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 9

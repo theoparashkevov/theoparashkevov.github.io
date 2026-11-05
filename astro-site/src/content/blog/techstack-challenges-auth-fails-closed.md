@@ -13,6 +13,8 @@ tags:
   - oauth
   - nodejs
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-auth-fails-closed/thumbnail.png
+heroAlt: 'Title card reading "An Auth Service That Fails Closed" with the subtitle "Deactivated is deactivated, even when the DB is down" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 6

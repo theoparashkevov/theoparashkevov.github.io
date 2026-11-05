@@ -11,6 +11,8 @@ tags:
   - refactoring
   - testing
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-rules-applied/thumbnail.png
+heroAlt: 'Title card reading "The Rules, Applied" with the subtitle "Four cases where the standards met real code" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 15

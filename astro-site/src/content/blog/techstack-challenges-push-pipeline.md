@@ -12,6 +12,8 @@ tags:
   - expo
   - idempotency
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-push-pipeline/thumbnail.png
+heroAlt: 'Title card reading "A Push Pipeline Where Duplicates Are Harmless" with the subtitle "Idempotency first, delivery second" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 8

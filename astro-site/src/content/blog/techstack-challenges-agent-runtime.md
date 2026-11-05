@@ -13,6 +13,8 @@ tags:
   - feedback
   - python
 author: Teo Parashkevov
+heroImage: /assets/img/posts/techstack-challenges-agent-runtime/thumbnail.png
+heroAlt: 'Title card reading "The Agent Runtime''s Sixteen-Element Cache Key" with the subtitle "Progressive skills, honest feedback, no stale runtimes" over a dark blue background'
 math: false
 series: Techstack Challenges
 seriesOrder: 16
