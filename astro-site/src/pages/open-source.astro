@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ActivityChart from '../components/open-source/ActivityChart.astro';
+import ContributionHeatmap from '../components/open-source/ContributionHeatmap.astro';
+import RepoCard from '../components/open-source/RepoCard.astro';
+import StatCard from '../components/open-source/StatCard.astro';
+import { loadGitHubActivity } from '../lib/github';
+import { SOCIAL_LINKS } from '../consts';
+
+const github = SOCIAL_LINKS.find((link) => link.label === 'GitHub');
+const activity = await loadGitHubActivity();
+const generatedLabel = activity
+  ? new Date(activity.generatedAt).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+  : null;
+---
+
+<BaseLayout
+  title="Open Source"
+  description="Open-source work and GitHub contribution activity of Teo Parashkevov."
+>
+  <section class="container-page pt-16 pb-10 sm:pt-24">
+    <p
+      class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted"
+      data-reveal="fade"
+    >
+      <Icon name="code" size={14} class="text-accent" />
+      Open source
+    </p>
+    <h1
+      class="mt-5 text-4xl font-bold tracking-tight text-fg sm:text-5xl"
+      data-reveal
+      style="--reveal-delay: 60ms"
+    >
+      <span class="text-gradient">Open Source</span>
+    </h1>
+    <p
+      class="mt-4 max-w-2xl text-lg leading-relaxed text-muted"
+      data-reveal
+      style="--reveal-delay: 120ms"
+    >
+      My public GitHub activity: contributions over the last year and the repositories I keep coming
+      back to.
+    </p>
+  </section>
+
+  {activity ? (
+    <>
+      {activity.hasCalendar && (
+        <section class="container-page pb-16" aria-label="Contribution activity">
+          <div
+            class="rounded-3xl border border-border bg-surface p-6 shadow-soft sm:p-8"
+            data-reveal="scale"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h2 class="text-lg font-semibold tracking-tight text-fg">
+                {activity.totals.contributionsYear.toLocaleString()} contributions in the last year
+              </h2>
+              <span class="text-xs text-subtle">via GitHub</span>
+            </div>
+            <div class="mt-6">
+              <ContributionHeatmap weeks={activity.calendar} />
+            </div>
+            <dl class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+              <StatCard
+                icon="sparkles"
+                value={activity.totals.contributionsYear.toLocaleString()}
+                label="Contributions"
+                hint="last 12 months"
+              />
+              <StatCard
+                icon="arrow-up"
+                value={activity.totals.streakDays}
+                label="Day streak"
+                hint="current"
+              />
+              <StatCard
+                icon="calendar"
+                value={activity.totals.activeDays}
+                label="Active days"
+                hint="last 12 months"
+              />
+              <StatCard icon="github" value={activity.totals.repoCount} label="Public repos" />
+            </dl>
+          </div>
+        </section>
+      )}
+
+      {activity.hasCalendar && (
+        <section class="container-page pb-16" aria-label="Monthly contributions">
+          <div
+            class="rounded-3xl border border-border bg-surface p-6 shadow-soft sm:p-8"
+            data-reveal="scale"
+          >
+            <h2 class="text-lg font-semibold tracking-tight text-fg">Per month</h2>
+            <div class="mt-6">
+              <ActivityChart monthly={activity.monthly} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section class="container-page pb-24" aria-label="Repositories">
+        <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
+          <div data-reveal>
+            <h2 class="text-2xl font-semibold tracking-tight text-fg">Repositories</h2>
+            <p class="mt-1 text-muted">Sorted by most recent activity.</p>
+          </div>
+          {generatedLabel && <span class="text-xs text-subtle">Data from {generatedLabel}</span>}
+        </div>
+        <ul class="grid gap-6 md:grid-cols-2" data-reveal-stagger>
+          {activity.repos.map((repo) => (
+            <li data-reveal>
+              <RepoCard repo={repo} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
+  ) : (
+    <section class="container-page pb-24">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-border bg-surface p-8 text-center shadow-soft sm:p-12"
+        data-reveal="scale"
+      >
+        <h2 class="text-2xl font-semibold tracking-tight text-fg">Activity unavailable</h2>
+        <p class="mx-auto mt-3 max-w-xl text-muted">
+          GitHub activity could not be loaded during the last site build. It refreshes on the next
+          rebuild — or view it live on my GitHub profile.
+        </p>
+        {github && (
+          <div class="mt-7">
+            <a
+              href={`${github.href}?tab=repositories`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="press group inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast shadow-soft transition-shadow duration-300 hover:shadow-lift"
+            >
+              <Icon name={github.icon} size={18} />
+              View repositories on GitHub
+              <span class="sr-only"> (opens in a new tab)</span>
+              <Icon
+                name="external"
+                size={16}
+                class="transition-transform duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none"
+              />
+            </a>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  {github && activity && (
+    <section class="container-page pb-24">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-border bg-surface p-8 text-center shadow-soft sm:p-12"
+        data-reveal="scale"
+      >
+        <div
+          class="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-48 w-2/3 rounded-full bg-accent/15 blur-3xl"
+          aria-hidden="true"
+        ></div>
+        <h2 class="relative text-2xl font-semibold tracking-tight text-fg sm:text-3xl">
+          More on GitHub
+        </h2>
+        <p class="relative mx-auto mt-3 max-w-xl text-muted">
+          Forks, experiments and day-to-day work live on my GitHub profile.
+        </p>
+        <div class="relative mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={`${github.href}?tab=repositories`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="press group inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast shadow-soft transition-shadow duration-300 hover:shadow-lift"
+          >
+            <Icon name={github.icon} size={18} />
+            View all repositories
+            <span class="sr-only"> (opens in a new tab)</span>
+            <Icon
+              name="external"
+              size={16}
+              class="transition-transform duration-300 ease-out-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-none"
+            />
+          </a>
+          <a
+            href="/contact/"
+            class="press group inline-flex items-center gap-2 rounded-xl border border-border bg-surface-2 px-5 py-3 text-sm font-semibold text-fg transition-colors duration-300 hover:border-accent/40 hover:text-accent"
+          >
+            Get in touch
+            <Icon
+              name="arrow-right"
+              size={16}
+              class="transition-transform duration-300 ease-out-expo group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+</BaseLayout>

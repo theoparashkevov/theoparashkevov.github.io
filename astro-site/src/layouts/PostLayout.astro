@@ -5,12 +5,17 @@ import Icon from '../components/Icon.astro';
 import PostHeader from '../components/post/PostHeader.astro';
 import PostNav from '../components/post/PostNav.astro';
 import ShareLinks from '../components/post/ShareLinks.astro';
+import CopyPost from '../components/post/CopyPost.astro';
 import TableOfContents from '../components/post/TableOfContents.astro';
+import SeriesNav from '../components/post/SeriesNav.astro';
+import { getSeriesParts } from '../components/blog/series';
+import { markdownToPlainText } from '../lib/markdownToText';
 import ReadingProgress from '../components/post/ReadingProgress.astro';
 import CodeBlocks from '../components/post/CodeBlocks.astro';
+import MermaidDiagrams from '../components/post/MermaidDiagrams.astro';
 import { AUTHOR, SITE_TITLE, SITE_URL } from '../consts';
 import type { Post } from '../lib/posts';
-import { postUrl } from '../lib/posts';
+import { postUrl, slugify } from '../lib/posts';
 
 export interface Props {
   post: Post;
@@ -23,10 +28,13 @@ export interface Props {
 const { post, headings, minutes, prev, next } = Astro.props;
 const { title, description, pubDate, updatedDate, heroImage, heroAlt, tags, categories, author } =
   post.data;
+const postMarkdown = post.body ?? '';
+const postPlainText = markdownToPlainText(postMarkdown);
 
 const site = Astro.site ?? new URL(SITE_URL);
 const url = new URL(postUrl(post), site).href;
 const hasToc = headings.some((heading) => heading.depth >= 2 && heading.depth <= 3);
+const seriesParts = await getSeriesParts(post);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -67,9 +75,16 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
   <script type="application/ld+json" slot="head" set:html={jsonLdString} />
   <ReadingProgress />
   <CodeBlocks />
+  <MermaidDiagrams />
 
   <article class="container-page pt-10 pb-20 sm:pt-14 lg:pb-28">
     <PostHeader post={post} minutes={minutes} />
+
+    {seriesParts && (
+      <div class="mt-8">
+        <SeriesNav post={post} parts={seriesParts} />
+      </div>
+    )}
 
     <div
       class:list={[
@@ -96,16 +111,22 @@ const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
             </span>
             <ul class="flex flex-wrap gap-2" aria-label="Tags">
               {tags.map((tag) => (
-                <li class="rounded-full bg-surface-2 px-3 py-1 font-mono text-xs text-muted">
-                  #{tag}
+                <li>
+                  <a
+                    href={`/blog/tag/${slugify(tag)}/`}
+                    class="inline-block rounded-full bg-surface-2 px-3 py-1 font-mono text-xs text-muted transition-[color,background-color] duration-200 hover:bg-accent hover:text-accent-contrast"
+                  >
+                    #{tag}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
         )}
 
-        <div data-reveal>
+        <div class="flex flex-wrap items-center gap-4" data-reveal>
           <ShareLinks url={url} title={title} />
+          <CopyPost markdown={postMarkdown} plain={postPlainText} title={title} />
         </div>
 
         <PostNav prev={prev} next={next} />

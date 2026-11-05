@@ -1,0 +1,52 @@
+---
+import type { ContributionDay } from '../../lib/github';
+
+export interface Props {
+  weeks: ContributionDay[][];
+}
+
+const { weeks } = Astro.props;
+
+// Month labels: mark the first week whose first day starts a new month.
+const monthLabels: { index: number; label: string }[] = [];
+weeks.forEach((week, i) => {
+  const day = week[0];
+  if (!day) return;
+  const d = new Date(`${day.date}T00:00:00Z`);
+  if (d.getUTCDate() <= 7) {
+    monthLabels.push({
+      index: i,
+      label: d.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }),
+    });
+  }
+});
+
+const levelColor = (level: ContributionDay['level']) => {
+  if (level === 0) return 'var(--surface-2)';
+  const opacity = [0, 0.25, 0.45, 0.7, 0.95][level];
+  return `color-mix(in srgb, var(--accent) ${opacity * 100}%, var(--surface-2))`;
+};
+---
+
+<div class="overflow-x-auto pb-1" role="img" aria-label="Contribution activity over the last year">
+  <div class="inline-block min-w-full">
+    <div
+      class="grid gap-[3px] text-[10px] font-medium text-subtle"
+      style="grid-auto-flow: column; grid-template-rows: auto repeat(7, 1fr);"
+      aria-hidden="true"
+    >
+      {monthLabels.map(({ index, label }) => (
+        <span style={`grid-row: 1; grid-column: ${index + 1};`}>{label}</span>
+      ))}
+      {weeks.map((week, weekIndex) =>
+        week.map((day) => (
+          <span
+            title={`${day.date}: ${day.count} contribution${day.count === 1 ? '' : 's'}`}
+            class="size-[11px] rounded-[3px]"
+            style={`grid-row: ${new Date(`${day.date}T00:00:00Z`).getUTCDay() + 2}; grid-column: ${weekIndex + 1}; background-color: ${levelColor(day.level)};`}
+          />
+        ))
+      )}
+    </div>
+  </div>
+</div>

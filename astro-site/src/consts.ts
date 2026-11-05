@@ -9,10 +9,41 @@ export const AUTHOR = {
   avatar: '/assets/img/Teo-Parashkevov-Home.jpg',
 };
 
+// Expertise statements emitted as schema.org `knowsAbout` / `hasOccupation` on
+// every page's Person structured data, so search and AI engines can attribute
+// clear, factual skills (and lift them into answers) without guessing from prose.
+export const AUTHOR_KNOWS_ABOUT = [
+  'Machine learning engineering',
+  'Large language models (LLMs)',
+  'Retrieval-augmented generation (RAG)',
+  'AI agents and function calling',
+  'Natural language processing (NLP)',
+  'Python',
+  'Django',
+  'FastAPI',
+  'SQL and PostgreSQL',
+  'Microsoft .NET / C#',
+  'TypeScript',
+  'Linux system administration',
+  'Networking and VPN infrastructure (OpenVPN, WireGuard, nftables)',
+  'DevOps and CI/CD',
+  'Kubernetes',
+  'Docker',
+  'Data science with NumPy, Pandas, scikit-learn',
+];
+
+export const AUTHOR_OCCUPATION = {
+  title: 'Machine Learning Engineer & Senior Python Developer',
+  description:
+    'Senior software engineer and machine learning engineer building production AI/ML systems, scalable Python backends and data platforms. Former Software Engineer Intern at Microsoft (Shanghai); currently Senior Software Engineer (AI/ML) at B EYE (Sofia).',
+};
+
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/blog/', label: 'Blog' },
   { href: '/projects/', label: 'Projects' },
+  { href: '/open-source/', label: 'Open Source' },
+  { href: '/publications/', label: 'Publications' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ] as const;
